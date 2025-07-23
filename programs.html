@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>강사소개 - PILATES HODU | 필라테스 호두 강남본점 - 국내 최초의 메디컬필라테스™</title>
-    <meta name="description" content="필라테스 호두 강남본점의 박정은 대표원장과 전문 강사진을 소개합니다. 국제공인 자격증을 보유한 최고의 강사진이 1:1 맞춤 케어를 제공합니다.">
-    <meta name="keywords" content="박정은원장, 필라테스강사, 메디컬필라테스, 강사소개, 1:1원장직강, Balanced Body, 허리통증 필라테스, 반포 필라테스, 강남본점">
+    <title>메디컬필라테스 프로그램 - PILATES HODU | 필라테스 호두</title>
+    <meta name="description" content="필라테스 호두의 전문적인 프로그램: 통증재활, 마네킹톤, 플랫스콜, 골프, 키즈(성장), 임산부, 시니어 필라테스. 1:1 원장직강만 운영하는 의료기반 운동치료센터입니다.">
+    <meta name="keywords" content="메디컬필라테스, 통증재활필라테스, 마네킹톤, 플랫스콜, 골프필라테스, 키즈필라테스, 임산부필라테스, 시니어필라테스, 1:1원장직강, 척추측만증, 슈로스메소드">
         
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -68,8 +68,29 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+            
+        .service-card {
+            background-color: white;
+            transition: all 0.4s ease;
+            border-left: 4px solid transparent;
+        }
         
-        .instructor-card {
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--golden-brown);
+        }
+        
+        .service-card:hover .card-icon {
+            color: var(--golden-brown) !important;
+            transform: scale(1.1);
+        }
+        
+        .card-icon {
+            transition: color 0.4s ease, transform 0.4s ease;
+        }
+        
+        .program-card {
             background-color: white;
             border-radius: 16px;
             overflow: hidden;
@@ -77,36 +98,9 @@
             transition: all 0.4s ease;
         }
         
-        .instructor-card:hover {
+        .program-card:hover {
             transform: translateY(-12px);
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
-        }
-        
-        .instructor-photo {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(135deg, var(--golden-brown), var(--deep-navy));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .instructor-photo::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-        }
-        
-        .instructor-photo i {
-            font-size: 80px;
-            color: white;
-            opacity: 0.8;
         }
         
         /* 전문적인 그라데이션 배경 */
@@ -118,40 +112,21 @@
             background: linear-gradient(180deg, var(--soft-cream) 0%, var(--warm-beige) 100%);
         }
         
+        .program-gradient {
+            background: linear-gradient(45deg, var(--deep-navy) 0%, var(--golden-brown) 100%);
+        }
+        
         .nav-active {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
         }
         
-        .certification-badge {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #B8941F 100%);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-block;
-            margin: 2px;
+        .benefit-item {
+            transition: all 0.3s ease;
         }
         
-        .specialty-tag {
-            background-color: var(--golden-brown);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-block;
-            margin: 2px;
-        }
-        
-        .experience-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .experience-item:last-child {
-            border-bottom: none;
+        .benefit-item:hover {
+            transform: translateX(8px);
         }
 
         .cta-btn {
@@ -235,8 +210,8 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-1 text-sm">
                     <a href="index.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">홈</a>
-                    <a href="programs.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">프로그램</a>
-                    <a href="instructors.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md nav-active transition-colors duration-300">강사소개</a>
+                    <a href="programs.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md nav-active transition-colors duration-300">프로그램</a>
+                    <a href="instructors.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">강사소개</a>
                     <a href="facilities.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">시설안내</a>
                     <a href="booking.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">상담예약</a>
                     <a href="pricing.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">레슨비용</a>
@@ -267,8 +242,8 @@
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg max-h-[calc(100dvh-64px)] overflow-y-auto z-40">
             <a href="index.html" class="block py-2 text-gray-700 hover:text-golden-brown">홈</a>
-            <a href="programs.html" class="block py-2 text-gray-700 hover:text-golden-brown">프로그램</a>
-            <a href="instructors.html" class="block py-2 text-gray-700 hover:text-golden-brown nav-active">강사소개</a>
+            <a href="programs.html" class="block py-2 text-gray-700 hover:text-golden-brown nav-active">프로그램</a>
+            <a href="instructors.html" class="block py-2 text-gray-700 hover:text-golden-brown">강사소개</a>
             <a href="facilities.html" class="block py-2 text-gray-700 hover:text-golden-brown">시설안내</a>
             <a href="booking.html" class="block py-2 text-gray-700 hover:text-golden-brown">상담예약</a>
             <a href="pricing.html" class="block py-2 text-gray-700 hover:text-golden-brown">레슨비용</a>
@@ -288,705 +263,655 @@
             
             <div class="relative z-10 px-6 reveal">
                 <h1 class="font-eng text-4xl md:text-5xl font-bold tracking-tighter leading-tight text-white mb-4">
-                    Our <span class="text-accent-gold">Instructors</span>
+                    Medical Pilates<span class="text-accent-gold"> Programs</span>
                 </h1>
                 <p class="text-lg md:text-xl text-gray-200 leading-relaxed max-w-2xl mx-auto">
-                    국제 공인 자격증을 보유한 전문 강사진이 최고의 필라테스 교육을 제공합니다
+                    국내 최초의 메디컬필라테스™ 센터<br class="hidden md:block">
+                    의학적 근거 기반의 1:1 프리미엄 케어
                 </p>
             </div>
         </section>
 
-        <!-- Instructor Introduction -->
-        <section class="py-16 md:py-24 bg-white">
+        <!-- Program Overview -->
+        <section class="py-16 md:py-20 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-4">전문 강사진</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-4">필라테스 호두의 프로그램</h2>
                     <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                        필라테스 호두의 모든 강사는 국제 공인 필라테스 자격증을 보유하고 있으며, 
-                        지속적인 교육을 통해 최신 기법과 의학적 지식을 갖추고 있습니다.
+                        의학적 근거를 기반으로 개인에게 최적화된 메디컬필라테스™를 제공합니다.<br>
+                        박정은 대표원장과 강사진의 1:1 케어로 건강한 변화를 이끕니다.
                     </p>
-                </div>
-
-                <!-- 박정은 대표원장 -->
-                <!-- 박정은 대표원장 -->
-                <div class="instructor-card fade-in rounded-xl shadow-lg p-8 md:p-12 hover:shadow-2xl transition-all">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <!-- 이미지 섹션 -->
-                        <div class="lg:col-span-1">
-                            <img src="assets/images/instructors/박정은_대표원장/박정은대표원장_프로필.jpeg" alt="박정은 대표원장" class="rounded-xl shadow-lg w-full h-full object-cover">
-                        </div>
-                        <!-- 정보 섹션 -->
-                        <div class="lg:col-span-1 flex flex-col justify-center">
-                            <h3 class="text-3xl font-bold text-deep-navy mb-2">박정은 대표원장</h3>
-                            <p class="text-golden-brown font-semibold mb-6">PILATES HODU, Medical Pilates™</p>
-                            
-                            <div class="mb-8">
-                                <h5 class="font-bold text-deep-navy mb-3 text-lg">주요 전문 분야</h5>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="certification-badge">메디컬필라테스™ 교육강사</span>
-                                    <span class="certification-badge">디발롱스 메소드 전문가</span>
-                                    <span class="specialty-tag">Balanced Body 국제공인자격</span>
-                                </div>
-                            </div>
-
-                            <div class="mb-8">
-                                <h5 class="font-bold text-deep-navy mb-3 text-lg">학력</h5>
-                                <p class="text-gray-600">성신여자대학교 독어독문학과 졸업</p>
-                            </div>
-
-                            <div>
-                                <h5 class="font-bold text-deep-navy mb-3 text-lg">주요 경력</h5>
-                                <ul class="space-y-3 text-gray-600">
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check text-golden-brown mt-1 mr-3"></i>
-                                        <span><strong>메디컬필라테스™ 필라테스 호두</strong> 대표원장</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check text-golden-brown mt-1 mr-3"></i>
-                                        <span><strong>디발롱스 메소드</strong> 기능해부학 강사 및 지도자 교육 대표강사</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check text-golden-brown mt-1 mr-3"></i>
-                                        <span>前) <strong>통증항노화전문 호두클리닉</strong> 필라테스 수석 운동치료실장</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check text-golden-brown mt-1 mr-3"></i>
-                                        <span>前) <strong>김태균의원 통증클리닉</strong> 필라테스 운동치료실장</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="mt-8 flex flex-col md:flex-row justify-center items-center md:space-x-2 space-y-2 md:space-y-0">
+                        <span class="bg-golden-brown text-white px-4 py-2 rounded-full text-sm font-semibold">
+                            ✓ 메디컬필라테스™ 등록상표
+                        </span>
+                        <span class="bg-golden-brown text-white px-6 py-2 rounded-full text-sm font-semibold">
+                            ✓ 의학적 근거에 입각한 필라테스
+                        </span>
                     </div>
                 </div>
 
-                <!-- 오전세션 강사진 -->
-                <div class="mt-20">
-                    <div class="text-center mb-12">
-                        <h3 class="text-2xl md:text-3xl font-bold text-deep-navy mb-4">오전세션 강사진</h3>
-                        <p class="text-gray-600">전문성과 경험을 갖춘 오전세션 전담 강사진입니다</p>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- 조소진 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/조소진/조소진 프로필1.png" alt="조소진 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">조소진 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">Modern Pilates International</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">Modern Pilates</span>
-                                        <span class="certification-badge">재활 트레이닝</span>
-                                        <span class="specialty-tag">기능해부학</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• Modern Pilates International Certification</li>
-                                        <li>• 재활 트레이닝 전문과정 Level 1,2,3</li>
-                                        <li>• 기능해부학 아나토미 워크샵</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">재활 필라테스, 근육불균형 교정, 기능해부학</p>
-                                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 통증재활 필라테스 -->
+                    <div class="program-card fade-in">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="assets/images/programs/program-1.jpeg" alt="통증재활 필라테스" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-deep-navy text-white px-3 py-1 rounded-full text-xs font-semibold">의학적 접근</span>
                             </div>
                         </div>
-                        
-                        <!-- 김다혜 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/김다혜/김다혜 프로필1.png" alt="김다혜 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">김다혜 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">KEPA & Pilates in New York</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">KEPA 국제</span>
-                                        <span class="certification-badge">NY Pilates</span>
-                                        <span class="specialty-tag">산전산후</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• International KEPA Pilates Association</li>
-                                        <li>• Pilates in New York 전체과정</li>
-                                        <li>• 산전산후 필라테스 교육 수료</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">교정운동, 측만체형운동, 산전산후 필라테스</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 이지나 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/이지나/이지나_프로필1.png" alt="이지나 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">이지나 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">KPEE Pilates & 재활전문</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">KPEE 전과정</span>
-                                        <span class="certification-badge">재활척추</span>
-                                        <span class="specialty-tag">기업출강</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• KPEE Pilates 전체 기구 자격증</li>
-                                        <li>• 트루디필라테스 재활 전문과정</li>
-                                        <li>• 산전산후 필라테스 전문</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">재활 필라테스, 기업출강, 척추상지하지 재활</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 이차빈 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/이차빈/이차빈_프로필1.png" alt="이차빈 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">이차빈 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">Modern Pilates International</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">MPI 정회원</span>
-                                        <span class="certification-badge">Wall Yoga</span>
-                                        <span class="specialty-tag">척추측만</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• Modern Pilates International Unit 1,2</li>
-                                        <li>• IAIT 국제통합테라피학회 정회원</li>
-                                        <li>• 산전산후 필라테스 전문가</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">기능해부학, 척추측만 체형교정, 산전산후</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 오후세션 강사진 -->
-                <div class="mt-20">
-                    <div class="text-center mb-12">
-                        <h3 class="text-2xl md:text-3xl font-bold text-deep-navy mb-4">오후세션 강사진</h3>
-                        <p class="text-gray-600">전문성과 경험을 갖춘 오후세션 전담 강사진입니다</p>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- 서이은 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/서이은/서이은 프로필1.png" alt="서이은 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">서이은 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">KPIA & 다중 전문분야</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">KPIA 국제</span>
-                                        <span class="certification-badge">USA Yoga</span>
-                                        <span class="specialty-tag">키즈/시니어</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• KPIA 국제 필라테스 전체과정</li>
-                                        <li>• U.S.A License Yoga Instructor</li>
-                                        <li>• 키즈/임산부/노인 필라테스</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">재활 필라테스, 키즈/시니어, 요가 통합</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 김세령 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/김세령/김세령 프로필1.png" alt="김세령 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">김세령 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">Modern Pilates & 운동처방사</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">운동처방사 1급</span>
-                                        <span class="certification-badge">MPI 국제</span>
-                                        <span class="specialty-tag">골프/슈로스</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• 운동처방사 1급 (한국자격검정평가원)</li>
-                                        <li>• Modern Pilates Unit 1,2,3</li>
-                                        <li>• 척추측만 슈로스 접근법</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">재활마스터, 골프필라테스, 척추측만</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 엄선희 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/엄선희/엄선희_프로필1.png" alt="엄선희 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">엄선희 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">Central Pilates & 메디컬 전문</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">Central Pilates</span>
-                                        <span class="certification-badge">메디컬 전문</span>
-                                        <span class="specialty-tag">체력코치</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• Central Pilates 재활 전문가과정</li>
-                                        <li>• 메디컬 트레이닝 전문가</li>
-                                        <li>• 대한체력코치협회 자격증</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">재활 필라테스, 퍼스널 트레이닝, 체력 코칭</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 최현정 강사 -->
-                        <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="w-40 h-40 mb-6 overflow-hidden rounded-full shadow-lg">
-                                    <img src="assets/images/instructors/최현정/최현정_프로필1.png" alt="최현정 강사" class="w-full h-full object-cover">
-                                </div>
-                                <h4 class="text-xl font-bold text-deep-navy mb-2">최현정 강사</h4>
-                                <p class="text-golden-brown font-semibold mb-4">Care Pilates & Gyrotonic</p>
-                                
-                                <div class="mb-6">
-                                    <div class="flex flex-wrap gap-1 justify-center">
-                                        <span class="certification-badge">Care Pilates</span>
-                                        <span class="certification-badge">Gyrotonic</span>
-                                        <span class="specialty-tag">Flying Yoga</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-left w-full">
-                                    <h6 class="font-bold text-deep-navy mb-2">주요 자격증</h6>
-                                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                                        <li>• Care Pilates 전체기구 자격증</li>
-                                        <li>• Gyrotonic Level 1 Foundation</li>
-                                        <li>• Flying Yoga 지도자</li>
-                                    </ul>
-                                    
-                                    <h6 class="font-bold text-deep-navy mb-2">전문 분야</h6>
-                                    <p class="text-sm text-gray-600">체형교정, 척추측만증 관리, 플라잉 요가</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    
-                    <!-- 전문 자격증 및 교육 이수 섹션 -->
-                    <div class="mt-16 bg-warm-beige py-16 rounded-xl">
-                        <div class="container mx-auto px-6">
-                            <div class="text-center mb-12">
-                                <h3 class="text-2xl md:text-3xl font-bold text-deep-navy">전문 자격증 및 교육 이수</h3>
-                                <p class="text-gray-600 mt-2">체계적이고 검증된 전문성을 갖추었습니다.</p>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                <!-- Balanced Body 국제공인자격 -->
-                                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                                    <h4 class="text-lg font-bold text-deep-navy mb-4 flex items-center"><i class="fas fa-award text-accent-gold mr-3"></i>Balanced Body 국제공인자격</h4>
-                                    <ul class="space-y-3 text-gray-700">
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Mat Instructor</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Reformer Instructor</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Trapeze Table Instructor</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Pilates Chair Instructor</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Ladder Barrel Instructor</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Pilates Arc, Mat & Props</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Reformer Flow Certificate</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>The Twist Reformer Certificate</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>The Lower Back and Pilates</span></li>
-                                    </ul>
-                                </div>
-                                <!-- 기타 전문 자격 -->
-                                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                                    <h4 class="text-lg font-bold text-deep-navy mb-4 flex items-center"><i class="fas fa-star text-accent-gold mr-3"></i>기타 전문 자격</h4>
-                                    <ul class="space-y-3 text-gray-700">
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>운동처방사 Level 2 (AT)</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>슈로스 메소드 (측만증)</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>스포츠 마사지 자격</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>PMA Scoliosis Certificate</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>Medical Pilates™ Golf Master</span></li>
-                                    </ul>
-                                </div>
-                                <!-- 기업 강의 이력 -->
-                                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                                    <h4 class="text-lg font-bold text-deep-navy mb-4 flex items-center"><i class="fas fa-building text-accent-gold mr-3"></i>기업 강의 이력</h4>
-                                    <ul class="space-y-3 text-gray-700">
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>LG 에너지 솔루션 임직원</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>주부생활 스타일러 &lt;마이 밸런스&gt;</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>안산 정신건강 트라우마 센터</span></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-golden-brown mt-1 mr-2 flex-shrink-0"></i><span>안산 본오종합사회복지관</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                <!-- 강사 3 (예시)
-                <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all mt-12">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="instructor-photo flex items-center justify-center bg-gradient-to-br from-golden-brown to-deep-navy">
-                            <i class="fas fa-heart fa-5x text-white opacity-80"></i>
-                        </div>
-                        <div class="p-0 lg:p-8">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-bold text-deep-navy">박○○ 강사</h3>
-                                <span class="text-sm text-gray-500">6년 경력</span>
-                            </div>
-                            <div class="mb-4">
-                                <div class="certification-badge">Romana's Pilates</div>
-                                <div class="certification-badge">마음챙김</div>
-                                <div class="specialty-tag">클래시컬 필라테스</div>
-                                <div class="specialty-tag">명상</div>
-                            </div>
-                            <p class="text-gray-600 text-sm mb-4">
-                                클래시컬 필라테스의 정통성과 마음챙김 운동을 결합한 수업을 진행합니다. 
-                                몸과 마음의 균형을 중시하는 홀리스틱 접근법을 지향합니다.
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-deep-navy mb-4">통증재활 필라테스</h3>
+                            <p class="text-gray-600 mb-6">
+                                근골격계 통증 및 체형교정을 위한 의학적 접근의 전문 프로그램입니다. 개인별 통증 원인을 분석하고 맞춤형 재활 운동을 통해 근본적인 문제 해결을 도와드립니다.
                             </p>
-                            <div class="space-y-2">
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">주요 자격증</p>
-                                    <p class="text-sm text-gray-600">
-                                        • Romana's Pilates 공인 강사<br>
-                                        • 마음챙김 운동 지도자 과정<br>
-                                        • 요가 지도자 자격증
-                                    </p>
+                            <div class="space-y-3">
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">의학적 근거 기반의 필라테스</span>
                                 </div>
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">전문 분야</p>
-                                    <p class="text-sm text-gray-600">
-                                        클래시컬 필라테스, 마음챙김 운동, 스트레스 관리, 호흡법
-                                    </p>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">통증원인 분석 및 맞춤 치료</span>
                                 </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">체형 불균형 개선 및 체형교정</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">만성통증 개선 및 재발 방지</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-2"></i>50분 / 회
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-2"></i>싱글 및 듀엣 레슨
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-                -->
-                <!-- 강사 4 (예시)
-                <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all mt-12">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="instructor-photo flex items-center justify-center bg-gradient-to-br from-golden-brown to-deep-navy">
-                            <i class="fas fa-running fa-5x text-white opacity-80"></i>
+
+                    <!-- 마네킹톤 프로그램 -->
+                    <div class="program-card fade-in">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="assets/images/programs/program-2.jpeg" alt="마네킹톤 프로그램" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-golden-brown text-white px-3 py-1 rounded-full text-xs font-semibold">체형관리</span>
+                            </div>
                         </div>
-                        <div class="p-0 lg:p-8">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-bold text-deep-navy">정○○ 강사</h3>
-                                <span class="text-sm text-gray-500">10년 경력</span>
-                            </div>
-                            <div class="mb-4">
-                                <div class="certification-badge">Stott Pilates</div>
-                                <div class="certification-badge">스포츠 재활</div>
-                                <div class="specialty-tag">퍼포먼스 향상</div>
-                                <div class="specialty-tag">기능 훈련</div>
-                            </div>
-                            <p class="text-gray-600 text-sm mb-4">
-                                운동선수와 스포츠 애호가를 위한 퍼포먼스 향상 프로그램의 전문가입니다. 
-                                기능적 움직임과 부상 예방에 특화된 수업을 진행합니다.
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-deep-navy mb-4">마네킹톤 프로그램</h3>
+                            <p class="text-gray-600 mb-6">
+                                체중감량 및 비만체형관리를 위한 필라테스 프로그램입니다. 과학적인 접근 방법으로 건강한 체중 감량과 체형 개선을 도와드리며 건강한 라이프스타일을 만들어갑니다.
                             </p>
-                            <div class="space-y-2">
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">주요 자격증</p>
-                                    <p class="text-sm text-gray-600">
-                                        • Stott Pilates 공인 강사<br>
-                                        • 스포츠 재활 전문가 과정<br>
-                                        • 기능적 움직임 평가 자격증
-                                    </p>
+                            <div class="space-y-3">
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">과학적인 체중감량 방법</span>
                                 </div>
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">전문 분야</p>
-                                    <p class="text-sm text-gray-600">
-                                        스포츠 퍼포먼스, 기능 훈련, 부상 예방, 선수 재활
-                                    </p>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">비만체형 맞춤 운동</span>
                                 </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">근력 유지 및 체지방 감소</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">대사 기능 활성화</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-2"></i>50분 / 회
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-2"></i>싱글 및 듀엣 레슨
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-                -->
-                <!-- 강사 5 (예시)
-                <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all mt-12">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="instructor-photo flex items-center justify-center bg-gradient-to-br from-golden-brown to-deep-navy">
-                            <i class="fas fa-smile fa-5x text-white opacity-80"></i>
+
+                    <!-- 플랫스콜 프로그램 -->
+                    <div class="program-card fade-in">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="assets/images/programs/program-3.jpeg" alt="플랫스콜 프로그램" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-accent-gold text-white px-3 py-1 rounded-full text-xs font-semibold">슈로스메소드</span>
+                            </div>
                         </div>
-                        <div class="p-0 lg:p-8">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-bold text-deep-navy">최○○ 강사</h3>
-                                <span class="text-sm text-gray-500">5년 경력</span>
-                            </div>
-                            <div class="mb-4">
-                                <div class="certification-badge">Balanced Body</div>
-                                <div class="certification-badge">시니어 전문</div>
-                                <div class="specialty-tag">실버 필라테스</div>
-                                <div class="specialty-tag">관절 건강</div>
-                            </div>
-                            <p class="text-gray-600 text-sm mb-4">
-                                시니어와 초보자를 위한 안전하고 효과적인 필라테스 수업을 전문으로 합니다. 
-                                개인의 체력 수준에 맞춘 세심한 지도로 정평이 나 있습니다.
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-deep-navy mb-4">플랫스콜 프로그램</h3>
+                            <p class="text-gray-600 mb-6">
+                                척추측만증 개선을 위해 슈로스메소드를 접목한 프로그램입니다. 3차원 체형 교정 운동으로 체형 불균형과 비대칭을 개선하고 체형의 균형을 맞춰드립니다.
                             </p>
-                            <div class="space-y-2">
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">주요 자격증</p>
-                                    <p class="text-sm text-gray-600">
-                                        • Balanced Body 공인 강사<br>
-                                        • 시니어 운동 지도자 과정<br>
-                                        • 관절 건강 전문가 자격증
-                                    </p>
+                            <div class="space-y-3">
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">3차원 척추 운동</span>
                                 </div>
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">전문 분야</p>
-                                    <p class="text-sm text-gray-600">
-                                        실버 필라테스, 관절 건강, 초보자 지도, 안전한 운동법
-                                    </p>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">체형 불균형 및 비대칭 개선</span>
                                 </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">척추측만 진행방지 및 체형교정</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">호흡 패턴 교정</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-2"></i>50분 / 회
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-2"></i>싱글 및 듀엣 레슨
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-                -->
-                <!-- 강사 6 (예시)
-                <div class="instructor-card fade-in rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all mt-12">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="instructor-photo flex items-center justify-center bg-gradient-to-br from-golden-brown to-deep-navy">
-                            <i class="fas fa-leaf fa-5x text-white opacity-80"></i>
+
+                    <!-- 골프 필라테스 -->
+                    <div class="program-card fade-in">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="assets/images/programs/program-4.jpeg" alt="골프 필라테스" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-deep-navy text-white px-3 py-1 rounded-full text-xs font-semibold">스포츠 특화</span>
+                            </div>
                         </div>
-                        <div class="p-0 lg:p-8">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-bold text-deep-navy">한○○ 강사</h3>
-                                <span class="text-sm text-gray-500">7년 경력</span>
-                            </div>
-                            <div class="mb-4">
-                                <div class="certification-badge">Fletcher Pilates</div>
-                                <div class="certification-badge">산전산후</div>
-                                <div class="specialty-tag">여성 건강</div>
-                                <div class="specialty-tag">호르몬 균형</div>
-                            </div>
-                            <p class="text-gray-600 text-sm mb-4">
-                                여성의 생애주기별 건강 관리를 위한 필라테스 전문가입니다. 
-                                산전산후 관리와 여성 호르몬 균형을 고려한 맞춤형 수업을 진행합니다.
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-deep-navy mb-4">골프 필라테스</h3>
+                            <p class="text-gray-600 mb-6">
+                                골프 스윙 개선과 비거리 향상을 위한 프로그램입니다. 스윙 메커닉스 분석과 코어 안정성 향상을 통해 골프 경기력을 향상시키고 부상을 예방합니다.
                             </p>
-                            <div class="space-y-2">
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">주요 자격증</p>
-                                    <p class="text-sm text-gray-600">
-                                        • Fletcher Pilates 공인 강사<br>
-                                        • 산전산후 운동 지도자 과정<br>
-                                        • 여성 건강 전문가 자격증
-                                    </p>
+                            <div class="space-y-3">
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">스윙 메커닉스 분석 및 개선</span>
                                 </div>
-                                <div class="experience-item">
-                                    <p class="text-sm font-medium text-golden-brown">전문 분야</p>
-                                    <p class="text-sm text-gray-600">
-                                        산전산후 필라테스, 여성 건강, 호르몬 균형, 골반 건강
-                                    </p>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">코어 안정성 향상</span>
                                 </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">비거리 증대 효과</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">골프 부상 예방</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-2"></i>50분 / 회
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-2"></i>싱글 및 듀엣 레슨
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-                -->
+
+                    <!-- 키즈(성장) 필라테스 -->
+                    <div class="program-card fade-in">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="assets/images/programs/program-5.jpeg" alt="키즈(성장) 필라테스" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-golden-brown text-white px-3 py-1 rounded-full text-xs font-semibold">성장기 특화</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-deep-navy mb-4">키즈(성장) 필라테스</h3>
+                            <p class="text-gray-600 mb-6">
+                                성장기 아동청소년의 성장촉진 및 체형교정 프로그램입니다. 성장판 자극 운동과 올바른 자세 형성을 통해 건강한 성장과 학습 능력 향상을 도와드립니다.
+                            </p>
+                            <div class="space-y-3">
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">성장판 자극 운동</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">청소년 및 성장기 체형 교정</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">운동능력 및 집중력 향상</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">바른 자세 형성</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-2"></i>50분 / 회
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-2"></i>싱글 및 듀엣 레슨
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 임산부 필라테스 -->
+                    <div class="program-card fade-in">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="assets/images/programs/program-6.jpeg" alt="임산부 필라테스" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-accent-gold text-white px-3 py-1 rounded-full text-xs font-semibold">산전/산후 관리</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-deep-navy mb-4">임산부 필라테스</h3>
+                            <p class="text-gray-600 mb-6">
+                                산전/산후 관리를 위한 안전하고 효과적인 필라테스 프로그램입니다. 임신 시기별 맞춤 운동과 출산 후 빠른 회복을 도와드리고 안전한 모자 건강을 지켜드립니다.
+                            </p>
+                            <div class="space-y-3">
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">산전 체력 유지 및 조절</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">산후 회복 및 체형 관리</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">골반저근 강화</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">안전한 운동 프로그램</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-2"></i>50분 / 회
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-2"></i>싱글 및 듀엣 레슨
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 시니어 필라테스 -->
+                    <div class="program-card fade-in">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="assets/images/programs/program-7.jpeg" alt="시니어 필라테스" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-deep-navy text-white px-3 py-1 rounded-full text-xs font-semibold">중장년 건강</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-deep-navy mb-4">시니어 필라테스</h3>
+                            <p class="text-gray-600 mb-6">
+                                중장년의 근력 유지와 균형감 강화를 위한 필라테스 프로그램입니다. 근력 감소 방지와 낙상 예방 노화 방지를 위한 전문 프로그램으로 건강한 노년기를 만들어갑니다.
+                            </p>
+                            <div class="space-y-3">
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">근력 감소 방지</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">균형감 및 사지근력 강화</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">낙상 예방 및 인지기능 향상</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">관절 가동성 개선</span>
+                                </div>
+                                <div class="benefit-item flex items-center">
+                                    <i class="fas fa-check text-golden-brown mr-3"></i>
+                                    <span class="text-sm">노화 방지</span>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-2"></i>50분 / 회
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-2"></i>싱글 및 듀엣 레슨
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Philosophy Section -->
-        <section class="py-16 md:py-24 section-gradient">
+        <!-- Program Process -->
+        <section class="py-16 md:py-20 section-gradient">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-4">교육 철학</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-4">프로그램 진행 과정</h2>
                     <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                        필라테스 호두의 강사진이 공유하는 교육 철학과 가치관
+                        체계적인 단계별 접근으로 안전하고 효과적인 필라테스 프로그램을 제공합니다
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- 개별화된 관찰 -->
-                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 text-center fade-in">
-                        <div class="w-20 h-20 bg-deep-navy rounded-full flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-eye text-white text-3xl"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center fade-in">
+                        <div class="w-20 h-20 bg-deep-navy rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-white font-bold text-xl">1</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-deep-navy mb-4">개별화된 관찰</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            각 개인의 신체적 특성과 운동 패턴을 세심하게 관찰하여 
-                            최적의 교정과 지도를 제공합니다.
+                        <h3 class="text-lg font-semibold text-deep-navy mb-3">초기 상담</h3>
+                        <p class="text-gray-600 text-sm">
+                            건강 상태, 운동 목표, 과거 병력 등을 종합적으로 분석합니다.
                         </p>
                     </div>
 
-                    <!-- 공감과 배려 -->
-                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 text-center fade-in">
-                        <div class="w-20 h-20 bg-golden-brown rounded-full flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-heart text-white text-3xl"></i>
+                    <div class="text-center fade-in">
+                        <div class="w-20 h-20 bg-golden-brown rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-white font-bold text-xl">2</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-deep-navy mb-4">공감과 배려</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            회원의 감정과 상황을 이해하고 공감하며, 
-                            항상 배려하는 마음으로 수업을 진행합니다.
+                        <h3 class="text-lg font-semibold text-deep-navy mb-3">체형 분석</h3>
+                        <p class="text-gray-600 text-sm">
+                            자세 분석과 근육 불균형 검사를 통해 개인 맞춤 프로그램을 설계합니다.
                         </p>
                     </div>
 
-                    <!-- 지속적 학습 -->
-                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 text-center fade-in">
-                        <div class="w-20 h-20 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                    <div class="text-center fade-in">
+                        <div class="w-20 h-20 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-white font-bold text-xl">3</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-deep-navy mb-4">지속적 학습</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            최신 연구와 기법을 지속적으로 학습하여 
-                            더 나은 교육을 제공하기 위해 노력합니다.
+                        <h3 class="text-lg font-semibold text-deep-navy mb-3">프로그램 실행</h3>
+                        <p class="text-gray-600 text-sm">
+                            박정은 대표원장의 1:1 직강으로 안전하고 효과적인 운동을 시작합니다.
+                        </p>
+                    </div>
+
+                    <div class="text-center fade-in">
+                        <div class="w-20 h-20 bg-deep-navy rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-white font-bold text-xl">4</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-deep-navy mb-3">주기적 평가</h3>
+                        <p class="text-gray-600 text-sm">
+                            진행 상황을 모니터링하고 필요에 따라 프로그램을 조정합니다.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Teaching Standards -->
-        <section class="py-16 md:py-24 bg-white">
+        <!-- Medical Pilates Features -->
+        <section class="py-16 md:py-20 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-4">강사 교육 기준</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                        필라테스 호두의 모든 강사는 엄격한 교육 과정과 지속적인 연수를 통해 
-                        전문성을 유지하고 발전시키고 있습니다.
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-4">메디컬필라테스™의 특별함</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        국내 최초이자 유일한 메디컬필라테스™ 등록상표를 보유한<br>
+                        필라테스 호두만의 차별화된 전문성을 경험하세요.
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    <!-- 자격 요건 -->
-                    <div class="bg-warm-beige/50 p-8 rounded-xl shadow-lg fade-in border border-gray-200">
-                        <div class="flex items-center mb-6">
-                            <i class="fas fa-certificate text-3xl text-accent-gold mr-4"></i>
-                            <h3 class="text-2xl font-bold text-deep-navy">자격 요건</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="fade-in">
+                        <!-- 메인 로고 카드 -->
+                        <div class="relative bg-gradient-to-br from-deep-navy via-golden-brown to-accent-gold p-8 rounded-2xl shadow-2xl overflow-hidden">
+                            <!-- 배경 패턴 -->
+                            <div class="absolute inset-0 opacity-10">
+                                <div class="absolute top-0 left-0 w-32 h-32 bg-white rounded-full -translate-x-16 -translate-y-16"></div>
+                                <div class="absolute bottom-0 right-0 w-24 h-24 bg-white rounded-full translate-x-12 translate-y-12"></div>
+                                <div class="absolute top-1/2 right-0 w-16 h-16 bg-white rounded-full translate-x-8 -translate-y-8"></div>
+                            </div>
+                            
+                            <!-- 중앙 로고 컨테이너 -->
+                            <div class="relative z-10 text-center">
+                                <div class="bg-white rounded-xl p-6 shadow-lg mb-6 transform hover:scale-105 transition-transform duration-300">
+                                    <img src="assets/images/programs/medicalpilates_logo.jpeg" alt="메디컬필라테스 로고" class="w-full max-w-xs mx-auto rounded-lg">
+                                </div>
+                                
+                                <!-- 등록상표 배지 -->
+                                <div class="inline-flex items-center bg-white/90 backdrop-blur-sm border border-white/50 rounded-full px-6 py-3 mb-4">
+                                    <i class="fas fa-certificate text-deep-navy mr-2"></i>
+                                    <span class="text-deep-navy font-bold text-sm">REGISTERED TRADEMARK</span>
+                                </div>
+                                
+                                <!-- 브랜드 설명 -->
+                                <div class="bg-white/90 backdrop-blur-sm rounded-xl p-4 text-center">
+                                    <h3 class="text-deep-navy font-bold text-xl mb-2">메디컬필라테스™</h3>
+                                    <p class="text-golden-brown text-sm leading-relaxed font-semibold mb-0">
+                                        대한민국 특허청 정식 등록<br>
+                                        의학적 근거 기반 필라테스의 표준
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 하단 인증 마크들 -->
+                            <div class="relative z-10 flex justify-center space-x-4 mt-6">
+                                <div class="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+                                    <i class="fas fa-medal text-white text-lg"></i>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+                                    <i class="fas fa-shield-check text-white text-lg"></i>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+                                    <i class="fas fa-award text-white text-lg"></i>
+                                </div>
+                            </div>
                         </div>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-golden-brown mt-1 mr-3 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-deep-navy">국제 공인 자격증</p>
-                                    <p class="text-gray-600">Balanced Body, Stott 등 국제적으로 인정받는 자격증 보유</p>
+                        
+                        <!-- 추가 인포 카드들 -->
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            <div class="bg-warm-beige rounded-xl p-4 text-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-10 h-10 bg-golden-brown rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-calendar-alt text-white text-sm"></i>
                                 </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-golden-brown mt-1 mr-3 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-deep-navy">최소 경력 요건</p>
-                                    <p class="text-gray-600">3년 이상의 지도 경력 및 지속적인 교육 참여</p>
+                                <p class="text-deep-navy font-semibold text-sm">2013년 설립</p>
+                                <p class="text-gray-600 text-xs">11년 전문성</p>
+                            </div>
+                            <div class="bg-warm-beige rounded-xl p-4 text-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-10 h-10 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-user-md text-white text-sm"></i>
                                 </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-golden-brown mt-1 mr-3 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-deep-navy">전문 분야 인증</p>
-                                    <p class="text-gray-600">재활, 시니어, 산전산후 등 전문 분야별 추가 자격증 보유</p>
-                                </div>
-                            </li>
-                        </ul>
+                                <p class="text-deep-navy font-semibold text-sm">1:1 직강</p>
+                                <p class="text-gray-600 text-xs">대표원장</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- 지속적 교육 -->
-                    <div class="bg-warm-beige/50 p-8 rounded-xl shadow-lg fade-in border border-gray-200">
-                        <div class="flex items-center mb-6">
-                            <i class="fas fa-sync-alt text-3xl text-accent-gold mr-4"></i>
-                            <h3 class="text-2xl font-bold text-deep-navy">지속적 교육</h3>
+                    <div class="space-y-6 fade-in">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-golden-brown rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-certificate text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-deep-navy mb-2">등록상표 및 서비스표</h3>
+                                <p class="text-gray-600">
+                                    특허청에 정식 등록된 메디컬필라테스™는 필라테스 호두만의 독점적 권리입니다.
+                                </p>
+                            </div>
                         </div>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-golden-brown mt-1 mr-3 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-deep-navy">정기 워크숍</p>
-                                    <p class="text-gray-600">매월/분기별 1회 이상 전문 교육 프로그램 참여 의무</p>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-deep-navy rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-user-md text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-deep-navy mb-2">의학적 전문성</h3>
+                                <p class="text-gray-600">
+                                    의료진과의 협력과 의학적 근거에 기반한 체계적인 필라테스 프로그램을 제공합니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-microscope text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-deep-navy mb-2">과학적 접근</h3>
+                                <p class="text-gray-600">
+                                    해부학적 지식과 운동역학을 바탕으로 개인별 최적화된 운동 처방을 제공합니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-golden-brown rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-shield-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-deep-navy mb-2">안전한 운동</h3>
+                                <p class="text-gray-600">
+                                    개인의 건강 상태와 신체 조건을 고려한 안전하고 효과적인 운동 프로그램을 설계합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Authority Section -->
+        <section class="py-16 md:py-20 section-gradient">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-6">메디컬필라테스™ 브랜드의 신뢰성</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        특허청에 정식 등록된 상표권과 서비스표를 보유한 국내 유일의 메디컬필라테스™ 브랜드입니다.<br>
+                        법적으로 보호받는 독점적 브랜드로 고객님께 최고의 신뢰성을 보장합니다.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Trademark & Service Mark Information -->
+                    <div class="fade-in">
+                        <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-accent-gold">
+                            <div class="relative h-48 overflow-hidden rounded-lg mb-6">
+                                <img src="assets/images/programs/상표-서비스표.jpeg" alt="메디컬필라테스 상표권 및 서비스표" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                                <div class="absolute top-4 right-4">
+                                    <span class="bg-accent-gold text-white px-3 py-2 rounded-full text-xs font-bold">®</span>
                                 </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-golden-brown mt-1 mr-3 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-deep-navy">의학적 지식 업데이트</p>
-                                    <p class="text-gray-600">최신 재활 의학 및 운동 과학 연구 결과 학습</p>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-deep-navy mb-4">등록상표 및 서비스표 보유</h3>
+                            <p class="text-gray-600 mb-6">
+                                메디컬필라테스™는 특허청에 정식 등록된 상표권과 서비스표로, 필라테스 호두만이 독점적으로 사용할 수 있는 법적 권리입니다.
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 bg-golden-brown rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                        <i class="fas fa-certificate text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-deep-navy mb-1">특허청 공식 등록</h4>
+                                        <p class="text-gray-600 text-sm">특허청의 심사를 통과한 공인된 브랜드</p>
+                                    </div>
                                 </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-golden-brown mt-1 mr-3 flex-shrink-0"></i>
-                                <div>
-                                    <p class="font-semibold text-deep-navy">품질 관리</p>
-                                    <p class="text-gray-600">정기적인 수업 평가 및 피드백을 통한 지속적 개선</p>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 bg-deep-navy rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                        <i class="fas fa-shield-alt text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-deep-navy mb-1">법적 보호 받는 브랜드</h4>
+                                        <p class="text-gray-600 text-sm">상표권법에 의해 보호받는 독점적 권리</p>
+                                    </div>
                                 </div>
-                            </li>
-                        </ul>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-10 h-10 bg-accent-gold rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                        <i class="fas fa-star text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-deep-navy mb-1">국내 최초 & 유일</h4>
+                                        <p class="text-gray-600 text-sm">메디컬필라테스™ 분야의 선구자적 브랜드</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="fade-in space-y-8">
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-golden-brown rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-medal text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-deep-navy">브랜드 신뢰도</h3>
+                            </div>
+                            <p class="text-gray-600">
+                                2013년 설립 이후 11년간 축적된 전문성과 메디컬필라테스™ 상표권 보유로 업계 최고의 신뢰도를 자랑합니다.
+                            </p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-deep-navy rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-microscope text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-deep-navy">의학적 전문성</h3>
+                            </div>
+                            <p class="text-gray-600">
+                                박정은 대표원장의 의료진 협력 네트워크와 의학적 근거에 기반한 체계적인 운동 프로그램을 제공합니다.
+                            </p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user-shield text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-deep-navy">고객 안전 보장</h3>
+                            </div>
+                            <p class="text-gray-600">
+                                등록상표의 엄격한 품질 기준과 대표원장 1:1 직강 시스템으로 고객 안전과 만족을 최우선으로 합니다.
+                            </p>
+                        </div>
+
+                        <div class="bg-deep-navy rounded-xl p-6 text-center">
+                            <h4 class="text-white font-bold text-lg mb-2">메디컬필라테스™</h4>
+                            <p class="text-accent-gold text-sm">특허청 등록 상표 및 서비스표</p>
+                            <p class="text-gray-300 text-xs mt-2">※ 상표권 침해 시 법적 처벌을 받을 수 있습니다</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- CTA Section -->
-        <section class="py-16 md:py-24 section-gradient">
+        <section class="py-16 md:py-20 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center max-w-3xl mx-auto">
                     <h2 class="text-3xl md:text-4xl font-bold text-deep-navy mb-6">
-                        전문 강사와 함께 시작하세요
+                        당신에게 맞는 프로그램을 찾으셨나요?
                     </h2>
                     <p class="text-lg text-gray-600 mb-8">
-                        필라테스 호두의 전문 강사진이 당신의 건강한 변화를 위해 최선을 다하겠습니다. 
-                        지금 바로 상담을 예약하고 개인에게 맞는 강사를 만나보세요.
+                        박정은 대표원장과의 상담을 통해 가장 적합한 프로그램을 선택하세요. 
+                        무료 상담으로 시작하실 수 있습니다.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <a href="booking.html" class="cta-btn cta-btn-primary font-semibold px-8 py-4 rounded-full">
-                            상담 예약하기
+                            프로그램 상담예약
                         </a>
-                        <a href="programs.html" class="cta-btn cta-btn-outline font-semibold px-8 py-4 rounded-full">
-                            프로그램 보기
+                        <a href="instructors.html" class="cta-btn cta-btn-outline font-semibold px-8 py-4 rounded-full">
+                            강사진 보기
                         </a>
                     </div>
                 </div>
@@ -1016,9 +941,9 @@
                         <span class="font-eng">PILATES</span><span class="text-accent-gold"> HODU</span>
                     </h3>
                     <p class="text-gray-300 text-sm">
-                        의학적 근거기반 메디컬필라테스™로<br>
-                        1:1 원장직강 전문적인 필라테스를<br>
-                        통해 건강한 삶을 누릴 수 있습니다.
+                        의학적 근거기반 메디컬필라테스™<br>
+                        AI로 최적화된 개인-맞춤형 필라테스를<br>
+                        통해 건강한 삶을 되찾아 드립니다.
                     </p>
                 </div>
                 <div>
@@ -1046,7 +971,7 @@
                     <h4 class="font-semibold mb-4">지점안내</h4>
                     <ul class="text-gray-300 space-y-2 text-sm">
                         <li><a href="http://pilateshodu.com" target="_blank" class="hover:text-accent-gold">강남본점</a></li>
-                        <li><a href="index.html" class="hover:text-accent-gold">수지점</a></li>
+                        <li><a href="http://pilateshodu2.com" target="_blank" class="hover:text-accent-gold">수지점</a></li>
                     </ul>
                 </div>
                 <div>
@@ -1080,16 +1005,11 @@
                     header.classList.add('header-scrolled');
                     headerLogo.classList.remove('text-white');
                     headerLogo.classList.add('text-deep-navy');
+                    
                     navLinks.forEach(link => {
                         link.classList.remove('text-white', 'hover:text-gray-300');
                         link.classList.add('text-gray-700', 'hover:text-golden-brown');
                     });
-                    // 드롭다운 아이콘도 색상 변경
-                    const dropdownIcon = document.querySelector('#branch-dropdown-wrapper svg');
-                    if (dropdownIcon) {
-                        dropdownIcon.classList.remove('text-white');
-                        dropdownIcon.classList.add('text-gray-700');
-                    }
                     // 햄버거 bar 색상 변경 (모바일에서만)
                     if (window.innerWidth < 1024) {
                         bars.forEach(bar => {
@@ -1101,16 +1021,11 @@
                     header.classList.remove('header-scrolled');
                     headerLogo.classList.add('text-white');
                     headerLogo.classList.remove('text-deep-navy');
+                    
                     navLinks.forEach(link => {
                         link.classList.add('text-white', 'hover:text-gray-300');
                         link.classList.remove('text-gray-700', 'hover:text-golden-brown');
                     });
-                    // 드롭다운 아이콘도 색상 변경
-                    const dropdownIcon = document.querySelector('#branch-dropdown-wrapper svg');
-                    if (dropdownIcon) {
-                        dropdownIcon.classList.add('text-white');
-                        dropdownIcon.classList.remove('text-gray-700');
-                    }
                     // 햄버거 bar 색상 복원 (모바일에서만)
                     if (window.innerWidth < 1024) {
                         bars.forEach(bar => {
