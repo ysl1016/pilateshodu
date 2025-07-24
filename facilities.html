@@ -69,6 +69,16 @@
         .header-scrolled #branch-dropdown-wrapper button:hover {
             color: var(--golden-brown) !important;
         }
+        
+        /* 드롭다운 메뉴 아이템 호버 스타일 - 스크롤 전 */
+        #branch-menu a:hover {
+            color: var(--golden-brown) !important;
+        }
+        
+        /* 스크롤 후 드롭다운 메뉴 아이템 호버 스타일 */
+        .header-scrolled #branch-menu a:hover {
+            color: var(--golden-brown) !important;
+        }
     
         /* 스크롤 애니메이션 */
         .reveal, .fade-in {
@@ -986,6 +996,13 @@
                         dropdownIcon.classList.add('text-gray-700');
                     }
                     
+                    // 드롭다운 메뉴 아이템들도 색상 변경
+                    const dropdownMenuItems = document.querySelectorAll('#branch-menu a');
+                    dropdownMenuItems.forEach(item => {
+                        item.classList.remove('text-deep-navy');
+                        item.classList.add('text-gray-700');
+                    });
+                    
                     // 드롭다운 버튼도 색상 변경
                     const dropdownButton = document.querySelector('#branch-dropdown-wrapper button');
                     if (dropdownButton) {
@@ -1016,6 +1033,13 @@
                         dropdownIcon.classList.add('text-white');
                         dropdownIcon.classList.remove('text-gray-700');
                     }
+                    
+                    // 드롭다운 메뉴 아이템들도 색상 복원
+                    const dropdownMenuItems = document.querySelectorAll('#branch-menu a');
+                    dropdownMenuItems.forEach(item => {
+                        item.classList.remove('text-gray-700');
+                        item.classList.add('text-deep-navy');
+                    });
                     
                     // 드롭다운 버튼도 색상 변경
                     const dropdownButton = document.querySelector('#branch-dropdown-wrapper button');
