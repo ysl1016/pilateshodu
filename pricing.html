@@ -346,10 +346,13 @@
             text-align: center;
         }
         
+        /* --- START: Calculator Result Item CSS Changes --- */
         .result-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            /* Allow content to wrap to the next line */
+            flex-wrap: wrap; 
+            /* Align items to the start (top) when wrapping */
+            align-items: flex-start; 
             padding: 0.5rem 0;
             border-bottom: 1px solid #e5e7eb;
         }
@@ -361,15 +364,39 @@
         .result-label {
             font-weight: 500;
             color: var(--charcoal-gray);
+            /* Prevent label from shrinking, allows it to take its full content width */
             flex-shrink: 0;
+            /* Add right padding for spacing when items wrap */
+            padding-right: 0.5rem; 
         }
         
         .result-value {
             font-weight: 600;
             text-align: right;
-            flex-shrink: 0;
+            /* Allow result value to shrink if needed */
+            flex-shrink: 1; 
+            /* Allow long words to break and wrap */
+            word-break: break-word; 
+            /* Ensure the flex item can shrink below its content size */
+            min-width: 0; 
+            /* Allow it to grow and take available space, pushing label to left */
+            flex-grow: 1;
         }
         
+        /* Adjustments for smaller screens to stack label and value */
+        @media (max-width: 480px) {
+            .result-item {
+                flex-direction: column; /* Stack label and value vertically */
+                align-items: flex-start; /* Align stacked items to the left */
+            }
+            .result-label, .result-value {
+                width: 100%; /* Make them take full width when stacked */
+                text-align: left; /* Align text to left when stacked */
+                padding-right: 0; /* Remove right padding for labels when stacked */
+            }
+        }
+        /* --- END: Calculator Result Item CSS Changes --- */
+       
         .final-amount {
             background-color: var(--warm-beige);
             border-radius: 8px;
