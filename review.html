@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객 후기 | 필라테스 호두 강남본점 - 메디컬필라테스™</title>
+    <meta name="description" content="필라테스 호두와 함께한 고객님들의 진솔한 후기를 확인해보세요. 메디컬필라테스™를 통한 통증 개선과 체형 교정의 실제 경험담을 공유합니다.">
+    <meta name="keywords" content="필라테스 후기, 메디컬필라테스 후기, 체형교정 후기, 통증개선 후기, 필라테스 호두 후기">
+
+    <!-- Naver website SEO -->
+    <meta name="naver-site-verification" content="874e60956d0d0056b0e0b031de3030ebb3d84401" />
+    
+    <!-- Open Graph (OG) Tags -->
+    <meta property="og:title" content="고객 후기 | 필라테스 호두 - 메디컬필라테스™">
+    <meta property="og:url" content="https://ysl1016.github.io/pilateshodu/review.html">
+    <meta property="og:image" content="https://ysl1016.github.io/pilateshodu/assets/images/main/medical-pilates.jpeg">
+    <meta property="og:description" content="필라테스 호두와 함께한 고객님들의 진솔한 후기를 확인해보세요.">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+       
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+        
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        :root {
+            --deep-navy: #001F3F;
+            --golden-brown: #996515;
+            --warm-beige: #F5F1E8;
+            --soft-cream: #FEFCF8;
+            --charcoal-gray: #2C2C2C;
+            --accent-gold: #D4AF37;
+        }
+    
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--soft-cream);
+            color: var(--charcoal-gray);
+        }
+    
+        .font-eng { font-family: 'Manrope', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+            
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-golden-brown { background-color: var(--golden-brown); }
+        .bg-warm-beige { background-color: var(--warm-beige); }
+        .bg-accent-gold { background-color: var(--accent-gold); }
+            
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-golden-brown { color: var(--golden-brown); }
+        .text-charcoal-gray { color: var(--charcoal-gray); }
+        .text-accent-gold { color: var(--accent-gold); }
+        .text-white { color: white; }
+    
+        .hover\\:bg-deep-navy-dark:hover { background-color: #001122; }
+        .hover\\:text-golden-brown:hover { color: var(--golden-brown); }
+
+        /* 헤더 네비게이션 스타일 */
+        .nav-link:hover {
+            color: #d1d5db !important;
+        }
+        
+        #branch-dropdown-wrapper button:hover {
+            color: #d1d5db !important;
+        }
+        
+        .header-scrolled .nav-link:hover {
+            color: var(--golden-brown) !important;
+        }
+        
+        .header-scrolled #branch-dropdown-wrapper button:hover {
+            color: var(--golden-brown) !important;
+        }
+        
+        #branch-menu a:hover {
+            color: var(--golden-brown) !important;
+        }
+        
+        .header-scrolled #branch-menu a:hover {
+            color: var(--golden-brown) !important;
+        }
+    
+        /* 스크롤 애니메이션 */
+        .reveal, .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+    
+        .reveal.visible, .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    
+        .header-scrolled {
+            background-color: rgba(254, 252, 248, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+            
+        /* 후기 카드 스타일 */
+        .review-card {
+            background-color: white;
+            transition: all 0.4s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--golden-brown);
+        }
+        
+        /* 후기 필터 버튼 스타일 */
+        .filter-btn {
+            transition: all 0.3s ease;
+            border: 2px solid var(--golden-brown);
+            color: var(--golden-brown);
+            background: transparent;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--golden-brown);
+            color: white;
+        }
+        
+        /* 페이지네이션 스타일 */
+        .pagination-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-btn:hover {
+            background: var(--golden-brown);
+            color: white;
+        }
+        
+        .pagination-btn.active {
+            background: var(--deep-navy);
+            color: white;
+        }
+
+        /* 햄버거 메뉴 애니메이션 */
+        #mobile-menu-button {
+            width: 1.5rem; height: 1.5rem;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: relative;
+            z-index: 60;
+        }
+        
+        @media (min-width: 1024px) {
+            #mobile-menu-button {
+                display: none !important;
+            }
+            #mobile-menu {
+                display: none !important;
+            }
+        }
+        
+        #mobile-menu-button .bar {
+            display: block;
+            position: absolute;
+            width: 1.5rem;
+            height: 0.18rem;
+            border-radius: 2px;
+            transition: all 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+            transform-origin: center;
+        }
+        
+        #mobile-menu-button .top   { top: 0.375rem; left: 0; }
+        #mobile-menu-button .middle{ top: 0.75rem; left: 0; }
+        #mobile-menu-button .bottom{ top: 1.125rem; right: 0; width: 0.75rem; }
+        
+        #mobile-menu-button.active .top {
+            top: 0.75rem;
+            transform: rotate(45deg);
+        }
+        
+        #mobile-menu-button.active .middle {
+            transform: rotate(-45deg);
+        }
+        
+        #mobile-menu-button.active .bottom {
+            opacity: 0;
+            transform: scaleX(0.5);
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            margin: 1rem;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation (동일한 구조) -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" id="header-logo" class="flex items-center text-2xl font-bold text-white transition-colors duration-300">
+                    <span class="font-eng">PILATES</span> <span class="text-golden-brown ml-1">HODU</span>
+                    <span class="ml-2 text-xs font-semibold bg-deep-navy text-accent-gold px-2.5 py-1 rounded-md">반포</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                    <a href="index.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">홈</a>
+                    <a href="programs.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">프로그램</a>
+                    <a href="instructors.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">강사소개</a>
+                    <a href="facilities.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">시설안내</a>
+                    <a href="booking.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">상담예약</a>
+                    <a href="pricing.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">레슨비용</a>
+                    <a href="review.html" class="nav-link text-white px-3 py-2 rounded-md nav-active transition-colors duration-300">고객후기</a>
+                    <!-- Branch Dropdown -->
+                    <div class="relative group" id="branch-dropdown-wrapper">
+                        <button class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300 flex items-center">
+                            지점 안내
+                            <svg class="w-4 h-4 ml-1 transition-all duration-200 opacity-0 group-hover:opacity-100 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="branch-menu" class="absolute left-0 top-full w-36 bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-200/50 py-2 z-50 opacity-0 invisible transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                            <a href="http://pilateshodu.com" target="_blank" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">강남본점</a>
+                            <a href="http://pilateshodu2.com" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">수지점</a>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Mobile Navigation Button -->
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none relative w-6 h-6 z-50">
+                    <span class="bar top bg-white"></span>
+                    <span class="bar middle bg-white"></span>
+                    <span class="bar bottom bg-white"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg max-h-[calc(100dvh-64px)] overflow-y-auto z-40">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-golden-brown">홈</a>
+            <a href="programs.html" class="block py-2 text-gray-700 hover:text-golden-brown">프로그램</a>
+            <a href="instructors.html" class="block py-2 text-gray-700 hover:text-golden-brown">강사소개</a>
+            <a href="facilities.html" class="block py-2 text-gray-700 hover:text-golden-brown">시설안내</a>
+            <a href="booking.html" class="block py-2 text-gray-700 hover:text-golden-brown">상담예약</a>
+            <a href="pricing.html" class="block py-2 text-gray-700 hover:text-golden-brown">레슨비용</a>
+            <a href="review.html" class="block py-2 text-gray-700 hover:text-golden-brown nav-active">고객후기</a>
+            <div class="border-t my-2"></div>
+            <p class="py-2 text-sm font-semibold text-gray-500">지점 안내</p>
+            <a href="http://pilateshodu.com" target="_blank" class="block py-2 text-gray-700 hover:text-golden-brown">강남본점</a>
+            <a href="http://pilateshodu2.com" class="block py-2 text-gray-700 hover:text-golden-brown">수지점</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-96 flex items-center justify-center text-center text-white overflow-hidden" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/images/main/medical-pilates.jpeg'); background-size: cover; background-position: center;">
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="font-eng text-4xl md:text-5xl font-bold tracking-tighter leading-tight text-white mb-4">
+                    Customer <span class="text-accent-gold">Reviews</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed">
+                    필라테스 호두와 함께한 고객님들의 진솔한 이야기
+                </p>
+            </div>
+        </section>
+
+        <!-- 후기 통계 Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                    <div class="fade-in">
+                        <div class="text-3xl font-bold text-deep-navy mb-2">1,500+</div>
+                        <p class="text-gray-600">누적 회원수</p>
+                    </div>
+                    <div class="fade-in">
+                        <div class="text-3xl font-bold text-golden-brown mb-2">98%</div>
+                        <p class="text-gray-600">고객 만족도</p>
+                    </div>
+                    <div class="fade-in">
+                        <div class="text-3xl font-bold text-accent-gold mb-2">4.9/5.0</div>
+                        <p class="text-gray-600">평균 평점</p>
+                    </div>
+                    <div class="fade-in">
+                        <div class="text-3xl font-bold text-deep-navy mb-2">7년</div>
+                        <p class="text-gray-600">운영 경력</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 후기 필터 및 검색 Section -->
+        <section class="py-8 bg-warm-beige">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <!-- 카테고리 필터 -->
+                    <div class="flex flex-wrap gap-2">
+                        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium" data-filter="all">전체</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium" data-filter="rehabilitation">통증재활</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium" data-filter="weight-loss">체중감량</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium" data-filter="posture">체형교정</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium" data-filter="golf">골프필라테스</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium" data-filter="prenatal">임산부</button>
+                    </div>
+                    
+                    <!-- 검색 -->
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="후기 검색..." class="px-4 py-2 pl-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-golden-brown">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 후기 리스트 Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 후기 카드 예시 1 -->
+                    <div class="review-card p-6 rounded-xl shadow-lg fade-in" data-category="rehabilitation">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-golden-brown rounded-full flex items-center justify-center text-white font-bold">
+                                김
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-deep-navy">김○○님</h4>
+                                <p class="text-gray-500 text-sm">통증재활 필라테스 • 3개월 수강</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex text-accent-gold mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            허리 디스크 수술 후 재활 운동으로 시작했는데, 이제는 일상생활이 완전히 달라졌어요. 
+                            의학적 근거를 바탕으로 한 체계적인 프로그램과 전문 강사님의 세심한 케어 덕분에 
+                            안전하고 효과적으로 회복할 수 있었습니다.
+                        </p>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span>2024.06.15</span>
+                            <button class="text-golden-brown hover:underline" onclick="openReviewModal(1)">자세히 보기</button>
+                        </div>
+                    </div>
+
+                    <!-- 후기 카드 예시 2 -->
+                    <div class="review-card p-6 rounded-xl shadow-lg fade-in" data-category="weight-loss">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-deep-navy rounded-full flex items-center justify-center text-white font-bold">
+                                이
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-deep-navy">이○○님</h4>
+                                <p class="text-gray-500 text-sm">마네킹톤 프로그램 • 6개월 수강</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex text-accent-gold mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            6개월 동안 15kg 감량에 성공했어요! 단순한 다이어트가 아니라 
+                            건강한 방법으로 체중을 줄이면서 근력도 늘어났습니다. 
+                            AI 기반 개인 맞춤 프로그램이 정말 효과적이었어요.
+                        </p>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span>2024.05.28</span>
+                            <button class="text-golden-brown hover:underline" onclick="openReviewModal(2)">자세히 보기</button>
+                        </div>
+                    </div>
+
+                    <!-- 후기 카드 예시 3 -->
+                    <div class="review-card p-6 rounded-xl shadow-lg fade-in" data-category="posture">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center text-white font-bold">
+                                박
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-deep-navy">박○○님</h4>
+                                <p class="text-gray-500 text-sm">플랫스콜 프로그램 • 4개월 수강</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex text-accent-gold mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            척추측만증으로 고생하다가 플랫스콜 프로그램을 시작했어요. 
+                            슈로스 메소드를 접목한 3차원 척추 운동이 정말 효과적이었습니다. 
+                            체형이 눈에 띄게 개선되었어요.
+                        </p>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span>2024.06.02</span>
+                            <button class="text-golden-brown hover:underline" onclick="openReviewModal(3)">자세히 보기</button>
+                        </div>
+                    </div>
+
+                    <!-- 더 많은 후기 카드들을 여기에 추가... -->
+                    
+                </div>
+
+                <!-- 페이지네이션 -->
+                <div class="flex justify-center mt-12">
+                    <div class="flex space-x-2">
+                        <button class="pagination-btn px-3 py-2 border border-gray-300 rounded-md" id="prev-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-btn active px-3 py-2 border border-gray-300 rounded-md">1</button>
+                        <button class="pagination-btn px-3 py-2 border border-gray-300 rounded-md">2</button>
+                        <button class="pagination-btn px-3 py-2 border border-gray-300 rounded-md">3</button>
+                        <button class="pagination-btn px-3 py-2 border border-gray-300 rounded-md" id="next-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 후기 작성 권유 Section -->
+        <section class="py-16 bg-warm-beige">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="text-3xl font-bold text-deep-navy mb-4">후기를 남겨주세요</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        필라테스 호두와 함께한 경험을 다른 분들과 공유해주세요.<br>
+                        소중한 후기는 더 나은 서비스를 만드는 데 큰 도움이 됩니다.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="https://pf.kakao.com/_jZnEj/chat" class="bg-accent-gold text-white px-8 py-4 rounded-full font-semibold hover:opacity-90 transition-all">
+                            카카오톡으로 후기 남기기
+                        </a>
+                        <a href="tel:02-547-3345" class="bg-transparent border-2 border-deep-navy text-deep-navy px-8 py-4 rounded-full font-semibold hover:bg-deep-navy hover:text-white transition-all">
+                            전화 상담 예약
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 후기 상세보기 모달 -->
+    <div id="review-modal" class="modal">
+        <div class="modal-content">
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onclick="closeReviewModal()">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div id="modal-content-body">
+                <!-- 모달 내용이 여기에 동적으로 삽입됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-40">
+        <a href="tel:02-547-3345" class="w-14 h-14 bg-golden-brown text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fas fa-phone fa-lg"></i>
+        </a>
+        <a href="https://pf.kakao.com/_jZnEj/chat" class="w-14 h-14 bg-accent-gold text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fa-brands fa-kakao-talk fa-lg"></i>
+        </a>
+        <button id="top-btn" class="w-14 h-14 bg-deep-navy text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
+             <i class="fas fa-arrow-up fa-lg"></i>
+        </button>
+    </div>
+
+    <!-- Footer (기존과 동일) -->
+    <footer class="bg-deep-navy text-white pt-12 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <span class="font-eng">PILATES</span><span class="text-accent-gold"> HODU</span>
+                    </h3>
+                    <p class="text-gray-300 text-sm">
+                        의학적 근거기반 메디컬필라테스™<br>
+                        AI로 최적화된 개인-맞춤형 필라테스를<br>
+                        통해 건강한 삶을 되찾아 드립니다
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">프로그램</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><a href="programs.html" class="hover:text-accent-gold">통증재활 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">마네킹톤 프로그램</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">플랫스콜 프로그램</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">골프 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">키즈(성장) 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">임산부 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">시니어 필라테스</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">스튜디오</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><a href="instructors.html" class="hover:text-accent-gold">강사진</a></li>
+                        <li><a href="facilities.html" class="hover:text-accent-gold">시설안내</a></li>
+                        <li><a href="pricing.html" class="hover:text-accent-gold">레슨비용</a></li>
+                        <li><a href="booking.html" class="hover:text-accent-gold">상담예약</a></li>
+                        <li><a href="review.html" class="hover:text-accent-gold">고객후기</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">지점안내</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><a href="http://pilateshodu.com" target="_blank" class="hover:text-accent-gold">강남본점</a></li>
+                        <li><a href="http://pilateshodu2.com" class="hover:text-accent-gold">수지점</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">연락처</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><i class="fas fa-phone mr-2"></i> 02-547-3345</li>
+                        <li><i class="fas fa-envelope mr-2"></i> pilateshodu@naver.com</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 서초구 신반포로 33길 27, 2층</li>
+                    </ul>
+                    <div class="mt-6">
+                        <h5 class="font-semibold mb-2 text-sm">소셜미디어</h5>
+                        <div class="flex space-x-3">
+                            <a href="https://www.instagram.com/pilateshodu_official" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                                <i class="fab fa-instagram text-lg"></i>
+                            </a>
+                            <a href="https://youtube.com/channel/UC6ma_4TB4Mpf7Qqp-6abyMA?si=w0cIq9w7mQ1FRgw-" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                                <i class="fab fa-youtube text-lg"></i>
+                            </a>
+                            <a href="https://www.facebook.com/pilateshodu" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 mt-8 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2013 PILATES HODU. All Rights Reserved.</p>
+                <p class="mt-1">메디컬필라테스™는 등록상표입니다. 모든 컨텐츠의 무단 사용을 금지합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect (기존과 동일)
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const bars = mobileMenuButton ? mobileMenuButton.querySelectorAll('.bar') : [];
+
+            const updateHeaderStyle = () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                    headerLogo.classList.remove('text-white');
+                    headerLogo.classList.add('text-deep-navy');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white');
+                        link.classList.add('text-gray-700');
+                    });
+                    
+                    if (window.innerWidth < 1024) {
+                        bars.forEach(bar => {
+                            bar.classList.remove('bg-white');
+                            bar.classList.add('bg-deep-navy');
+                        });
+                    }
+                } else {
+                    header.classList.remove('header-scrolled');
+                    headerLogo.classList.add('text-white');
+                    headerLogo.classList.remove('text-deep-navy');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.add('text-white');
+                        link.classList.remove('text-gray-700');
+                    });
+                    
+                    if (window.innerWidth < 1024) {
+                        bars.forEach(bar => {
+                            bar.classList.add('bg-white');
+                            bar.classList.remove('bg-deep-navy');
+                        });
+                    }
+                }
+            };
+
+            // Mobile menu toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu && window.innerWidth < 1024) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.classList.toggle('active');
+                });
+            }
+
+            // Scroll to top button
+            const topBtn = document.getElementById('top-btn');
+            if (topBtn) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 400) {
+                        topBtn.classList.remove('opacity-0');
+                        topBtn.classList.add('opacity-100');
+                    } else {
+                        topBtn.classList.remove('opacity-100');
+                        topBtn.classList.add('opacity-0');
+                    }
+                });
+                
+                topBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // Scroll animations
+            const animatedElements = document.querySelectorAll('.reveal, .fade-in');
+            if (animatedElements.length > 0) {
+                const animationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                });
+
+                animatedElements.forEach(el => {
+                    animationObserver.observe(el);
+                });
+            }
+
+            // 후기 필터링 기능
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const reviewCards = document.querySelectorAll('.review-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 버튼 상태 업데이트
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 카드 필터링
+                    reviewCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // 검색 기능
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                reviewCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    if (cardText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Initial execution
+            updateHeaderStyle();
+            window.addEventListener('scroll', updateHeaderStyle);
+            
+            // 윈도우 리사이즈 시 모바일 메뉴 상태 관리
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) {
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    if (mobileMenuButton) {
+                        mobileMenuButton.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // 모달 관련 함수들
+        function openReviewModal(reviewId) {
+            const modal = document.getElementById('review-modal');
+            const modalBody = document.getElementById('modal-content-body');
+            
+            // 실제 데이터베이스에서 가져온 후기 내용으로 교체해야 함
+            const reviewData = getReviewData(reviewId);
+            
+            modalBody.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-golden-brown rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                        ${reviewData.initial}
+                    </div>
+                    <h3 class="text-xl font-bold text-deep-navy">${reviewData.name}</h3>
+                    <p class="text-gray-500">${reviewData.program} • ${reviewData.duration}</p>
+                    <div class="flex justify-center text-accent-gold mt-2">
+                        ${Array(5).fill('<i class="fas fa-star"></i>').join('')}
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-semibold text-deep-navy mb-2">후기 내용</h4>
+                        <p class="text-gray-600 leading-relaxed">${reviewData.content}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-deep-navy mb-2">개선된 점</h4>
+                        <ul class="text-gray-600 space-y-1">
+                            ${reviewData.improvements.map(item => `<li>• ${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="text-sm text-gray-500 text-center pt-4 border-t">
+                        작성일: ${reviewData.date}
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('show');
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.remove('show');
+        }
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('review-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeReviewModal();
+            }
+        });
+
+        // 예시 후기 데이터 (실제로는 서버에서 가져와야 함)
+        function getReviewData(reviewId) {
+            const reviews = {
+                1: {
+                    initial: '김',
+                    name: '김○○님',
+                    program: '통증재활 필라테스',
+                    duration: '3개월 수강',
+                    content: '허리 디스크 수술 후 재활 운동으로 시작했는데, 이제는 일상생활이 완전히 달라졌어요. 의학적 근거를 바탕으로 한 체계적인 프로그램과 전문 강사님의 세심한 케어 덕분에 안전하고 효과적으로 회복할 수 있었습니다. 처음에는 단순한 스트레칭조차 힘들었는데, 지금은 일상생활은 물론 가벼운 운동까지 할 수 있게 되었어요.',
+                    improvements: ['허리 통증 90% 개선', '일상 활동 능력 향상', '코어 근력 강화', '자세 교정'],
+                    date: '2024.06.15'
+                },
+                2: {
+                    initial: '이',
+                    name: '이○○님',
+                    program: '마네킹톤 프로그램',
+                    duration: '6개월 수강',
+                    content: '6개월 동안 15kg 감량에 성공했어요! 단순한 다이어트가 아니라 건강한 방법으로 체중을 줄이면서 근력도 늘어났습니다. AI 기반 개인 맞춘 프로그램이 정말 효과적이었어요. 매주 체성분 측정을 통해 변화를 확인하니까 동기부여도 되고, 강사님이 그때그때 운동 강도를 조절해주셔서 무리하지 않으면서도 꾸준히 진행할 수 있었어요.',
+                    improvements: ['체중 15kg 감량', '체지방률 8% 감소', '근육량 3kg 증가', '체형 라인 개선'],
+                    date: '2024.05.28'
+                },
+                3: {
+                    initial: '박',
+                    name: '박○○님',
+                    program: '플랫스콜 프로그램',
+                    duration: '4개월 수강',
+                    content: '척추측만증으로 고생하다가 플랫스콜 프로그램을 시작했어요. 슈로스 메소드를 접목한 3차원 척추 운동이 정말 효과적이었습니다. 체형이 눈에 띄게 개선되었어요. 어깨 높이도 맞춰지고, 골반도 균형을 찾았습니다. 무엇보다 오랫동안 앉아있어도 피로감이 많이 줄었어요.',
+                    improvements: ['척추 곡선 개선', '어깨 높이 교정', '골반 균형 회복', '만성 피로 감소'],
+                    date: '2024.06.02'
+                }
+            };
+            
+            return reviews[reviewId] || {};
+        }
+    </script>
+</body>
+</html>
