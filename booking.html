@@ -793,7 +793,7 @@
                                         <!-- 시간 슬롯은 JavaScript로 동적 생성 -->
                                     </div>
                                     <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                                        <p class="text-sm text-blue-700">💡 온라인 상담예약은 당일 예약은 불가하므로, 당일 상담예약을 원하시는 경우 전화예약 또는 방문상담을 당부드립니다.</p>
+                                        <p class="text-sm text-blue-700">💡 온라인 상담예약은 당일 예약은 불가하므로, 당일 상담예약을 원하시는 경우 전화예약 또는 카카오톡으로 문의해 주시기 바랍니다.</p>
                                     </div>
                                 </div>
 
@@ -949,7 +949,7 @@
                         </div>
                         <h3 class="text-lg font-semibold text-deep-navy mb-2">카카오톡 예약</h3>
                         <p class="text-gray-600 text-sm mb-4">
-                            카카오톡 검색창에 '필라테스호두 강남본점'으로 검색
+                            카카오톡 검색창에 '필라테스호두 강남반포본점'으로 검색
                         </p>
                         <div class="text-golden-brown font-semibold text-sm">
                             <div>서울특별시 서초구</div>
@@ -1057,7 +1057,7 @@
     Firebase SDK 및 웹사이트 기능 스크립트
     ================================================== 
     -->
-    <script type="module">
+<script type="module">
         // Firebase SDK 모듈 임포트
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
@@ -1446,18 +1446,36 @@
             const minDate = today.toISOString().split('T')[0];
             const bookingDateEl = document.getElementById('bookingDate');
             const customerBirthEl = document.getElementById('customerBirth');
+            let hasShownDateAlert = false; // 안내 메시지 표시 여부 플래그
             
             if(bookingDateEl) {
                 bookingDateEl.setAttribute('min', minDate);
-                // 모바일 날짜 입력란 스타일 강제 적용
-                bookingDateEl.style.width = '100%';
-                bookingDateEl.style.minWidth = '100%';
-                bookingDateEl.style.maxWidth = '100%';
-                bookingDateEl.style.boxSizing = 'border-box';
-                bookingDateEl.style.webkitAppearance = 'none';
-                bookingDateEl.style.mozAppearance = 'none';
-                bookingDateEl.style.appearance = 'none';
-                
+                // =================================================================
+                // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+                // 디버깅: 날짜 기본값 설정 및 클릭 이벤트 로직 수정
+                // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+                bookingDateEl.value = minDate; // 기본값을 내일로 설정
+
+                bookingDateEl.addEventListener('click', function() {
+                    if (!hasShownDateAlert) {
+                        alert("'온라인 상담예약'은 당일 선택은 불가합니다. 상담을 원하시는 날짜를 선택해주세요.");
+                        hasShownDateAlert = true; // 메시지를 한 번만 표시하도록 플래그 설정
+                    }
+                });
+
+                bookingDateEl.addEventListener('change', function() {
+                    // 값이 비어있지 않을 때만 유효성 검사 실행
+                    if (this.value) {
+                        const selectedDate = new Date(this.value);
+                        const minimumDate = new Date(minDate);
+                        minimumDate.setHours(0, 0, 0, 0); // 시간 정보 초기화
+
+                        if (selectedDate < minimumDate) {
+                            alert('상담 예약은 내일부터 가능합니다. 다른 날짜를 선택해주세요.');
+                            this.value = minDate; // 유효하지 않은 날짜 선택 시, 다시 내일 날짜로 복원
+                        }
+                    }
+                });
             }
             
             // 날짜 입력란 placeholder 처리 함수 (전역으로 정의)
@@ -1526,6 +1544,3 @@
             showStep(currentStep);
         });
     </script>
-
-</body>
-</html>
