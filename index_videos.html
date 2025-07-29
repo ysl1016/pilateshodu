@@ -12,21 +12,21 @@
     
     <!-- Open Graph (OG) Tags for Social Media Sharing -->
     <meta property="og:title" content="필라테스 호두 강남본점 | PILATES HODU - 메디컬필라테스™">
-    <meta property="og:url" content=" https://ysl1016.github.io/pilateshodu/">
-    <meta property="og:image" content=" https://ysl1016.github.io/pilateshodu/assets/images/main/medical-pilates.jpeg">
+    <meta property="og:url" content=" [https://ysl1016.github.io/pilateshodu/](https://ysl1016.github.io/pilateshodu/)">
+    <meta property="og:image" content=" [https://ysl1016.github.io/pilateshodu/assets/images/main/medical-pilates.jpeg](https://ysl1016.github.io/pilateshodu/assets/images/main/medical-pilates.jpeg)">
     <meta property="og:description" content="국내 최초의 메디컬필라테스 브랜드 - 의학적 근거를 기반의 개인에게 최적화된 메디컬필라테스를 제공하는 프리미엄 필라테스 센터입니다.">
     <meta property="og:type" content="website">
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
        
     <!-- Google Fonts: Inter, Manrope, Noto Sans KR -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap)" rel="stylesheet">
         
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css)" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
         :root {
@@ -168,10 +168,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* 도트 크기를 0.5px로, 투명도를 0.1로 조정하고 간격을 12px로 늘려 더 작고 섬세하게 보이도록 수정 */
             background-image: radial-gradient(rgba(255, 255, 255, 0.1) 0.5px, transparent 0.5px);
             background-size: 12px 12px;
             z-index: 0;
+        }
+        
+        /* 모바일 화면 (768px 이하)에서 비디오 대신 이미지 배경 표시 */
+        @media (max-width: 768px) {
+            .hero-section-video {
+                /* ※ 중요: 이 경로에 이미지가 있어야 합니다. */
+                background-image: url('assets/images/main/HODU-PILA_1.00_00_00_00.Still001.jpg');
+                background-size: cover;
+                background-position: center;
+            }
+            #hero-video {
+                display: none;
+            }
         }
         /* --- END: 동영상 배경 Hero Section 스타일 --- */
         
@@ -273,8 +285,8 @@
                             </svg>
                         </button>
                         <div id="branch-menu" class="absolute left-0 top-full w-36 bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-200/50 py-2 z-50 opacity-0 invisible transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
-                            <a href="http://pilateshodu.com" target="_blank" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">강남본점</a>
-                            <a href="http://pilateshodu2.com" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">수지점</a>
+                            <a href="[http://pilateshodu.com](http://pilateshodu.com)" target="_blank" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">강남본점</a>
+                            <a href="[http://pilateshodu2.com](http://pilateshodu2.com)" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">수지점</a>
                         </div>
                     </div>
                 </nav>
@@ -298,16 +310,15 @@
             <a href="pricing.html" class="block py-2 text-gray-700 hover:text-golden-brown">레슨비용</a>
             <div class="border-t my-2"></div>
             <p class="py-2 text-sm font-semibold text-gray-500">지점 안내</p>
-            <a href="http://pilateshodu.com" target="_blank" class="block py-2 text-gray-700 hover:text-golden-brown">강남본점</a>
-            <a href="http://pilateshodu2.com" class="block py-2 text-gray-700 hover:text-golden-brown">수지점</a>
+            <a href="[http://pilateshodu.com](http://pilateshodu.com)" target="_blank" class="block py-2 text-gray-700 hover:text-golden-brown">강남본점</a>
+            <a href="[http://pilateshodu2.com](http://pilateshodu2.com)" class="block py-2 text-gray-700 hover:text-golden-brown">수지점</a>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section with Video Background -->
+        <!-- Hero Section with Video/Image Background -->
         <section class="hero-section-video">
             <video autoplay loop muted playsinline id="hero-video">
-                <!-- 동영상 경로를 수정했습니다. -->
                 <source src="assets/videos/HODU-PILA_1.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -644,7 +655,7 @@
                         <h3 class="text-xl font-semibold text-deep-navy mb-6">오시는 길</h3>
                         <div class="bg-gray-100 h-64 rounded-lg overflow-hidden">
                             <iframe 
-                                src="https://maps.google.com/maps?q=서울특별시 서초구 신반포로33길 27 파스텔 프라자&output=embed&z=17"
+                                src="[https://maps.google.com/maps?q=서울특별시](https://maps.google.com/maps?q=서울특별시) 서초구 신반포로33길 27 파스텔 프라자&output=embed&z=17"
                                 width="100%" 
                                 height="100%" 
                                 style="border:0;" 
@@ -672,14 +683,14 @@
     <!-- Font Awesome 7 style-sheet load -->
     <link
        rel="stylesheet"
-       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+       href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css)"
     />
     <!-- Floating Action Buttons -->
     <div class="fixed bottom-6 right-6 space-y-3 z-40">
         <a href="tel:02-547-3345" class="w-14 h-14 bg-golden-brown text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
             <i class="fas fa-phone fa-lg"></i>
         </a>
-        <a href="https://pf.kakao.com/_jZnEj/chat" class="w-14 h-14 bg-accent-gold text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+        <a href="[https://pf.kakao.com/_jZnEj/chat](https://pf.kakao.com/_jZnEj/chat)" class="w-14 h-14 bg-accent-gold text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
             <i class="fa-brands fa-kakao-talk fa-lg"></i>
         </a>
         <button id="top-btn" class="w-14 h-14 bg-deep-navy text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
@@ -725,8 +736,8 @@
                 <div>
                     <h4 class="font-semibold mb-4">지점안내</h4>
                     <ul class="text-gray-300 space-y-2 text-sm">
-                        <li><a href="http://pilateshodu.com" target="_blank" class="hover:text-accent-gold">강남본점</a></li>
-                        <li><a href="http://pilateshodu2.com" class="hover:text-accent-gold">수지점</a></li>
+                        <li><a href="[http://pilateshodu.com](http://pilateshodu.com)" target="_blank" class="hover:text-accent-gold">강남본점</a></li>
+                        <li><a href="[http://pilateshodu2.com](http://pilateshodu2.com)" class="hover:text-accent-gold">수지점</a></li>
                     </ul>
                 </div>
                 <div>
@@ -739,13 +750,13 @@
                     <div class="mt-12">
                         <h5 class="font-semibold mb-2 text-sm">소셜미디어</h5>
                         <div class="flex space-x-3">
-                            <a href="https://www.instagram.com/pilateshodu_official" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                            <a href="[https://www.instagram.com/pilateshodu_official](https://www.instagram.com/pilateshodu_official)" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
                                 <i class="fab fa-instagram text-lg"></i>
                             </a>
-                            <a href="https://youtube.com/channel/UC6ma_4TB4Mpf7Qqp-6abyMA?si=w0cIq9w7mQ1FRgw-" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                            <a href="[https://youtube.com/channel/UC6ma_4TB4Mpf7Qqp-6abyMA?si=w0cIq9w7mQ1FRgw-](https://youtube.com/channel/UC6ma_4TB4Mpf7Qqp-6abyMA?si=w0cIq9w7mQ1FRgw-)" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
                                 <i class="fab fa-youtube text-lg"></i>
                             </a>
-                            <a href="https://www.facebook.com/pilateshodu" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                            <a href="[https://www.facebook.com/pilateshodu](https://www.facebook.com/pilateshodu)" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
                                 <i class="fab fa-facebook-f text-lg"></i>
                             </a>
                         </div>
@@ -912,21 +923,8 @@
             });
 
             // Branch dropdown menu - CSS group 클래스로 처리하므로 별도 JavaScript 불필요
-
-            // --- START: Mobile Video Autoplay Fix ---
-            // 모바일 브라우저에서 자동재생 정책을 준수하기 위해 프로그래밍 방식으로 재생을 시도합니다.
-            const heroVideo = document.getElementById('hero-video');
-            if (heroVideo) {
-                const promise = heroVideo.play();
-                if (promise !== undefined) {
-                    promise.catch(error => {
-                        console.error("동영상 자동재생이 브라우저에 의해 차단되었습니다.", error);
-                        // 자동재생이 차단될 경우, 브라우저가 기본 재생 버튼을 표시하도록 둡니다.
-                    });
-                }
-            }
-            // --- END: Mobile Video Autoplay Fix ---
         });
     </script>
 </body>
 </html>
+}
