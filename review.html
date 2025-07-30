@@ -114,6 +114,7 @@
         .text-white { color: white; }
     
         .hover\:bg-deep-navy-dark:hover { background-color: #001122; }
+        .bg-deep-navy:hover { background-color: #001122; }
         .hover\:text-golden-brown:hover { color: var(--golden-brown); }
 
         /* 헤더 네비게이션 호버 스타일 - 스크롤 전 */
@@ -467,22 +468,47 @@
           transform: scaleX(0.5);
         }
         
+        /* 모바일 터치 지연 제거 */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* 이미지 터치 최적화 */
+        .cursor-pointer {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        }
+        
         /* 모바일 터치 및 레이아웃 최적화 */
         @media (max-width: 768px) {
-            /* z-index 겹침 문제 완전 해결 */
+            /* z-index 겹침 문제 해결 - 헤더보다 낮은 양수로 설정 */
             .review-card, .review-card * {
                 transform: none !important;
-                z-index: auto !important;
+                z-index: 1 !important;
                 position: static !important;
             }
             
-            /* 이미지 컨테이너 z-index 강제 제한 */
+            /* 이미지 컨테이너 z-index를 낮은 양수로 제한 */
             .review-card .image-container,
             .review-card .review-image,
             .review-card .review-placeholder {
                 z-index: 1 !important;
                 transform: none !important;
                 position: static !important;
+            }
+            
+            /* 리뷰 섹션을 낮은 z-index로 설정 */
+            .reviews-section,
+            .reviews-container,
+            .reviews-grid {
+                z-index: 1 !important;
+                position: relative !important;
             }
 
             /* 터치 대상 크기 및 피드백 최적화 */
@@ -536,7 +562,7 @@
 
 <body class="antialiased">
     <!-- Header & Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-[1050] transition-all duration-300">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <a href="index.html" id="header-logo" class="flex items-center text-2xl font-bold text-white transition-colors duration-300">
@@ -883,9 +909,10 @@
     </div>
 
     <!-- 리뷰 상세 모달 -->
-    <div id="review-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
-        <div class="modal-content bg-white rounded-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center rounded-t-xl">
+    <div id="review-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden flex items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl">
+            <!-- 모달 헤더 -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center sticky top-0 z-10 rounded-t-xl">
                 <h2 id="detail-modal-title" class="text-xl font-bold text-deep-navy"></h2>
                 <button id="review-detail-close" class="text-gray-400 hover:text-gray-600 text-2xl">
                     <i class="fas fa-times"></i>
@@ -922,16 +949,24 @@
                 </div>
                 
                 <!-- Q2 내용 -->
-                <div>
+                <div class="mb-8">
                     <h4 class="text-lg font-semibold text-deep-navy mb-3">Q2. 필라테스 호두 추천 이유</h4>
                     <div id="detail-q2" class="text-container bg-gray-50 rounded-lg p-4 text-gray-700 leading-relaxed"></div>
+                </div>
+                
+                <!-- 목록으로 버튼 -->
+                <div class="flex justify-center pb-4">
+                    <button id="back-to-list-btn" class="bg-deep-navy hover:bg-deep-navy-dark text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 text-base min-h-[44px] touch-action-manipulation">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>목록으로</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 이미지 모달 -->
-    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center" onclick="closeModal('image-modal')">
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-90 z-[60] hidden items-center justify-center">
         <div class="relative max-w-4xl max-h-full p-4" onclick="event.stopPropagation()">
             <button id="image-modal-close" class="absolute -top-2 -right-2 w-12 h-12 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-800 text-2xl hover:text-gray-600 transition-all duration-200 z-10 shadow-lg border-2 border-gray-200">
                 <i class="fas fa-times"></i>
@@ -941,7 +976,7 @@
     </div>
 
     <!-- 삭제 확인 모달 -->
-    <div id="delete-confirm-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div id="delete-confirm-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden items-center justify-center">
         <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
             <div class="text-center">
                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
@@ -1718,9 +1753,59 @@
                 closeModal('review-detail-modal');
             });
             
-            // 이미지 모달 이벤트
-            document.getElementById('image-modal-close').addEventListener('click', function() {
+            // 목록으로 버튼 이벤트 - 터치 지원
+            const backToListBtn = document.getElementById('back-to-list-btn');
+            backToListBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                closeModal('review-detail-modal');
+            }, { passive: false });
+            
+            backToListBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeModal('review-detail-modal');
+            });
+            
+            // 이미지 모달 이벤트 - 모바일 터치 지원
+            const imageModalClose = document.getElementById('image-modal-close');
+            imageModalClose.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 closeModal('image-modal');
+            }, { passive: false });
+            
+            imageModalClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeModal('image-modal');
+            });
+            
+            // 이미지 모달 배경 클릭 시 닫기 - 터치 지원
+            const imageModal = document.getElementById('image-modal');
+            imageModal.addEventListener('touchstart', function(e) {
+                if (e.target === imageModal) {
+                    e.preventDefault();
+                    closeModal('image-modal');
+                }
+            }, { passive: false });
+            
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    closeModal('image-modal');
+                }
+            });
+            
+            // ESC 키로 모달 닫기
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    // 열려있는 모달 찾기
+                    if (!document.getElementById('image-modal').classList.contains('hidden')) {
+                        closeModal('image-modal');
+                    } else if (!document.getElementById('review-detail-modal').classList.contains('hidden')) {
+                        closeModal('review-detail-modal');
+                    } else if (!document.getElementById('delete-confirm-modal').classList.contains('hidden')) {
+                        closeModal('delete-confirm-modal');
+                    }
+                }
             });
             
             // 삭제 모달 이벤트
@@ -2180,18 +2265,9 @@
             document.getElementById('detail-program').textContent = review.program;
             document.getElementById('detail-instructor').textContent = review.instructor;
             
-            // Q1, Q2 내용 설정 (디버깅 로그 추가)
-            console.log('리뷰 데이터 확인:', review);
-            console.log('Q1 필드:', review.q1);
-            console.log('Q2 필드:', review.q2);
-            console.log('Content 필드:', review.content);
-            
-            // 각 질문에 실제 입력된 내용만 표시
+            // Q1, Q2 내용 설정
             const q1Content = review.q1 || '내용없음';
             const q2Content = review.q2 || '내용없음';
-            
-            console.log('Q1 표시 내용:', q1Content);
-            console.log('Q2 표시 내용:', q2Content);
             
             document.getElementById('detail-q1').innerHTML = processTextLinks(q1Content);
             document.getElementById('detail-q2').innerHTML = processTextLinks(q2Content);
@@ -2208,19 +2284,21 @@
                     const imageDiv = document.createElement('div');
                     imageDiv.className = 'cursor-pointer relative group';
                     
-                    // 컨테이너에 클릭 이벤트 추가 (디버깅 로그 포함)
-                    imageDiv.addEventListener('click', function() {
-                        console.log('이미지 클릭됨:', imageSrc);
+                    imageDiv.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        openImageModal(imageSrc);
+                    }, { passive: false });
+                    
+                    imageDiv.addEventListener('click', function(e) {
+                        e.preventDefault();
                         openImageModal(imageSrc);
                     });
                     
                     imageDiv.innerHTML = `
                         <img src="${imageSrc}" alt="리뷰 이미지" 
                              class="w-full h-48 object-cover rounded-lg transition-all duration-300">
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 rounded-lg flex items-center justify-center pointer-events-none">
-                            <p class="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
-                                클릭하면 이미지가 확대됩니다
-                            </p>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-all duration-300 rounded-lg flex items-center justify-center pointer-events-none">
+                            <i class="fas fa-expand text-white text-2xl opacity-70"></i>
                         </div>
                     `;
                     imageGrid.appendChild(imageDiv);
@@ -2358,7 +2436,7 @@
                     if (window.innerWidth <= 768) {
                         const reviewCards = document.querySelectorAll('.review-card');
                         reviewCards.forEach(card => {
-                            card.style.zIndex = '1';
+                            card.style.zIndex = '1 !important';
                         });
                     }
                 } else {
@@ -2396,7 +2474,7 @@
                     if (window.innerWidth <= 768) {
                         const reviewCards = document.querySelectorAll('.review-card');
                         reviewCards.forEach(card => {
-                            card.style.zIndex = '1';
+                            card.style.zIndex = '1 !important';
                         });
                     }
                     
@@ -2453,10 +2531,15 @@
                                     if (window.innerWidth <= 768) {
                                         const images = entry.target.querySelectorAll('.review-image, .review-placeholder');
                                         images.forEach(img => {
-                                            img.style.transform = 'none';
-                                            img.style.position = 'static';
-                                            img.style.zIndex = '1';
+                                            img.style.transform = 'none !important';
+                                            img.style.position = 'static !important';
+                                            img.style.zIndex = '1 !important';
                                         });
+                                        
+                                        // 리뷰 카드 자체도 z-index 강제 설정
+                                        entry.target.style.zIndex = '1 !important';
+                                        entry.target.style.transform = 'none !important';
+                                        entry.target.style.position = 'static !important';
                                     }
                                 }, 50);
                             } else {
