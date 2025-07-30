@@ -151,6 +151,66 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* 리뷰 카드 특별 처리 - 이미지 겹침 방지 */
+        .review-card {
+            /* 헤더보다 낮은 z-index로 설정하여 겹침 방지 */
+            z-index: 1;
+            /* 컨테인먼트 적용하여 내부 요소들의 z-index 영향 제한 */
+            contain: layout style;
+        }
+        
+        .review-card.visible {
+            /* visible 상태에서도 동일한 z-index 유지 */
+            z-index: 1;
+        }
+        
+        /* 호버 상태에서도 헤더보다 낮은 z-index 유지 */
+        .review-card:hover {
+            z-index: 10;
+            /* 헤더(z-index: 999)보다 낮게 설정 */
+        }
+        
+        /* 리뷰 카드 내부 이미지 위치 완전 고정 */
+        .review-card img {
+            position: static !important;
+            /* transform 속성 완전 제거 */
+            transform: none !important;
+            /* 부모 컨테이너 영역을 벗어나지 않도록 제한 */
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        /* 리뷰 카드 내부 콘텐츠 정적 배치 */
+        .review-card .review-content {
+            position: static;
+        }
+        
+        .review-card h4 {
+            position: static;
+        }
+        
+        /* 이미지 컨테이너 최적화 */
+        .review-card .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            /* 높이 고정으로 레이아웃 안정화 */
+            height: 128px;
+        }
+        
+        .review-card .review-image,
+        .review-card .review-placeholder {
+            /* 정적 배치로 변경 */
+            position: static !important;
+            display: block;
+            width: 100%;
+            height: 100%;
+            /* transform과 transition 완전 제거 */
+            transform: none !important;
+            transition: none !important;
+            object-fit: cover;
+        }
 
         .header-scrolled {
             background-color: rgba(254, 252, 248, 0.95);
@@ -170,14 +230,15 @@
 
         /* MangBoard 스타일 리뷰 카드 */
         .review-card {
-            transition: all 0.3s ease;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
             border: 1px solid #e5e7eb;
             background: white;
             position: relative;
+            /* transform 제거하여 레이어링 충돌 방지 */
         }
         
         .review-card:hover {
-            transform: translateY(-2px);
+            /* translateY 제거하여 z-index 충돌 방지 */
             box-shadow: 0 8px 25px rgba(0, 31, 63, 0.15);
             border-color: var(--deep-navy);
         }
@@ -349,9 +410,9 @@
 
         /* 모바일 최적화 추가 스타일 */
         @media (max-width: 768px) {
-            /* 히어로 섹션 높이 조정 */
+            /* 히어로 섹션 높이 조정 - instructors.html과 pricing.html과 일치 */
             .hero-section {
-                height: 280px !important;
+                height: 24rem !important;
                 padding: 2rem 1rem;
             }
             
@@ -364,6 +425,29 @@
             .review-card {
                 margin-bottom: 1rem;
                 overflow: hidden;
+                /* 모바일에서 z-index 더욱 낮게 설정 */
+                z-index: 1 !important;
+            }
+            
+            .review-card:hover {
+                /* 모바일에서 hover 시에도 헤더보다 낮게 유지 */
+                z-index: 5 !important;
+                /* transform 완전 제거 */
+                transform: none !important;
+            }
+            
+            /* 모든 리뷰 카드 요소가 헤더보다 낮게 유지되도록 강제 */
+            .review-card,
+            .review-card *,
+            .review-card img,
+            .review-card .review-image,
+            .review-card .review-placeholder {
+                z-index: 1 !important;
+            }
+            
+            .review-card:hover,
+            .review-card:hover * {
+                z-index: 5 !important;
             }
             
             .review-card .text-container {
@@ -469,8 +553,8 @@
             
             /* 스크롤 성능 최적화 */
             .review-card img {
-                will-change: transform;
-                transform: translateZ(0);
+                will-change: auto;
+                /* GPU 가속은 제거 - transform 충돌 방지 */
             }
             
             /* 모바일에서 hover 효과 비활성화 */
@@ -516,7 +600,7 @@
 
 <body class="antialiased">
     <!-- Header & Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header id="header" class="fixed top-0 left-0 right-0 z-[999] transition-all duration-300">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <a href="index.html" id="header-logo" class="flex items-center text-2xl font-bold text-white transition-colors duration-300">
@@ -541,7 +625,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        <div id="branch-menu" class="absolute left-0 top-full w-36 bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-200/50 py-2 z-50 opacity-0 invisible transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                        <div id="branch-menu" class="absolute left-0 top-full w-36 bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-200/50 py-2 z-[1000] opacity-0 invisible transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
                             <a href="http://pilateshodu.com" target="_blank" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">강남본점</a>
                             <a href="index.html" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">수지점</a>
                         </div>
@@ -549,7 +633,7 @@
                 </nav>
 
                 <!-- Mobile Navigation Button -->
-                <button id="mobile-menu-button" class="lg:hidden focus:outline-none relative w-6 h-6 z-50">
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none relative w-6 h-6 z-[1001]">
                   <span class="bar top bg-white"></span>
                   <span class="bar middle bg-white"></span>
                   <span class="bar bottom bg-white"></span>
@@ -558,7 +642,7 @@
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg max-h-[calc(100dvh-64px)] overflow-y-auto z-40">
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg max-h-[calc(100dvh-64px)] overflow-y-auto z-[998]">
             <a href="index.html" class="block py-2 text-gray-700 hover:text-golden-brown">홈</a>
             <a href="programs.html" class="block py-2 text-gray-700 hover:text-golden-brown">프로그램</a>
             <a href="instructors.html" class="block py-2 text-gray-700 hover:text-golden-brown">강사소개</a>
@@ -1456,13 +1540,13 @@
                 </h4>
                 
                 <!-- 이미지 섹션 (제목과 본문 사이) -->
-                <div class="mb-4 w-full">
+                <div class="mb-4 w-full image-container">
                     ${review.images && review.images.length > 0 ? `
                         <img src="${review.images[0]}" alt="리뷰 이미지" 
-                             class="w-full h-32 object-cover rounded hover:opacity-90 transition-opacity" 
-                             style="object-position: center bottom;">
+                             class="w-full h-32 object-cover rounded hover:opacity-90 transition-opacity review-image" 
+                             style="object-position: center bottom; position: static;">
                     ` : `
-                        <div class="w-full h-32 rounded flex items-center justify-center" style="background: linear-gradient(135deg, #001F3F 0%, #996515 100%);">
+                        <div class="w-full h-32 rounded flex items-center justify-center review-placeholder" style="background: linear-gradient(135deg, #001F3F 0%, #996515 100%); position: static;">
                             <h3 class="text-xl font-bold font-eng tracking-wider" style="color: white;">PILATES HODU</h3>
                         </div>
                     `}
@@ -2308,6 +2392,16 @@
                             bar.classList.add('bg-deep-navy');
                         });
                     }
+                    
+                    // 스크롤 중 리뷰 카드 z-index 강제 제한 (모바일 겹침 방지)
+                    const reviewCards = document.querySelectorAll('.review-card');
+                    reviewCards.forEach(card => {
+                        card.style.zIndex = '1';
+                        const cardElements = card.querySelectorAll('*');
+                        cardElements.forEach(el => {
+                            el.style.zIndex = '1';
+                        });
+                    });
                 } else {
                     header.classList.remove('header-scrolled');
                     headerLogo.classList.add('text-white');
@@ -2337,6 +2431,16 @@
                     dropdownMenuItems.forEach(item => {
                         item.classList.add('text-deep-navy');
                         item.classList.remove('text-gray-700');
+                    });
+                    
+                    // 스크롤 상단에서도 리뷰 카드 z-index 제한 유지
+                    const reviewCards = document.querySelectorAll('.review-card');
+                    reviewCards.forEach(card => {
+                        card.style.zIndex = '1';
+                        const cardElements = card.querySelectorAll('*');
+                        cardElements.forEach(el => {
+                            el.style.zIndex = '1';
+                        });
                     });
                     
                     // 햄버거 bar 색상 복원 (모바일에서만)
@@ -2383,11 +2487,29 @@
                 const animationObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
+                            // 리뷰 카드에 대한 특별 처리
+                            if (entry.target.classList.contains('review-card')) {
+                                // 리뷰 카드는 부드럽게 나타나도록 지연 적용
+                                setTimeout(() => {
+                                    entry.target.classList.add('visible');
+                                    // 내부 이미지 안정성 재확인
+                                    const images = entry.target.querySelectorAll('.review-image, .review-placeholder');
+                                    images.forEach(img => {
+                                        img.style.transform = 'none';
+                                        // 이미지 위치를 정적으로 고정하여 z-index 충돌 방지
+                                        img.style.position = 'static';
+                                        img.style.transform = 'none';
+                                        img.style.zIndex = 'auto';
+                                    });
+                                }, 50);
+                            } else {
+                                entry.target.classList.add('visible');
+                            }
                         }
                     });
                 }, {
                     threshold: 0.1,
+                    rootMargin: '0px 0px -10px 0px'
                 });
 
                 animatedElements.forEach(el => {
