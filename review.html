@@ -665,13 +665,61 @@
         </div>
     </div>
 
+    <!-- 리뷰 상세 모달 -->
+    <div id="review-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center rounded-t-xl">
+                <h2 id="detail-modal-title" class="text-xl font-bold text-deep-navy"></h2>
+                <button id="review-detail-close" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <!-- 작성자 정보 -->
+                <div class="flex items-center mb-6">
+                    <div id="detail-author-avatar" class="w-16 h-16 bg-deep-navy text-white rounded-full flex items-center justify-center font-bold text-xl mr-4">
+                    </div>
+                    <div>
+                        <h3 id="detail-author-name" class="text-lg font-semibold text-deep-navy"></h3>
+                        <p id="detail-author-date" class="text-gray-500"></p>
+                        <div class="flex items-center mt-1">
+                            <span id="detail-program" class="bg-warm-beige text-deep-navy px-3 py-1 rounded-full text-sm font-medium mr-2"></span>
+                            <span id="detail-instructor" class="bg-accent-gold text-deep-navy px-3 py-1 rounded-full text-sm font-medium"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 이미지 갤러리 -->
+                <div id="detail-images" class="mb-6 hidden">
+                    <h4 class="text-lg font-semibold text-deep-navy mb-3">첨부 이미지</h4>
+                    <div id="detail-image-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- 이미지들이 여기에 동적으로 추가됩니다 -->
+                    </div>
+                </div>
+                
+                <!-- Q1 내용 -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-deep-navy mb-3">Q1. 필라테스 호두 방문 전 불편하셨던 부분과 현재 상태</h4>
+                    <div id="detail-q1" class="bg-gray-50 rounded-lg p-4 text-gray-700 leading-relaxed"></div>
+                </div>
+                
+                <!-- Q2 내용 -->
+                <div>
+                    <h4 class="text-lg font-semibold text-deep-navy mb-3">Q2. 필라테스 호두 추천 이유</h4>
+                    <div id="detail-q2" class="bg-gray-50 rounded-lg p-4 text-gray-700 leading-relaxed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 이미지 모달 -->
-    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center">
-        <div class="relative max-w-4xl max-h-full p-4">
-            <button id="image-modal-close" class="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 z-10">
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center" onclick="closeModal('image-modal')">
+        <div class="relative max-w-4xl max-h-full p-4" onclick="event.stopPropagation()">
+            <button id="image-modal-close" class="absolute -top-2 -right-2 w-12 h-12 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-800 text-2xl hover:text-gray-600 transition-all duration-200 z-10 shadow-lg border-2 border-gray-200">
                 <i class="fas fa-times"></i>
             </button>
-            <img id="modal-image" src="" alt="리뷰 이미지" class="max-w-full max-h-full object-contain">
+            <img id="modal-image" src="" alt="리뷰 이미지" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
     </div>
 
@@ -889,7 +937,9 @@
                         "instructor": "김다혜 강사",
                         "rating": 5,
                         "title": "골프 핸디캡이 10타 줄었습니다",
-                        "content": "골프를 10년 넘게 쳐왔지만 실력이 늘지 않아 고민이었는데, 골프 필라테스를 시작하고 나서 완전히 달라졌어요.",
+                        "q1": "골프를 10년 넘게 쳐왔지만 실력이 늘지 않아 고민이었어요. 특히 드라이버 샷이 일정하지 않고 코어 근력 부족으로 라운드 후반에 체력이 떨어져 스코어가 나빠지곤 했습니다.",
+                        "q2": "골프 필라테스를 시작하고 나서 완전히 달라졌어요. 코어 근력이 강해지면서 스윙의 일관성이 생겼고, 특히 드라이버 비거리가 20야드 이상 늘었습니다. 김다혜 강사님이 골프 동작과 필라테스 운동을 연결해서 설명해주셔서 이해가 쏙쏙 들어왔어요.",
+                        "content": "골프 필라테스를 시작하고 나서 완전히 달라졌어요. 코어 근력이 강해지면서 스윙의 일관성이 생겼고, 특히 드라이버 비거리가 20야드 이상 늘었습니다. 김다혜 강사님이 골프 동작과 필라테스 운동을 연결해서 설명해주셔서 이해가 쏙쏙 들어왔어요.",
                         "images": []
                     },
                     {
@@ -900,7 +950,9 @@
                         "instructor": "서이은 강사",
                         "rating": 5,
                         "title": "거북목이 완전히 교정되었어요",
-                        "content": "재택근무를 하면서 거북목과 라운드숄더가 심해져서 목과 어깨가 항상 아팠는데, 마네킹톤 프로그램을 받고 완전히 달라졌어요.",
+                        "q1": "재택근무를 하면서 거북목과 라운드숄더가 심해져서 목과 어깨가 항상 아팠어요. 하루 종일 컴퓨터 앞에 앉아 있다 보니 자세가 점점 나빠졌고, 두통까지 생겼습니다.",
+                        "q2": "마네킹톤 프로그램을 6개월 받고 나서 완전히 달라졌어요. 서이은 강사님께서 제 체형을 정확히 분석해주시고, 매 수업마다 조금씩 달라지는 제 자세를 세심하게 체크해주셨어요. 이제는 하루 종일 컴퓨터 앞에 앉아 있어도 전혀 아프지 않습니다.",
+                        "content": "마네킹톤 프로그램을 6개월 받고 나서 완전히 달라졌어요. 서이은 강사님께서 제 체형을 정확히 분석해주시고, 매 수업마다 조금씩 달라지는 제 자세를 세심하게 체크해주셨어요. 이제는 하루 종일 컴퓨터 앞에 앉아 있어도 전혀 아프지 않습니다.",
                         "images": []
                     },
                     {
@@ -1046,9 +1098,18 @@
         // 리뷰 카드 생성
         function createReviewCard(review) {
             const card = document.createElement('div');
-            card.className = 'review-card bg-white rounded-lg shadow-lg p-6 reveal relative';
+            card.className = 'review-card bg-white rounded-lg shadow-lg p-6 reveal relative cursor-pointer';
             card.setAttribute('data-program', review.program);
             card.setAttribute('data-id', review.id);
+            
+            // 카드 클릭 이벤트 추가 (관리자 버튼 클릭 시는 제외)
+            card.addEventListener('click', function(e) {
+                // 관리자 버튼 클릭 시는 상세 모달 열지 않음
+                if (e.target.closest('.admin-controls')) {
+                    return;
+                }
+                openReviewDetailModal(review.id);
+            });
             
             const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
             
@@ -1096,8 +1157,7 @@
                 <div class="mb-4 w-full">
                     ${review.images && review.images.length > 0 ? `
                         <img src="${review.images[0]}" alt="리뷰 이미지" 
-                             class="w-full h-32 object-cover rounded cursor-pointer hover:opacity-90 transition-opacity" 
-                             onclick="openImageModal('${review.images[0]}')"
+                             class="w-full h-32 object-cover rounded hover:opacity-90 transition-opacity" 
                              style="object-position: center bottom;">
                     ` : `
                         <div class="w-full h-32 rounded flex items-center justify-center" style="background: linear-gradient(135deg, #001F3F 0%, #996515 100%);">
@@ -1305,6 +1365,11 @@
             
             // 이미지 업로드 이벤트
             initializeImageUpload();
+            
+            // 리뷰 상세 모달 이벤트
+            document.getElementById('review-detail-close').addEventListener('click', function() {
+                closeModal('review-detail-modal');
+            });
             
             // 이미지 모달 이벤트
             document.getElementById('image-modal-close').addEventListener('click', function() {
@@ -1621,6 +1686,73 @@
                     createImagePreview(img, i);
                 });
             }
+        }
+        
+        // 리뷰 상세 모달 열기
+        function openReviewDetailModal(reviewId) {
+            const review = reviewsData.find(r => r.id === reviewId);
+            if (!review) return;
+            
+            // 제목 설정
+            document.getElementById('detail-modal-title').textContent = review.title;
+            
+            // 작성자 정보 설정
+            document.getElementById('detail-author-avatar').textContent = review.author.charAt(0);
+            document.getElementById('detail-author-name').textContent = review.author;
+            document.getElementById('detail-author-date').textContent = formatDate(review.date);
+            document.getElementById('detail-program').textContent = review.program;
+            document.getElementById('detail-instructor').textContent = review.instructor;
+            
+            // Q1, Q2 내용 설정 (디버깅 로그 추가)
+            console.log('리뷰 데이터 확인:', review);
+            console.log('Q1 필드:', review.q1);
+            console.log('Q2 필드:', review.q2);
+            console.log('Content 필드:', review.content);
+            
+            // 각 질문에 실제 입력된 내용만 표시
+            const q1Content = review.q1 || '내용없음';
+            const q2Content = review.q2 || '내용없음';
+            
+            console.log('Q1 표시 내용:', q1Content);
+            console.log('Q2 표시 내용:', q2Content);
+            
+            document.getElementById('detail-q1').textContent = q1Content;
+            document.getElementById('detail-q2').textContent = q2Content;
+            
+            // 이미지 갤러리 설정
+            const detailImages = document.getElementById('detail-images');
+            const imageGrid = document.getElementById('detail-image-grid');
+            
+            if (review.images && review.images.length > 0) {
+                detailImages.classList.remove('hidden');
+                imageGrid.innerHTML = '';
+                
+                review.images.forEach(imageSrc => {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.className = 'cursor-pointer relative group';
+                    
+                    // 컨테이너에 클릭 이벤트 추가 (디버깅 로그 포함)
+                    imageDiv.addEventListener('click', function() {
+                        console.log('이미지 클릭됨:', imageSrc);
+                        openImageModal(imageSrc);
+                    });
+                    
+                    imageDiv.innerHTML = `
+                        <img src="${imageSrc}" alt="리뷰 이미지" 
+                             class="w-full h-48 object-cover rounded-lg transition-all duration-300">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 rounded-lg flex items-center justify-center pointer-events-none">
+                            <p class="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
+                                클릭하면 이미지가 확대됩니다
+                            </p>
+                        </div>
+                    `;
+                    imageGrid.appendChild(imageDiv);
+                });
+            } else {
+                detailImages.classList.add('hidden');
+            }
+            
+            openModal('review-detail-modal');
         }
         
         // 이미지 모달 열기
