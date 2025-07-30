@@ -28,6 +28,56 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase SDK 임포트
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        // Firebase 설정 (사용자가 Firebase Console에서 복사한 설정으로 교체 필요)
+        const firebaseConfig = {
+            // 여기에 Firebase Console에서 복사한 설정을 붙여넣으세요
+            apiKey: "AIzaSyAvBW7iRfgWIx5kOs1dbCWA9CieSctkRHE",
+            authDomain: "pilateshodu-website-banpo.firebaseapp.com",
+            projectId: "pilateshodu-website-banpo",
+            storageBucket: "pilateshodu-website-banpo.firebasestorage.app",
+            messagingSenderId: "1020211188034",
+            appId: "1:1020211188034:web:0c07ae0c95a7651a26f8db",
+            measurementId: "G-VRD62XPGNT"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+
+        // 전역 변수로 설정
+        window.db = db;
+        window.auth = auth;
+        window.storage = storage;
+        window.firebaseUtils = {
+            collection,
+            getDocs,
+            addDoc,
+            updateDoc,
+            deleteDoc,
+            doc,
+            serverTimestamp,
+            query,
+            orderBy,
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged,
+            ref,
+            uploadBytes,
+            getDownloadURL,
+            deleteObject
+        };
+    </script>
+    
     <style>
         :root {
             --deep-navy: #001F3F;
@@ -531,8 +581,8 @@
             
             <form id="admin-login-form" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">관리자 ID</label>
-                    <input type="text" id="admin-id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="이메일 주소를 입력해주세요" required>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">관리자 이메일</label>
+                    <input type="email" id="admin-id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="admin@pilateshodu.com" required>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
@@ -573,7 +623,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">날짜 <span class="text-red-500">*</span></label>
-                        <input type="date" id="review-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" required>
+                        <input type="date" id="review-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="날짜를 선택해주세요" required>
                     </div>
                 </div>
                 
@@ -875,42 +925,76 @@
             initializeHeaderSystem();
             initializeScrollAnimations();
             initializeScrollTop();
+            
+            // 전역 함수 노출 (onclick 이벤트에서 사용하기 위해)
+            window.openEditModal = openEditModal;
+            window.openDeleteModal = openDeleteModal;
+            window.removeImage = removeImage;
         });
 
-        // 리뷰 데이터 로드
+        // Firebase에서 리뷰 데이터 로드
         async function loadReviews() {
             try {
-                console.log('리뷰 데이터 로드 시작...');
-                const response = await fetch('./assets/data/reviews.json');
-                console.log('Response status:', response.status, response.statusText);
+                console.log('Firebase에서 리뷰 데이터 로드 시작...');
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                // Firebase가 초기화될 때까지 대기
+                if (!window.db) {
+                    console.log('Firebase 초기화 대기 중...');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                 }
                 
-                const data = await response.json();
-                console.log('로드된 데이터:', data);
+                const { collection, getDocs, query, orderBy } = window.firebaseUtils;
                 
-                reviewsData = data.reviews;
+                // Firestore에서 리뷰 데이터 가져오기 (최신순 정렬)
+                const reviewsQuery = query(
+                    collection(window.db, 'reviews'),
+                    orderBy('createdAt', 'desc')
+                );
+                
+                const querySnapshot = await getDocs(reviewsQuery);
+                
+                reviewsData = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // 사용자가 입력한 날짜가 없는 경우에만 Firestore 타임스탬프를 사용
+                    if (!data.date && data.createdAt) {
+                        data.date = data.createdAt.toDate().toISOString().split('T')[0];
+                    }
+                    reviewsData.push({
+                        id: doc.id,
+                        ...data
+                    });
+                });
+                
                 filteredReviews = reviewsData;
                 
-                console.log('리뷰 개수:', reviewsData.length);
+                console.log('Firebase에서 로드된 리뷰 개수:', reviewsData.length);
                 
                 // 통계 업데이트
-                updateStatistics(data.statistics);
+                updateStatistics({
+                    total_reviews: reviewsData.length,
+                    average_rating: calculateAverageRating()
+                });
                 
                 // 초기 리뷰 표시
                 displayReviews();
                 
-                console.log('리뷰 로드 완료');
+                console.log('Firebase 리뷰 로드 완료');
             } catch (error) {
-                console.error('리뷰 데이터를 불러오는 중 오류 발생:', error);
+                console.error('Firebase 리뷰 데이터를 불러오는 중 오류 발생:', error);
                 console.error('Error details:', error.message);
                 
-                // 파일 로드 실패 시 테스트 데이터로 대체
+                // Firebase 로드 실패 시 테스트 데이터로 대체
                 console.log('테스트 데이터로 대체합니다...');
                 loadTestData();
             }
+        }
+        
+        // 평균 평점 계산
+        function calculateAverageRating() {
+            if (reviewsData.length === 0) return 0;
+            const totalRating = reviewsData.reduce((sum, review) => sum + (review.rating || 5), 0);
+            return (totalRating / reviewsData.length).toFixed(1);
         }
         
         // 테스트 데이터 로드 (파일 로드 실패 시 사용)
@@ -1093,6 +1177,10 @@
             // 스크롤 애니메이션 적용
             setTimeout(() => {
                 initializeScrollAnimations();
+                // 관리자 버튼 이벤트 리스너 추가
+                if (isAdmin) {
+                    attachAdminButtonListeners();
+                }
             }, 100);
         }
 
@@ -1117,10 +1205,10 @@
             // 관리자 버튼 HTML
             const adminButtons = isAdmin ? `
                 <div class="admin-controls">
-                    <button class="admin-btn-edit" onclick="openEditModal(${review.id})">
+                    <button class="admin-btn-edit" data-review-id="${review.id}">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="admin-btn-delete" onclick="openDeleteModal(${review.id})">
+                    <button class="admin-btn-delete" data-review-id="${review.id}">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -1387,14 +1475,23 @@
             });
         }
         
-        // 관리자 로그인 처리
-        function handleAdminLogin() {
-            const id = document.getElementById('admin-id').value;
+        // Firebase Authentication을 사용한 관리자 로그인 처리
+        async function handleAdminLogin() {
+            const email = document.getElementById('admin-id').value;
             const password = document.getElementById('admin-password').value;
             
-            if (id === ADMIN_CREDENTIALS.id && password === ADMIN_CREDENTIALS.password) {
+            try {
+                const { signInWithEmailAndPassword } = window.firebaseUtils;
+                
+                // Firebase Authentication으로 로그인
+                const userCredential = await signInWithEmailAndPassword(window.auth, email, password);
+                const user = userCredential.user;
+                
+                console.log('Firebase 로그인 성공:', user.email);
+                
                 isAdmin = true;
                 sessionStorage.setItem('isAdmin', 'true');
+                sessionStorage.setItem('adminUid', user.uid);
                 updateAdminUI();
                 closeModal('admin-login-modal');
                 
@@ -1406,15 +1503,43 @@
                 
                 // 리뷰 카드 다시 렌더링 (관리자 버튼 표시)
                 displayReviews();
-            } else {
-                showToast('잘못된 관리자 정보입니다', 'error');
+                
+            } catch (error) {
+                console.error('Firebase 로그인 실패:', error);
+                
+                // Firebase 로그인 실패 시 기존 방식으로 폴백
+                const id = email.split('@')[0]; // 이메일에서 ID 부분 추출
+                if (id === ADMIN_CREDENTIALS.id && password === ADMIN_CREDENTIALS.password) {
+                    isAdmin = true;
+                    sessionStorage.setItem('isAdmin', 'true');
+                    updateAdminUI();
+                    closeModal('admin-login-modal');
+                    document.getElementById('admin-login-form').reset();
+                    showToast('관리자로 로그인했습니다 (로컬 모드)', 'success');
+                    displayReviews();
+                } else {
+                    showToast('잘못된 관리자 정보입니다', 'error');
+                }
             }
         }
         
-        // 관리자 로그아웃
-        function adminLogout() {
+        // Firebase Authentication을 사용한 관리자 로그아웃
+        async function adminLogout() {
+            try {
+                const { signOut } = window.firebaseUtils;
+                
+                // Firebase Authentication 로그아웃
+                await signOut(window.auth);
+                console.log('Firebase 로그아웃 성공');
+                
+            } catch (error) {
+                console.error('Firebase 로그아웃 실패:', error);
+            }
+            
+            // 로컬 상태 정리
             isAdmin = false;
             sessionStorage.removeItem('isAdmin');
+            sessionStorage.removeItem('adminUid');
             updateAdminUI();
             showToast('로그아웃되었습니다', 'success');
             
@@ -1443,9 +1568,8 @@
             document.getElementById('review-id').value = '';
             document.getElementById('review-form').reset();
             
-            // 오늘 날짜로 설정
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('review-date').value = today;
+            // 날짜 필드 초기화 (사용자가 직접 입력 가능)
+            document.getElementById('review-date').value = '';
             
             // 별점 초기화
             resetRating();
@@ -1509,54 +1633,125 @@
             openModal('delete-confirm-modal');
         }
         
-        // 리뷰 저장/수정 처리
-        function handleReviewSubmit() {
-            const formData = new FormData(document.getElementById('review-form'));
-            const reviewId = document.getElementById('review-id').value;
-            
-            const reviewData = {
-                id: reviewId ? parseInt(reviewId) : getNextReviewId(),
-                author: document.getElementById('review-author').value,
-                date: document.getElementById('review-date').value,
-                program: document.getElementById('review-program').value,
-                instructor: document.getElementById('review-instructor').value,
-                rating: parseInt(document.getElementById('review-rating').value),
-                title: document.getElementById('review-title').value,
-                q1: document.getElementById('review-q1').value,
-                q2: document.getElementById('review-q2').value,
-                content: document.getElementById('review-q2').value, // 기존 호환성을 위해 Q2를 content로도 저장
-                images: [...uploadedImages] // 업로드된 이미지들 포함
-            };
-            
-            if (reviewId) {
-                // 수정
-                const index = reviewsData.findIndex(r => r.id === parseInt(reviewId));
-                if (index !== -1) {
-                    reviewsData[index] = reviewData;
+        // Firebase를 사용한 리뷰 저장/수정 처리
+        async function handleReviewSubmit() {
+            try {
+                const reviewId = document.getElementById('review-id').value;
+                
+                // 이미지 업로드 처리
+                const imageUrls = await uploadImagesToFirebase();
+                
+                const reviewData = {
+                    author: document.getElementById('review-author').value,
+                    date: document.getElementById('review-date').value,
+                    program: document.getElementById('review-program').value,
+                    instructor: document.getElementById('review-instructor').value,
+                    rating: parseInt(document.getElementById('review-rating').value),
+                    title: document.getElementById('review-title').value,
+                    q1: document.getElementById('review-q1').value,
+                    q2: document.getElementById('review-q2').value,
+                    content: document.getElementById('review-q2').value, // 기존 호환성
+                    images: imageUrls,
+                    status: 'published'
+                };
+                
+                const { addDoc, updateDoc, doc, serverTimestamp, collection } = window.firebaseUtils;
+                
+                if (reviewId) {
+                    // 수정
+                    reviewData.updatedAt = serverTimestamp();
+                    const reviewRef = doc(window.db, 'reviews', reviewId);
+                    await updateDoc(reviewRef, reviewData);
+                    
                     showToast('리뷰가 수정되었습니다', 'success');
+                } else {
+                    // 새 리뷰 추가
+                    reviewData.createdAt = serverTimestamp();
+                    reviewData.updatedAt = serverTimestamp();
+                    
+                    await addDoc(collection(window.db, 'reviews'), reviewData);
+                    
+                    showToast('새 리뷰가 추가되었습니다', 'success');
                 }
-            } else {
-                // 새 리뷰 추가
-                reviewsData.unshift(reviewData); // 맨 앞에 추가
-                showToast('새 리뷰가 추가되었습니다', 'success');
+                
+                // 리뷰 목록 새로고침
+                await loadReviews();
+                closeModal('review-modal');
+                
+            } catch (error) {
+                console.error('리뷰 저장 실패:', error);
+                showToast('리뷰 저장 중 오류가 발생했습니다', 'error');
             }
-            
-            // 필터 재적용 및 화면 업데이트
-            applyFilters();
-            closeModal('review-modal');
         }
         
-        // 리뷰 삭제 처리
-        function handleReviewDelete() {
+        // Firebase Storage에 이미지 업로드
+        async function uploadImagesToFirebase() {
+            if (!uploadedImages || uploadedImages.length === 0) {
+                return [];
+            }
+            
+            const { ref, uploadBytes, getDownloadURL } = window.firebaseUtils;
+            const imageUrls = [];
+            
+            for (let i = 0; i < uploadedImages.length; i++) {
+                try {
+                    const imageData = uploadedImages[i];
+                    
+                    // Firebase URL인 경우 그대로 사용 (기존 이미지 유지)
+                    if (imageData.startsWith('https://firebasestorage.googleapis.com/')) {
+                        imageUrls.push(imageData);
+                        console.log('기존 Firebase 이미지 유지:', imageData);
+                        continue;
+                    }
+                    
+                    // Base64 데이터인 경우에만 새로 업로드
+                    if (imageData.startsWith('data:image/')) {
+                        const response = await fetch(imageData);
+                        const blob = await response.blob();
+                        
+                        // 고유한 파일명 생성
+                        const fileName = `reviews/${Date.now()}_${i}.jpg`;
+                        const storageRef = ref(window.storage, fileName);
+                        
+                        // Firebase Storage에 업로드
+                        const snapshot = await uploadBytes(storageRef, blob);
+                        const downloadURL = await getDownloadURL(snapshot.ref);
+                        
+                        imageUrls.push(downloadURL);
+                        console.log('새 이미지 업로드 완료:', downloadURL);
+                    } else {
+                        // 기타 URL 형태도 그대로 유지 (로컬 이미지 등)
+                        imageUrls.push(imageData);
+                        console.log('기타 이미지 URL 유지:', imageData);
+                    }
+                } catch (error) {
+                    console.error('이미지 처리 실패:', error);
+                    // 에러가 발생해도 다른 이미지는 계속 처리
+                }
+            }
+            
+            return imageUrls;
+        }
+        
+        // Firebase를 사용한 리뷰 삭제 처리
+        async function handleReviewDelete() {
             if (!currentDeletingReviewId) return;
             
-            const index = reviewsData.findIndex(r => r.id === currentDeletingReviewId);
-            if (index !== -1) {
-                reviewsData.splice(index, 1);
+            try {
+                const { deleteDoc, doc } = window.firebaseUtils;
+                
+                // Firebase에서 리뷰 삭제
+                const reviewRef = doc(window.db, 'reviews', currentDeletingReviewId);
+                await deleteDoc(reviewRef);
+                
                 showToast('리뷰가 삭제되었습니다', 'success');
                 
-                // 필터 재적용 및 화면 업데이트
-                applyFilters();
+                // 리뷰 목록 새로고침
+                await loadReviews();
+                
+            } catch (error) {
+                console.error('리뷰 삭제 실패:', error);
+                showToast('리뷰 삭제 중 오류가 발생했습니다', 'error');
             }
             
             currentDeletingReviewId = null;
@@ -1621,6 +1816,29 @@
         // 별점 초기화
         function resetRating() {
             setRating(0);
+        }
+        
+        // 관리자 버튼 이벤트 리스너 추가
+        function attachAdminButtonListeners() {
+            // 수정 버튼 이벤트 리스너
+            const editButtons = document.querySelectorAll('.admin-btn-edit');
+            editButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+                    const reviewId = this.getAttribute('data-review-id');
+                    openEditModal(reviewId);
+                });
+            });
+            
+            // 삭제 버튼 이벤트 리스너
+            const deleteButtons = document.querySelectorAll('.admin-btn-delete');
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+                    const reviewId = this.getAttribute('data-review-id');
+                    openDeleteModal(reviewId);
+                });
+            });
         }
         
         // 이미지 업로드 시스템 초기화
