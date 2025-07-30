@@ -2385,15 +2385,13 @@
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
             
-            // 리뷰 상세 모달인 경우 스크롤을 최상단으로 이동 (모바일 최적화)
+            // 리뷰 상세 모달인 경우 모달 내부 스크롤만 최상단으로 이동 (모바일 최적화)
             if (modalId === 'review-detail-modal') {
                 setTimeout(() => {
                     const modalContent = modal.querySelector('.modal-content');
                     if (modalContent) {
                         modalContent.scrollTop = 0;
                     }
-                    // 전체 페이지 스크롤도 최상단으로 (모바일에서 중요)
-                    window.scrollTo(0, 0);
                 }, 50);
             }
         }
