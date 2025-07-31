@@ -1177,11 +1177,90 @@
         let currentDeletingReviewId = null;
         let uploadedImages = []; // 업로드된 이미지들을 임시 저장
         
+        // 데이터 캐싱 시스템
+        const CACHE = {
+            reviews: null,
+            lastUpdated: null,
+            maxAge: 5 * 60 * 1000, // 5분 캐시
+            
+            // 캐시 유효성 검사
+            isValid() {
+                if (!this.reviews || !this.lastUpdated) return false;
+                return (Date.now() - this.lastUpdated) < this.maxAge;
+            },
+            
+            // 캐시 저장
+            set(data) {
+                this.reviews = data;
+                this.lastUpdated = Date.now();
+                
+                // 로컬 스토리지에도 백업 저장 (오프라인 지원)
+                try {
+                    localStorage.setItem('pilates_reviews_cache', JSON.stringify({
+                        reviews: data,
+                        lastUpdated: this.lastUpdated
+                    }));
+                } catch (e) {
+                    console.warn('로컬 스토리지 저장 실패:', e);
+                }
+            },
+            
+            // 캐시 가져오기
+            get() {
+                return this.reviews;
+            },
+            
+            // 로컬 스토리지에서 복원
+            loadFromStorage() {
+                try {
+                    const cached = localStorage.getItem('pilates_reviews_cache');
+                    if (cached) {
+                        const data = JSON.parse(cached);
+                        // 1시간 이내 데이터만 사용
+                        if (Date.now() - data.lastUpdated < 60 * 60 * 1000) {
+                            this.reviews = data.reviews;
+                            this.lastUpdated = data.lastUpdated;
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('캐시 복원 실패:', e);
+                }
+                return false;
+            },
+            
+            // 캐시 초기화
+            clear() {
+                this.reviews = null;
+                this.lastUpdated = null;
+                localStorage.removeItem('pilates_reviews_cache');
+            }
+        };
+
         // 관리자 인증 정보 (실제 운영 시에는 보안을 강화해야 함)
         const ADMIN_CREDENTIALS = {
             id: 'admin',
             password: 'pilates2024'
         };
+
+        // 네트워크 상태 모니터링
+        function initializeNetworkMonitoring() {
+            // 온라인 상태 복구 시 자동 새로고침
+            window.addEventListener('online', function() {
+                console.log('네트워크 연결 복구됨');
+                showToast('네트워크가 복구되었습니다. 데이터를 새로고침합니다.', 'success', 3000);
+                CACHE.clear();
+                setTimeout(() => {
+                    loadReviews(0, true);
+                }, 1000);
+            });
+            
+            // 오프라인 상태 알림
+            window.addEventListener('offline', function() {
+                console.log('네트워크 연결 끊어짐');
+                showToast('네트워크 연결이 끊어졌습니다. 캐시된 데이터를 사용합니다.', 'warning', 4000);
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             // 리뷰 시스템 초기화
@@ -1192,6 +1271,9 @@
             
             // 관리자 시스템 초기화
             initializeAdminSystem();
+            
+            // 네트워크 모니터링 초기화
+            initializeNetworkMonitoring();
             
             // 전체 시스템 초기화
             initializeHeaderSystem();
@@ -1219,16 +1301,71 @@
         });
 
 
-        // Firebase에서 리뷰 데이터 로드
-        async function loadReviews() {
-            try {
-                console.log('Firebase에서 리뷰 데이터 로드 시작...');
-                
-                // Firebase가 초기화될 때까지 대기
-                if (!window.db) {
-                    console.log('Firebase 초기화 대기 중...');
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+        // 로딩 스피너 제어 함수들
+        function showLoading() {
+            const loadingElement = document.getElementById('loading');
+            const reviewsContainer = document.getElementById('reviews-container');
+            if (loadingElement) {
+                loadingElement.classList.remove('hidden');
+                loadingElement.classList.add('flex');
+            }
+            if (reviewsContainer) {
+                reviewsContainer.style.opacity = '0.5';
+            }
+        }
+
+        function hideLoading() {
+            const loadingElement = document.getElementById('loading');
+            const reviewsContainer = document.getElementById('reviews-container');
+            if (loadingElement) {
+                loadingElement.classList.add('hidden');
+                loadingElement.classList.remove('flex');
+            }
+            if (reviewsContainer) {
+                reviewsContainer.style.opacity = '1';
+            }
+        }
+
+        // Firebase 연결 상태 확인 함수 (개선된 버전)
+        async function waitForFirebaseInit(maxAttempts = 10, delayMs = 500) {
+            for (let attempt = 0; attempt < maxAttempts; attempt++) {
+                if (window.db && window.firebaseUtils) {
+                    console.log(`Firebase 초기화 완료 (${attempt + 1}번째 시도)`);
+                    return true;
                 }
+                console.log(`Firebase 초기화 대기 중... (${attempt + 1}/${maxAttempts})`);
+                await new Promise(resolve => setTimeout(resolve, delayMs));
+            }
+            throw new Error('Firebase 초기화 시간 초과');
+        }
+
+        // Firebase에서 리뷰 데이터 로드 (캐싱 최적화 버전)
+        async function loadReviews(retryCount = 0, forceRefresh = false) {
+            const maxRetries = 3;
+            
+            try {
+                console.log('리뷰 데이터 로드 시작...');
+                
+                // 캐시 확인 (강제 새로고침이 아닌 경우)
+                if (!forceRefresh && CACHE.isValid()) {
+                    console.log('캐시된 데이터 사용');
+                    reviewsData = CACHE.get();
+                    filteredReviews = reviewsData;
+                    
+                    // 통계 업데이트
+                    updateStatistics({
+                        total_reviews: reviewsData.length,
+                        average_rating: calculateAverageRating()
+                    });
+                    
+                    displayReviews();
+                    return;
+                }
+                
+                showLoading();
+                
+                // Firebase 초기화 대기 (개선된 버전)
+                await waitForFirebaseInit();
                 
                 const { collection, getDocs, query, orderBy } = window.firebaseUtils;
                 
@@ -1255,6 +1392,9 @@
                 
                 filteredReviews = reviewsData;
                 
+                // 캐시에 데이터 저장
+                CACHE.set(reviewsData);
+                
                 console.log('Firebase에서 로드된 리뷰 개수:', reviewsData.length);
                 
                 // 통계 업데이트
@@ -1265,15 +1405,51 @@
                 
                 // 초기 리뷰 표시
                 displayReviews();
+                hideLoading();
                 
-                console.log('Firebase 리뷰 로드 완료');
+                console.log('Firebase 리뷰 로드 및 캐싱 완료');
+                
             } catch (error) {
                 console.error('Firebase 리뷰 데이터를 불러오는 중 오류 발생:', error);
                 console.error('Error details:', error.message);
                 
-                // Firebase 로드 실패 시 테스트 데이터로 대체
-                console.log('테스트 데이터로 대체합니다...');
-                loadTestData();
+                // 재시도 로직
+                if (retryCount < maxRetries) {
+                    console.log(`재시도 중... (${retryCount + 1}/${maxRetries})`);
+                    setTimeout(() => {
+                        loadReviews(retryCount + 1);
+                    }, 2000 * (retryCount + 1)); // 지수 백오프
+                    return;
+                }
+                
+                // 최대 재시도 후에도 실패 시 로컬 캐시 시도
+                console.log('최대 재시도 횟수 초과. 로컬 캐시 확인 중...');
+                
+                if (CACHE.loadFromStorage()) {
+                    console.log('로컬 스토리지에서 캐시 복원 성공');
+                    reviewsData = CACHE.get();
+                    filteredReviews = reviewsData;
+                    
+                    // 통계 업데이트
+                    updateStatistics({
+                        total_reviews: reviewsData.length,
+                        average_rating: calculateAverageRating()
+                    });
+                    
+                    displayReviews();
+                    hideLoading();
+                    
+                    // 사용자에게 오프라인 모드 알림
+                    showToast('오프라인 모드: 저장된 데이터를 표시합니다.', 'info', 5000);
+                } else {
+                    // 캐시도 없으면 테스트 데이터로 대체
+                    console.log('캐시 없음. 테스트 데이터로 대체합니다...');
+                    hideLoading();
+                    loadTestData();
+                    
+                    // 사용자에게 오프라인 모드 알림
+                    showToast('네트워크 연결을 확인해주세요. 샘플 데이터를 표시합니다.', 'warning', 5000);
+                }
             }
         }
         
@@ -1615,16 +1791,51 @@
             updatePagination();
         }
 
-        // 검색 시스템 초기화
+        // 검색 시스템 초기화 (개선된 버전)
         function initializeSearchSystem() {
             const searchInput = document.getElementById('search-input');
             let searchTimeout;
+            let previousSearchTerm = '';
             
-            searchInput.addEventListener('input', function() {
+            // 검색 입력 최적화
+            searchInput.addEventListener('input', function(e) {
+                const currentTerm = e.target.value.toLowerCase().trim();
+                
+                // 동일한 검색어 반복 입력 방지
+                if (currentTerm === previousSearchTerm) {
+                    return;
+                }
+                
+                // 로딩 표시 (검색 중)
+                const reviewsContainer = document.getElementById('reviews-container');
+                if (reviewsContainer) {
+                    reviewsContainer.style.opacity = '0.7';
+                }
+                
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
                     applyFilters();
+                    previousSearchTerm = currentTerm;
+                    
+                    // 검색 완료 후 opacity 복원
+                    if (reviewsContainer) {
+                        reviewsContainer.style.opacity = '1';
+                    }
                 }, 300); // 300ms 디바운스
+            });
+            
+            // Enter 키 즉시 검색
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    clearTimeout(searchTimeout);
+                    applyFilters();
+                    e.preventDefault();
+                }
+            });
+            
+            // 검색창 포커스 시 전체 선택
+            searchInput.addEventListener('focus', function() {
+                this.select();
             });
         }
         
@@ -2050,9 +2261,10 @@
                 // 모달 먼저 닫기 (사용자 경험 개선)
                 closeModal('review-modal');
                 
-                // 백그라운드에서 데이터 새로고침 (논블로킹)
+                // 캐시 무효화 후 백그라운드에서 데이터 새로고침 (논블로킹)
+                CACHE.clear();
                 setTimeout(() => {
-                    loadReviews();
+                    loadReviews(0, true); // 강제 새로고침
                 }, 100);
                 
             } catch (error) {
@@ -2134,8 +2346,9 @@
                 
                 showToast('리뷰가 삭제되었습니다', 'success');
                 
-                // 리뷰 목록 새로고침
-                await loadReviews();
+                // 캐시 무효화 후 리뷰 목록 새로고침
+                CACHE.clear();
+                await loadReviews(0, true); // 강제 새로고침
                 
             } catch (error) {
                 console.error('리뷰 삭제 실패:', error);
