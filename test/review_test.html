@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객후기 | PILATES HODU - 필라테스 호두 강남본점</title>
+    
+    <!-- 스크롤 복원 정책 설정 -->
+    <script>
+        // 브라우저 스크롤 복원 비활성화
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    </script>
     <meta name="description" content="필라테스 호두 강남본점 고객들의 진솔한 후기를 확인하세요. 메디컬필라테스를 통한 건강 개선 경험을 공유합니다.">
     <meta name="keywords" content="필라테스후기, 메디컬필라테스후기, 고객후기, 재활후기, 체형교정후기, 필라테스호두, 강남필라테스">
 
@@ -17,7 +25,13 @@
     <meta property="og:description" content="필라테스 호두 강남본점 고객들의 진솔한 후기를 확인하세요. 메디컬필라테스를 통한 건강 개선 경험을 공유합니다.">
     <meta property="og:type" content="website">
     
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN (개발용) -->
+    <script>
+        // 프로덕션 환경에서는 경고 억제
+        if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+            console.warn('⚠️ Tailwind CSS CDN은 개발용입니다. 프로덕션에서는 빌드된 CSS 파일을 사용하세요.');
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
        
     <!-- Google Fonts: Inter, Manrope, Noto Sans KR -->
@@ -48,34 +62,65 @@
             measurementId: "G-VRD62XPGNT"
         };
 
-        // Firebase 초기화
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const storage = getStorage(app);
+        // Firebase 초기화 (안정성 향상)
+        let firebaseInitialized = false;
+        
+        try {
+            if (window.location.hostname === 'localhost') {
+                console.log('Firebase 초기화 시작...');
+            }
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            const auth = getAuth(app);
+            const storage = getStorage(app);
 
-        // 전역 변수로 설정
-        window.db = db;
-        window.auth = auth;
-        window.storage = storage;
-        window.firebaseUtils = {
-            collection,
-            getDocs,
-            addDoc,
-            updateDoc,
-            deleteDoc,
-            doc,
-            serverTimestamp,
-            query,
-            orderBy,
-            signInWithEmailAndPassword,
-            signOut,
-            onAuthStateChanged,
-            ref,
-            uploadBytes,
-            getDownloadURL,
-            deleteObject
-        };
+            // 전역 변수로 설정
+            window.db = db;
+            window.auth = auth;
+            window.storage = storage;
+            window.firebaseUtils = {
+                collection,
+                getDocs,
+                addDoc,
+                updateDoc,
+                deleteDoc,
+                doc,
+                serverTimestamp,
+                query,
+                orderBy,
+                signInWithEmailAndPassword,
+                signOut,
+                onAuthStateChanged,
+                ref,
+                uploadBytes,
+                getDownloadURL,
+                deleteObject
+            };
+            
+            firebaseInitialized = true;
+            if (window.location.hostname === 'localhost') {
+                console.log('Firebase 초기화 성공');
+            }
+            
+            // 초기화 완료 이벤트 발생
+            window.dispatchEvent(new CustomEvent('firebaseReady'));
+            
+        } catch (error) {
+            console.error('Firebase 초기화 실패:', error);
+            console.error('에러 상세:', error.message);
+            console.error('Firebase Config:', firebaseConfig);
+            firebaseInitialized = false;
+            
+            // Firebase 초기화 실패 시에도 기본 기능은 동작하도록 설정
+            window.isFirebaseReady = () => false;
+            window.firebaseUtils = null;
+            
+            // 초기화 실패 이벤트 발생
+            window.dispatchEvent(new CustomEvent('firebaseInitError', { detail: error }));
+        }
+        
+        // Firebase 초기화 상태 확인 함수
+        window.isFirebaseReady = () => firebaseInitialized;
     </script>
     
     <style>
@@ -738,10 +783,26 @@
                     <!-- 리뷰 카드들이 JavaScript로 동적 생성됩니다 -->
                 </div>
                 
-                <!-- 로딩 스피너 -->
-                <div id="loading" class="text-center py-12 hidden">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-deep-navy mx-auto mb-4"></div>
-                    <p class="text-deep-navy font-medium">리뷰를 불러오는 중...</p>
+                <!-- 개선된 로딩 메시지 -->
+                <div id="loading-message" class="text-center py-12 hidden">
+                    <div class="flex flex-col items-center justify-center">
+                        <!-- 로딩 스피너 -->
+                        <div class="relative mb-6">
+                            <div class="animate-spin rounded-full h-12 w-12 border-4 border-warm-beige border-t-deep-navy"></div>
+                            <div class="absolute inset-0 rounded-full h-12 w-12 border-4 border-transparent border-r-golden-brown animate-spin" style="animation-duration: 1.5s; animation-direction: reverse;"></div>
+                        </div>
+                        
+                        <!-- 로딩 텍스트 -->
+                        <div class="space-y-2">
+                            <p class="text-deep-navy text-lg font-medium">리뷰를 불러오는 중...</p>
+                            <p class="text-charcoal-gray text-sm opacity-70">Firebase에서 최신 데이터를 가져오고 있습니다.</p>
+                        </div>
+                        
+                        <!-- 프로그레스 바 -->
+                        <div class="w-64 bg-warm-beige rounded-full h-1 mt-4 overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-deep-navy to-golden-brown animate-pulse"></div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- 검색 결과 없음 메시지 -->
@@ -1177,22 +1238,33 @@
         let currentDeletingReviewId = null;
         let uploadedImages = []; // 업로드된 이미지들을 임시 저장
         
-        // 데이터 캐싱 시스템
+        // 데이터 캐싱 시스템 (단순화)
         const CACHE = {
             reviews: null,
             lastUpdated: null,
-            maxAge: 5 * 60 * 1000, // 5분 캐시
+            maxAge: 3 * 60 * 1000, // 3분 캐시 (단축)
             
             // 캐시 유효성 검사
             isValid() {
-                if (!this.reviews || !this.lastUpdated) return false;
-                return (Date.now() - this.lastUpdated) < this.maxAge;
+                if (!this.reviews || !this.lastUpdated) {
+                    console.log('캐시 무효: 데이터 또는 타임스탬프 없음');
+                    return false;
+                }
+                const isValid = (Date.now() - this.lastUpdated) < this.maxAge;
+                console.log(`캐시 유효성: ${isValid ? '유효' : '만료'} (${Math.floor((Date.now() - this.lastUpdated) / 1000)}초 경과)`);
+                return isValid;
             },
             
             // 캐시 저장
             set(data) {
+                if (!data || !Array.isArray(data)) {
+                    console.warn('유효하지 않은 데이터로 캐시 저장 시도');
+                    return;
+                }
+                
                 this.reviews = data;
                 this.lastUpdated = Date.now();
+                console.log(`캐시 저장 완료: ${data.length}개 리뷰`);
                 
                 // 로컬 스토리지에도 백업 저장 (오프라인 지원)
                 try {
@@ -1200,6 +1272,7 @@
                         reviews: data,
                         lastUpdated: this.lastUpdated
                     }));
+                    console.log('로컬 스토리지 백업 완료');
                 } catch (e) {
                     console.warn('로컬 스토리지 저장 실패:', e);
                 }
@@ -1217,11 +1290,17 @@
                     if (cached) {
                         const data = JSON.parse(cached);
                         // 1시간 이내 데이터만 사용
-                        if (Date.now() - data.lastUpdated < 60 * 60 * 1000) {
+                        const age = Date.now() - data.lastUpdated;
+                        if (age < 60 * 60 * 1000) {
                             this.reviews = data.reviews;
                             this.lastUpdated = data.lastUpdated;
+                            console.log(`로컬 스토리지에서 캐시 복원: ${data.reviews.length}개 리뷰 (${Math.floor(age / 1000)}초 전)`);
                             return true;
+                        } else {
+                            console.log('로컬 스토리지 캐시 만료됨');
                         }
+                    } else {
+                        console.log('로컬 스토리지에 캐시 없음');
                     }
                 } catch (e) {
                     console.warn('캐시 복원 실패:', e);
@@ -1231,9 +1310,14 @@
             
             // 캐시 초기화
             clear() {
+                console.log('캐시 초기화');
                 this.reviews = null;
                 this.lastUpdated = null;
-                localStorage.removeItem('pilates_reviews_cache');
+                try {
+                    localStorage.removeItem('pilates_reviews_cache');
+                } catch (e) {
+                    console.warn('로컬 스토리지 삭제 실패:', e);
+                }
             }
         };
 
@@ -1251,7 +1335,7 @@
                 showToast('네트워크가 복구되었습니다. 데이터를 새로고침합니다.', 'success', 3000);
                 CACHE.clear();
                 setTimeout(() => {
-                    loadReviews(0, true);
+                    loadReviews(true); // 강제 새로고침
                 }, 1000);
             });
             
@@ -1262,9 +1346,37 @@
             });
         }
 
+        // 페이지 로드 시 최적 스크롤 위치 설정
+        function setOptimalScrollPosition() {
+            // URL에 특정 해시나 쿼리가 없는 경우 검색 섹션으로 스크롤
+            if (!window.location.hash && !window.location.search.includes('scroll=')) {
+                setTimeout(() => {
+                    const searchSection = document.querySelector('.py-6.bg-warm-beige');
+                    if (searchSection) {
+                        // 디바이스별 헤더 높이 조정
+                        const isMobile = window.innerWidth < 768;
+                        const headerHeight = isMobile ? 70 : 80;
+                        const extraPadding = isMobile ? 10 : 20;
+                        
+                        const targetPosition = searchSection.offsetTop - headerHeight - extraPadding;
+                        
+                        window.scrollTo({
+                            top: Math.max(0, targetPosition),
+                            behavior: 'smooth'
+                        });
+                        
+                        console.log(`페이지 로드 완료 - 최적 위치로 스크롤 (${isMobile ? '모바일' : '데스크톱'})`);
+                    }
+                }, 150); // 약간 더 긴 지연시간으로 안정성 향상
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // 리뷰 시스템 초기화
-            loadReviews();
+            // 초기 스크롤 위치를 맨 위로 설정 (브라우저 복원 방지)
+            window.scrollTo(0, 0);
+            
+            // 리뷰 시스템 초기화 (로딩 표시 간소화)
+            loadReviews(false); // 캐시 우선 사용
             initializeFilterButtons();
             initializeSearchSystem();
             initializePagination();
@@ -1285,107 +1397,307 @@
             window.openDeleteModal = openDeleteModal;
             window.removeImage = removeImage;
             
-            // 링크 처리 함수 테스트
-            console.log('=== 링크 처리 함수 테스트 ===');
-            console.log('processTextLinks 함수 존재 여부:', typeof processTextLinks);
-            console.log('window.processTextLinks 존재 여부:', typeof window.processTextLinks);
+            // 디버깅용 전역 함수들
+            window.debugReviews = {
+                checkFirebase: () => {
+                    console.log('Firebase 상태:', {
+                        initialized: window.isFirebaseReady(),
+                        db: !!window.db,
+                        firebaseUtils: !!window.firebaseUtils
+                    });
+                },
+                checkCache: () => {
+                    console.log('캐시 상태:', {
+                        hasData: !!CACHE.reviews,
+                        dataCount: CACHE.reviews ? CACHE.reviews.length : 0,
+                        lastUpdated: CACHE.lastUpdated ? new Date(CACHE.lastUpdated).toLocaleString() : 'none',
+                        isValid: CACHE.isValid()
+                    });
+                },
+                forceReload: () => {
+                    console.log('강제 새로고침 실행...');
+                    CACHE.clear();
+                    loadReviews(true);
+                },
+                showEmptyState: () => {
+                    console.log('빈 상태 표시...');
+                    showEmptyState();
+                },
+                debugReviews: () => {
+                    console.log('=== 리뷰 디버그 정보 ===');
+                    console.log('reviewsData:', reviewsData);
+                    console.log('filteredReviews:', filteredReviews);
+                    console.log('reviewsData 길이:', reviewsData.length);
+                    console.log('filteredReviews 길이:', filteredReviews.length);
+                    console.log('현재 페이지:', currentPage);
+                    console.log('현재 필터:', currentFilter);
+                    const container = document.getElementById('reviews-container');
+                    console.log('컨테이너 존재:', !!container);
+                    console.log('컨테이너 자식 수:', container ? container.children.length : 'N/A');
+                    console.log('loading-message 상태:', document.getElementById('loading-message').classList.contains('hidden') ? '숨김' : '표시');
+                },
+                testLoading: () => {
+                    console.log('로딩 화면 테스트...');
+                    showLoading();
+                    setTimeout(() => {
+                        hideLoading();
+                        console.log('로딩 화면 테스트 완료');
+                    }, 1000); // 1초로 단축
+                },
+                testFirebase: async () => {
+                    console.log('=== Firebase 연결 테스트 시작 ===');
+                    
+                    // 1. 기본 연결 상태
+                    console.log('1. Firebase 초기화 상태:', window.isFirebaseReady());
+                    console.log('2. firebaseUtils 존재:', !!window.firebaseUtils);
+                    console.log('3. Firestore DB 객체:', !!window.db);
+                    
+                    // 2. Firebase 프로젝트 정보
+                    if (window.db?.app?.options) {
+                        console.log('4. 프로젝트 ID:', window.db.app.options.projectId);
+                        console.log('5. Auth Domain:', window.db.app.options.authDomain);
+                    }
+                    
+                    // 3. Firestore 연결 테스트
+                    if (window.isFirebaseReady() && window.firebaseUtils) {
+                        try {
+                            console.log('6. Firestore 연결 테스트 중...');
+                            const { collection, getDocs } = window.firebaseUtils;
+                            
+                            // reviews 컬렉션 접근 시도
+                            const testQuery = collection(window.db, 'reviews');
+                            const testSnapshot = await getDocs(testQuery);
+                            
+                            console.log('7. ✅ Firestore 연결 성공!');
+                            console.log('8. 컬렉션 문서 수:', testSnapshot.size);
+                            
+                            if (testSnapshot.empty) {
+                                console.warn('⚠️ reviews 컬렉션이 비어있습니다.');
+                                console.log('Firebase Console에서 reviews 컬렉션에 테스트 문서를 추가해주세요.');
+                            } else {
+                                console.log('9. 첫 번째 문서 ID:', testSnapshot.docs[0]?.id);
+                            }
+                            
+                        } catch (error) {
+                            console.error('7. ❌ Firestore 연결 실패:', error);
+                            console.error('에러 코드:', error.code);
+                            console.error('에러 메시지:', error.message);
+                            
+                            if (error.code === 'permission-denied') {
+                                console.log('🔧 해결방법: Firebase Console > Firestore Database > 규칙에서 읽기 권한을 확인하세요.');
+                            }
+                        }
+                    } else {
+                        console.error('6. ❌ Firebase가 초기화되지 않았습니다.');
+                    }
+                    
+                    console.log('=== Firebase 연결 테스트 완료 ===');
+                },
+                createTestReview: async () => {
+                    console.log('=== 테스트 리뷰 생성 시작 ===');
+                    
+                    if (!window.isFirebaseReady() || !window.firebaseUtils) {
+                        console.error('Firebase가 초기화되지 않았습니다.');
+                        return;
+                    }
+                    
+                    try {
+                        const { collection, addDoc, serverTimestamp } = window.firebaseUtils;
+                        
+                        const testReview = {
+                            title: '테스트 리뷰 - 자동 생성',
+                            content: '이것은 시스템에서 자동 생성된 테스트 리뷰입니다.',
+                            author: '시스템 관리자',
+                            program: '통증재활 필라테스',
+                            instructor: '박정은 대표원장',
+                            rating: 5,
+                            date: new Date().toISOString().split('T')[0],
+                            createdAt: serverTimestamp(),
+                            images: []
+                        };
+                        
+                        const docRef = await addDoc(collection(window.db, 'reviews'), testReview);
+                        console.log('✅ 테스트 리뷰 생성 성공! 문서 ID:', docRef.id);
+                        
+                        // 리뷰 데이터 다시 로드
+                        await loadReviews(true);
+                        
+                    } catch (error) {
+                        console.error('❌ 테스트 리뷰 생성 실패:', error);
+                        console.error('에러 코드:', error.code);
+                        console.error('에러 메시지:', error.message);
+                        
+                        if (error.code === 'permission-denied') {
+                            console.log('🔧 Firebase Console에서 Firestore 쓰기 권한을 확인하세요.');
+                        }
+                    }
+                    
+                    console.log('=== 테스트 리뷰 생성 완료 ===');
+                }
+            };
             
-            if (typeof processTextLinks === 'function') {
-                const testText = "이것은 #테스트해시태그 와 www.example.com 링크 테스트입니다.";
-                const result = processTextLinks(testText);
-                console.log('테스트 입력:', testText);
-                console.log('테스트 결과:', result);
-            } else {
-                console.error('processTextLinks 함수가 정의되지 않았습니다!');
+            // 디버그 모드에서만 링크 처리 함수 테스트 실행
+            if (window.location.hostname === 'localhost' || window.location.search.includes('debug=true')) {
+                console.log('=== 디버그 모드: 링크 처리 함수 테스트 ===');
+                console.log('processTextLinks 함수 존재 여부:', typeof processTextLinks);
+                
+                if (typeof processTextLinks === 'function') {
+                    const testText = "이것은 #테스트해시태그 와 www.example.com 링크 테스트입니다.";
+                    const result = processTextLinks(testText);
+                    console.log('테스트 입력:', testText);
+                    console.log('테스트 결과:', result);
+                }
             }
         });
 
 
-        // 로딩 스피너 제어 함수들
+        // 간단한 로딩 메시지 제어 함수들
         function showLoading() {
-            const loadingElement = document.getElementById('loading');
+            const loadingElement = document.getElementById('loading-message');
             const reviewsContainer = document.getElementById('reviews-container');
             if (loadingElement) {
                 loadingElement.classList.remove('hidden');
-                loadingElement.classList.add('flex');
             }
             if (reviewsContainer) {
-                reviewsContainer.style.opacity = '0.5';
+                reviewsContainer.classList.add('hidden');
             }
         }
 
         function hideLoading() {
-            const loadingElement = document.getElementById('loading');
+            const loadingElement = document.getElementById('loading-message');
             const reviewsContainer = document.getElementById('reviews-container');
             if (loadingElement) {
                 loadingElement.classList.add('hidden');
-                loadingElement.classList.remove('flex');
             }
             if (reviewsContainer) {
-                reviewsContainer.style.opacity = '1';
+                reviewsContainer.classList.remove('hidden');
             }
         }
 
-        // Firebase 연결 상태 확인 함수 (개선된 버전)
-        async function waitForFirebaseInit(maxAttempts = 10, delayMs = 500) {
-            for (let attempt = 0; attempt < maxAttempts; attempt++) {
-                if (window.db && window.firebaseUtils) {
-                    console.log(`Firebase 초기화 완료 (${attempt + 1}번째 시도)`);
-                    return true;
-                }
-                console.log(`Firebase 초기화 대기 중... (${attempt + 1}/${maxAttempts})`);
-                await new Promise(resolve => setTimeout(resolve, delayMs));
-            }
-            throw new Error('Firebase 초기화 시간 초과');
-        }
-
-        // Firebase에서 리뷰 데이터 로드 (캐싱 최적화 버전)
-        async function loadReviews(retryCount = 0, forceRefresh = false) {
-            const maxRetries = 3;
+        // Firebase에서 리뷰 데이터 로드 (단순화된 버전)
+        async function loadReviews(forceRefresh = false) {
+            console.log('리뷰 데이터 로드 시작...');
             
             try {
-                console.log('리뷰 데이터 로드 시작...');
-                
-                // 캐시 확인 (강제 새로고침이 아닌 경우)
+                // 캐시 확인 (강제 새로고침이 아닌 경우만)
                 if (!forceRefresh && CACHE.isValid()) {
-                    console.log('캐시된 데이터 사용');
+                    console.log('캐시된 데이터 사용 중...');
+                    
+                    // 캐시된 데이터 즉시 표시
                     reviewsData = CACHE.get();
                     filteredReviews = reviewsData;
                     
-                    // 통계 업데이트
                     updateStatistics({
                         total_reviews: reviewsData.length,
                         average_rating: calculateAverageRating()
                     });
                     
                     displayReviews();
+                    hideLoading();
+                    
+                    // 캐시에서 로드 완료 후 최적 스크롤 위치로 이동
+                    setOptimalScrollPosition();
                     return;
                 }
                 
-                showLoading();
+                // Firebase 연결 가능성 확인 (수정된 체크)
+                if (!window.isFirebaseReady || !window.isFirebaseReady() || !window.firebaseUtils || !window.db) {
+                    console.log('Firebase 초기화 실패 또는 미완료 - 빈 상태 표시');
+                    console.log('- isFirebaseReady:', !!window.isFirebaseReady && window.isFirebaseReady());
+                    console.log('- firebaseUtils:', !!window.firebaseUtils);
+                    console.log('- db 객체:', !!window.db);
+                    showEmptyState();
+                    return;
+                }
                 
-                // Firebase 초기화 대기 (개선된 버전)
-                await waitForFirebaseInit();
+                // Firebase 데이터 로드 시도
+                await loadFromFirebase();
+                
+            } catch (error) {
+                console.error('리뷰 로드 중 오류:', error);
+                await handleLoadError();
+            }
+        }
+        
+        // Firebase에서 데이터 로드 (최적화된 버전)
+        async function loadFromFirebase() {
+            showLoading();
+            
+            try {
+                // Firebase 초기화 확인 및 대기 (최대 3초로 단축)
+                if (!window.isFirebaseReady()) {
+                    console.log('Firebase 초기화 대기 중...');
+                    
+                    await new Promise((resolve, reject) => {
+                        const timeout = setTimeout(() => {
+                            reject(new Error('Firebase 초기화 시간 초과 (3초)'));
+                        }, 3000);
+                        
+                        if (window.isFirebaseReady()) {
+                            clearTimeout(timeout);
+                            resolve();
+                        } else {
+                            const handler = () => {
+                                clearTimeout(timeout);
+                                resolve();
+                            };
+                            window.addEventListener('firebaseReady', handler, { once: true });
+                            
+                            // 추가 안전장치: firebaseReady 이벤트가 발생하지 않을 경우를 대비
+                            setTimeout(() => {
+                                if (window.isFirebaseReady && window.isFirebaseReady()) {
+                                    clearTimeout(timeout);
+                                    resolve();
+                                }
+                            }, 100);
+                        }
+                    });
+                }
+                
+                console.log('Firebase 데이터 로드 시작...');
                 
                 const { collection, getDocs, query, orderBy } = window.firebaseUtils;
                 
-                // Firestore에서 리뷰 데이터 가져오기 (최신순 정렬)
+                // Firestore에서 리뷰 데이터 가져오기 (최신순 정렬, 타임아웃 적용)
                 const reviewsQuery = query(
                     collection(window.db, 'reviews'),
                     orderBy('createdAt', 'desc')
                 );
                 
-                const querySnapshot = await getDocs(reviewsQuery);
+                // 타임아웃 설정 (10초)
+                const querySnapshot = await Promise.race([
+                    getDocs(reviewsQuery),
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('Firestore 쿼리 시간 초과 (10초)')), 10000)
+                    )
+                ]);
                 
                 reviewsData = [];
+                
+                // 데이터 처리 최적화
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    // 사용자가 입력한 날짜가 없는 경우에만 Firestore 타임스탬프를 사용
-                    if (!data.date && data.createdAt) {
-                        data.date = data.createdAt.toDate().toISOString().split('T')[0];
+                    
+                    // 날짜 처리 최적화
+                    let dateString = data.date;
+                    if (!dateString && data.createdAt) {
+                        try {
+                            dateString = data.createdAt.toDate().toISOString().split('T')[0];
+                        } catch (e) {
+                            dateString = new Date().toISOString().split('T')[0]; // 기본값
+                        }
                     }
+                    
                     reviewsData.push({
                         id: doc.id,
+                        author: data.author || '익명',
+                        title: data.title || '',
+                        content: data.content || '',
+                        program: data.program || '',
+                        instructor: data.instructor || '',
+                        rating: data.rating || 5,
+                        date: dateString,
+                        images: data.images || [],
                         ...data
                     });
                 });
@@ -1395,7 +1707,7 @@
                 // 캐시에 데이터 저장
                 CACHE.set(reviewsData);
                 
-                console.log('Firebase에서 로드된 리뷰 개수:', reviewsData.length);
+                console.log(`Firebase 리뷰 로드 완료: ${reviewsData.length}개`);
                 
                 // 통계 업데이트
                 updateStatistics({
@@ -1403,54 +1715,58 @@
                     average_rating: calculateAverageRating()
                 });
                 
-                // 초기 리뷰 표시
+                // 리뷰 표시
                 displayReviews();
                 hideLoading();
                 
-                console.log('Firebase 리뷰 로드 및 캐싱 완료');
+                // 데이터 로드 완료 후 최적 스크롤 위치로 이동
+                setOptimalScrollPosition();
+                
+                // 성공 알림 (선택적)
+                if (reviewsData.length > 0) {
+                    showToast(`리뷰 ${reviewsData.length}개를 불러왔습니다.`, 'success', 2000);
+                }
                 
             } catch (error) {
-                console.error('Firebase 리뷰 데이터를 불러오는 중 오류 발생:', error);
-                console.error('Error details:', error.message);
+                console.error('Firebase 데이터 로드 실패:', error);
+                console.error('에러 코드:', error.code);
+                console.error('에러 메시지:', error.message);
+                console.error('Firebase 초기화 상태:', window.isFirebaseReady());
+                console.error('firebaseUtils 존재:', !!window.firebaseUtils);
+                console.error('Firestore DB 객체:', !!window.db);
                 
-                // 재시도 로직
-                if (retryCount < maxRetries) {
-                    console.log(`재시도 중... (${retryCount + 1}/${maxRetries})`);
-                    setTimeout(() => {
-                        loadReviews(retryCount + 1);
-                    }, 2000 * (retryCount + 1)); // 지수 백오프
-                    return;
-                }
-                
-                // 최대 재시도 후에도 실패 시 로컬 캐시 시도
-                console.log('최대 재시도 횟수 초과. 로컬 캐시 확인 중...');
-                
-                if (CACHE.loadFromStorage()) {
-                    console.log('로컬 스토리지에서 캐시 복원 성공');
-                    reviewsData = CACHE.get();
-                    filteredReviews = reviewsData;
-                    
-                    // 통계 업데이트
-                    updateStatistics({
-                        total_reviews: reviewsData.length,
-                        average_rating: calculateAverageRating()
-                    });
-                    
-                    displayReviews();
-                    hideLoading();
-                    
-                    // 사용자에게 오프라인 모드 알림
-                    showToast('오프라인 모드: 저장된 데이터를 표시합니다.', 'info', 5000);
-                } else {
-                    // 캐시도 없으면 테스트 데이터로 대체
-                    console.log('캐시 없음. 테스트 데이터로 대체합니다...');
-                    hideLoading();
-                    loadTestData();
-                    
-                    // 사용자에게 오프라인 모드 알림
-                    showToast('네트워크 연결을 확인해주세요. 샘플 데이터를 표시합니다.', 'warning', 5000);
-                }
+                hideLoading();
+                throw error; // 상위 에러 핸들러로 전달
             }
+        }
+        
+        // 로드 실패 시 에러 핸들링
+        async function handleLoadError() {
+            hideLoading();
+            
+            console.log('Firebase 로드 실패. 대체 데이터 확인 중...');
+            
+            // 1. 로컬 스토리지 캐시 시도
+            if (CACHE.loadFromStorage()) {
+                console.log('로컬 스토리지에서 캐시 복원 성공');
+                reviewsData = CACHE.get();
+                filteredReviews = reviewsData;
+                
+                updateStatistics({
+                    total_reviews: reviewsData.length,
+                    average_rating: calculateAverageRating()
+                });
+                
+                displayReviews();
+                setOptimalScrollPosition(); // 오프라인 데이터 표시 후 스크롤 위치 조정
+                showToast('오프라인 모드: 저장된 데이터를 표시합니다.', 'info', 4000);
+                return;
+            }
+            
+            // 2. 빈 상태 표시
+            console.log('캐시 없음. 빈 상태 표시');
+            showEmptyState();
+            setOptimalScrollPosition();
         }
         
         // 평균 평점 계산
@@ -1460,132 +1776,51 @@
             return (totalRating / reviewsData.length).toFixed(1);
         }
         
-        // 테스트 데이터 로드 (파일 로드 실패 시 사용)
-        function loadTestData() {
-            const testData = {
-                "reviews": [
-                    {
-                        "id": 1,
-                        "author": "김○○",
-                        "date": "2024-12-15",
-                        "program": "통증재활 필라테스",
-                        "instructor": "박정은 대표원장",
-                        "rating": 5,
-                        "title": "20년 만성 허리통증이 3개월 만에 개선되었어요!",
-                        "q1": "사무직으로 20년 넘게 일하면서 만성 허리통증에 시달려왔습니다. 앉아있기만 해도 허리가 아프고, 아침에 일어날 때마다 허리가 굳어서 움직이기 힘들었어요. 병원에서도 수술 말고는 방법이 없다고 했었는데, 지금은 하루 종일 앉아서 일해도 전혀 아프지 않고 숙면도 잘 취할 수 있게 되었습니다.",
-                        "q2": "박정은 원장님의 의학적 근거를 바탕으로 한 정확한 진단과 개인 맞춤형 운동처방이 정말 놀라웠어요. 단순한 운동이 아닌 제 몸의 문제점을 정확히 파악하고 체계적으로 개선해나가는 과정이 믿음직스러웠습니다. #메디컬필라테스 #허리통증개선 #필라테스호두 의 차이를 몸소 체험했습니다! 더 자세한 정보는 www.pilateshodu.com 에서 확인하세요.",
-                        "content": "박정은 원장님의 의학적 근거를 바탕으로 한 정확한 진단과 개인 맞춤형 운동처방이 정말 놀라웠어요. 단순한 운동이 아닌 제 몸의 문제점을 정확히 파악하고 체계적으로 개선해나가는 과정이 믿음직스러웠습니다. 메디컬필라테스의 차이를 몸소 체험했습니다!",
-                        "images": ["./assets/reviews/F1_강한경_후기_20161111.jpg"]
-                    },
-                    {
-                        "id": 2,
-                        "author": "박○○",
-                        "date": "2024-12-10",
-                        "program": "골프 필라테스",
-                        "instructor": "김다혜 강사",
-                        "rating": 5,
-                        "title": "골프 핸디캡이 10타 줄었습니다",
-                        "q1": "골프를 10년 넘게 쳐왔지만 실력이 늘지 않아 고민이었어요. 특히 드라이버 샷이 일정하지 않고 코어 근력 부족으로 라운드 후반에 체력이 떨어져 스코어가 나빠지곤 했습니다.",
-                        "q2": "골프 필라테스를 시작하고 나서 완전히 달라졌어요! #골프필라테스 #스윙개선 으로 코어 근력이 강해지면서 스윙의 일관성이 생겼고, 특히 드라이버 비거리가 20야드 이상 늘었습니다. 김다혜 강사님이 골프 동작과 필라테스 운동을 연결해서 설명해주셔서 이해가 쏙쏙 들어왔어요. https://www.instagram.com/pilateshodu 에서 더 많은 후기를 확인해보세요!",
-                        "content": "골프 필라테스를 시작하고 나서 완전히 달라졌어요. 코어 근력이 강해지면서 스윙의 일관성이 생겼고, 특히 드라이버 비거리가 20야드 이상 늘었습니다. 김다혜 강사님이 골프 동작과 필라테스 운동을 연결해서 설명해주셔서 이해가 쏙쏙 들어왔어요.",
-                        "images": []
-                    },
-                    {
-                        "id": 3,
-                        "author": "이○○",
-                        "date": "2024-12-08",
-                        "program": "마네킹톤 프로그램",
-                        "instructor": "서이은 강사",
-                        "rating": 5,
-                        "title": "거북목이 완전히 교정되었어요",
-                        "q1": "재택근무를 하면서 거북목과 라운드숄더가 심해져서 목과 어깨가 항상 아팠어요. 하루 종일 컴퓨터 앞에 앉아 있다 보니 자세가 점점 나빠졌고, 두통까지 생겼습니다.",
-                        "q2": "마네킹톤 프로그램을 6개월 받고 나서 완전히 달라졌어요. 서이은 강사님께서 제 체형을 정확히 분석해주시고, 매 수업마다 조금씩 달라지는 제 자세를 세심하게 체크해주셨어요. 이제는 하루 종일 컴퓨터 앞에 앉아 있어도 전혀 아프지 않습니다.",
-                        "content": "마네킹톤 프로그램을 6개월 받고 나서 완전히 달라졌어요. 서이은 강사님께서 제 체형을 정확히 분석해주시고, 매 수업마다 조금씩 달라지는 제 자세를 세심하게 체크해주셨어요. 이제는 하루 종일 컴퓨터 앞에 앉아 있어도 전혀 아프지 않습니다.",
-                        "images": []
-                    },
-                    {
-                        "id": 4,
-                        "author": "정○○",
-                        "date": "2024-12-05",
-                        "program": "임산부 필라테스",
-                        "instructor": "조소진 강사",
-                        "rating": 5,
-                        "title": "출산 후 회복이 정말 빨랐어요",
-                        "content": "첫 임신이라 운동을 해도 되는지 걱정이 많았는데, 조소진 강사님이 임산부 전문 자격증을 가지고 계셔서 안심하고 시작할 수 있었어요.",
-                        "images": []
-                    },
-                    {
-                        "id": 5,
-                        "author": "최○○",
-                        "date": "2024-12-03",
-                        "program": "시니어 필라테스",
-                        "instructor": "엄선희 강사",
-                        "rating": 5,
-                        "title": "68세, 이제야 진짜 운동을 시작한 기분입니다",
-                        "content": "나이가 들어서 운동을 시작하기엔 너무 늦었다고 생각했는데, 엄선희 강사님을 만나고 생각이 완전히 바뀌었어요.",
-                        "images": []
-                    },
-                    {
-                        "id": 6,
-                        "author": "장○○",
-                        "date": "2024-11-28",
-                        "program": "키즈(성장) 필라테스",
-                        "instructor": "이지나 강사",
-                        "rating": 5,
-                        "title": "아이가 스스로 자세를 의식하게 되었어요",
-                        "content": "중1인 우리 아이가 게임을 하느라 자세가 정말 나빠져서 걱정이 많았는데, 이지나 강사님 덕분에 완전히 달라졌어요.",
-                        "images": []
-                    },
-                    {
-                        "id": 7,
-                        "author": "윤○○",
-                        "date": "2024-11-25",
-                        "program": "플랫스콜 프로그램",
-                        "instructor": "이차빈 강사",
-                        "rating": 5,
-                        "title": "척추측만증 각도가 실제로 줄어들었어요",
-                        "content": "고등학교 때부터 척추측만증 때문에 고생했는데, 플랫스콜 프로그램을 1년간 꾸준히 했더니 X-ray 상에서도 척추 각도가 줄어든 걸 확인할 수 있었어요.",
-                        "images": []
-                    },
-                    {
-                        "id": 8,
-                        "author": "강○○",
-                        "date": "2024-11-20",
-                        "program": "통증재활 필라테스",
-                        "instructor": "최현정 강사",
-                        "rating": 5,
-                        "title": "무릎 수술 후 재활, 의사도 놀란 회복속도",
-                        "content": "무릎 연골 수술 후 재활 운동을 어디서 해야 할지 고민하다가 필라테스호두를 알게 되었어요. 최현정 강사님의 맞춤형 재활 프로그램으로 빠른 회복이 가능했습니다.",
-                        "images": []
-                    },
-                    {
-                        "id": 9,
-                        "author": "한○○",
-                        "date": "2024-11-18",
-                        "program": "마네킹톤 프로그램",
-                        "instructor": "김세령 강사",
-                        "rating": 5,
-                        "title": "모델처럼 걷는 법을 배웠어요",
-                        "content": "항상 걸음걸이에 자신이 없었는데, 마네킹톤 프로그램을 통해서 완전히 달라졌어요. 김세령 강사님께서 모델 출신이셔서 정말 우아하고 세련된 워킹을 가르쳐주세요.",
-                        "images": []
-                    }
-                ],
-                "statistics": {
-                    "total_reviews": 9,
-                    "average_rating": 5.0
-                }
-            };
+        // Firebase에서 데이터를 로드할 수 없을 때 임시 테스트 데이터 표시
+        function showEmptyState() {
+            console.log('Firebase 연결 실패 - 임시 테스트 데이터 표시');
             
-            reviewsData = testData.reviews;
+            // 임시 테스트 데이터 (Firebase 연결 복구까지 사용)
+            const tempData = [
+                {
+                    id: 'temp1',
+                    author: '김○○',
+                    title: 'Firebase 연결 테스트 중입니다',
+                    content: 'Firebase 연결이 복구되면 실제 리뷰 데이터가 표시됩니다.',
+                    program: '통증재활 필라테스',
+                    instructor: '박정은 대표원장',
+                    rating: 5,
+                    date: new Date().toISOString().split('T')[0],
+                    images: []
+                }
+            ];
+            
+            reviewsData = tempData;
             filteredReviews = reviewsData;
             
-            console.log('테스트 데이터 로드 완료:', reviewsData.length, '개');
+            // 기본 통계 표시
+            updateStatistics({
+                total_reviews: reviewsData.length,
+                average_rating: 5.0
+            });
             
-            // 통계 업데이트
-            updateStatistics(testData.statistics);
-            
-            // 초기 리뷰 표시
+            // 데이터 표시
             displayReviews();
+            hideLoading();
+            
+            // 사용자에게 알림 (디버그 정보 포함)
+            showToast('Firebase 연결 중입니다. 임시 데이터를 표시합니다. (개발자 콘솔 확인)', 'warning', 7000);
+            
+            // Firebase 진단 정보 출력
+            setTimeout(() => {
+                console.log('=== Firebase 진단 정보 ===');
+                console.log('1. Firebase 초기화 상태:', window.isFirebaseReady());
+                console.log('2. firebaseUtils 존재:', !!window.firebaseUtils);
+                console.log('3. Firestore DB 객체:', !!window.db);
+                console.log('4. 프로젝트 ID:', window.db?.app?.options?.projectId || '없음');
+                console.log('5. 네트워크 상태:', navigator.onLine ? '온라인' : '오프라인');
+                console.log('========================');
+            }, 1000);
         }
 
         // 통계 업데이트
@@ -1806,21 +2041,10 @@
                     return;
                 }
                 
-                // 로딩 표시 (검색 중)
-                const reviewsContainer = document.getElementById('reviews-container');
-                if (reviewsContainer) {
-                    reviewsContainer.style.opacity = '0.7';
-                }
-                
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
                     applyFilters();
                     previousSearchTerm = currentTerm;
-                    
-                    // 검색 완료 후 opacity 복원
-                    if (reviewsContainer) {
-                        reviewsContainer.style.opacity = '1';
-                    }
                 }, 300); // 300ms 디바운스
             });
             
@@ -1900,12 +2124,22 @@
             }
         }
         
-        // 페이지 변경 시 상단으로 스크롤
+        // 페이지 변경 시 리뷰 섹션으로 스크롤
         function scrollToTop() {
-            document.getElementById('reviews-container').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            const reviewsContainer = document.getElementById('reviews-container');
+            if (reviewsContainer) {
+                // 디바이스별 헤더 높이를 고려한 스크롤
+                const isMobile = window.innerWidth < 768;
+                const headerHeight = isMobile ? 70 : 80;
+                const extraPadding = isMobile ? 10 : 20;
+                
+                const targetPosition = reviewsContainer.offsetTop - headerHeight - extraPadding;
+                
+                window.scrollTo({
+                    top: Math.max(0, targetPosition),
+                    behavior: 'smooth'
+                });
+            }
         }
         
         // ===== 관리자 시스템 =====
@@ -2264,7 +2498,7 @@
                 // 캐시 무효화 후 백그라운드에서 데이터 새로고침 (논블로킹)
                 CACHE.clear();
                 setTimeout(() => {
-                    loadReviews(0, true); // 강제 새로고침
+                    loadReviews(true); // 강제 새로고침
                 }, 100);
                 
             } catch (error) {
@@ -2348,7 +2582,7 @@
                 
                 // 캐시 무효화 후 리뷰 목록 새로고침
                 CACHE.clear();
-                await loadReviews(0, true); // 강제 새로고침
+                await loadReviews(true); // 강제 새로고침
                 
             } catch (error) {
                 console.error('리뷰 삭제 실패:', error);
