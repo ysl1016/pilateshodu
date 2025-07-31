@@ -272,20 +272,22 @@
             z-index: 10;
         }
         
-        /* PC에서 호버 시 버튼 표시 */
-        @media (hover: hover) {
-            .review-card:hover .admin-controls {
-                display: flex;
+        /* 모바일에서도 우측상단 위치 보장 */
+        @media (max-width: 768px) {
+            .admin-controls {
+                position: absolute !important;
+                top: 10px !important;
+                right: 10px !important;
+                left: auto !important;
+                display: none;
+                flex-direction: row !important;
+                gap: 5px;
+                z-index: 10;
             }
         }
         
-        /* 모바일에서 카드 터치 시 버튼 표시 */
-        @media (max-width: 768px) {
-            .review-card.show-admin .admin-controls {
-                display: flex;
-                top: 8px;
-                right: 8px;
-            }
+        .review-card:hover .admin-controls {
+            display: flex;
         }
         
         .admin-btn-edit {
@@ -1196,18 +1198,6 @@
             initializeScrollAnimations();
             initializeScrollTop();
             
-            // 모바일에서 외부 터치 시 관리자 버튼 숨김
-            document.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768 && isAdmin) {
-                    // 리뷰 카드나 관리자 버튼이 아닌 곳을 클릭했을 때
-                    if (!e.target.closest('.review-card') && !e.target.closest('.admin-controls')) {
-                        document.querySelectorAll('.review-card.show-admin').forEach(card => {
-                            card.classList.remove('show-admin');
-                        });
-                    }
-                }
-            });
-            
             // 전역 함수 노출 (onclick 이벤트에서 사용하기 위해)
             window.openEditModal = openEditModal;
             window.openDeleteModal = openDeleteModal;
@@ -1488,31 +1478,12 @@
             card.setAttribute('data-program', review.program);
             card.setAttribute('data-id', review.id);
 
-            // 카드 클릭 이벤트 추가
+            // 카드 클릭 이벤트 추가 (관리자 버튼 클릭 시는 제외)
             card.addEventListener('click', function(e) {
                 // 관리자 버튼 클릭 시는 상세 모달 열지 않음
                 if (e.target.closest('.admin-controls')) {
                     return;
                 }
-                
-                // 모바일에서 관리자 로그인 시 터치로 버튼 표시/숨김
-                if (window.innerWidth <= 768 && isAdmin) {
-                    // 다른 카드들의 show-admin 클래스 제거
-                    document.querySelectorAll('.review-card.show-admin').forEach(otherCard => {
-                        if (otherCard !== card) {
-                            otherCard.classList.remove('show-admin');
-                        }
-                    });
-                    
-                    // 현재 카드의 show-admin 클래스 토글
-                    card.classList.toggle('show-admin');
-                    
-                    // show-admin 클래스가 있으면 상세 모달을 열지 않음
-                    if (card.classList.contains('show-admin')) {
-                        return;
-                    }
-                }
-                
                 openReviewDetailModal(review.id);
             });
 
