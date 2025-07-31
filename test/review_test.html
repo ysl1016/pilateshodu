@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객후기 | PILATES HODU - 필라테스 호두 강남본점</title>
+    <meta name="description" content="필라테스 호두 강남본점 고객들의 진솔한 후기를 확인하세요. 메디컬필라테스를 통한 건강 개선 경험을 공유합니다.">
+    <meta name="keywords" content="필라테스후기, 메디컬필라테스후기, 고객후기, 재활후기, 체형교정후기, 필라테스호두, 강남필라테스">
+
+    <!-- Naver website SEO -->
+    <meta name="naver-site-verification" content="874e60956d0d0056b0e0b031de3030ebb3d84401" />
+    
+    <!-- Open Graph (OG) Tags for Social Media Sharing -->
+    <meta property="og:title" content="고객후기 | PILATES HODU - 필라테스 호두 강남본점">
+    <meta property="og:url" content="https://ysl1016.github.io/pilateshodu/review.html">
+    <meta property="og:image" content="https://ysl1016.github.io/pilateshodu/assets/images/main/medical-pilates.jpeg">
+    <meta property="og:description" content="필라테스 호두 강남본점 고객들의 진솔한 후기를 확인하세요. 메디컬필라테스를 통한 건강 개선 경험을 공유합니다.">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+       
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+        
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase SDK 임포트
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        // Firebase 설정 (사용자가 Firebase Console에서 복사한 설정으로 교체 필요)
+        const firebaseConfig = {
+            // 여기에 Firebase Console에서 복사한 설정을 붙여넣으세요
+            apiKey: "AIzaSyAvBW7iRfgWIx5kOs1dbCWA9CieSctkRHE",
+            authDomain: "pilateshodu-website-banpo.firebaseapp.com",
+            projectId: "pilateshodu-website-banpo",
+            storageBucket: "pilateshodu-website-banpo.firebasestorage.app",
+            messagingSenderId: "1020211188034",
+            appId: "1:1020211188034:web:0c07ae0c95a7651a26f8db",
+            measurementId: "G-VRD62XPGNT"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+
+        // 전역 변수로 설정
+        window.db = db;
+        window.auth = auth;
+        window.storage = storage;
+        window.firebaseUtils = {
+            collection,
+            getDocs,
+            addDoc,
+            updateDoc,
+            deleteDoc,
+            doc,
+            serverTimestamp,
+            query,
+            orderBy,
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged,
+            ref,
+            uploadBytes,
+            getDownloadURL,
+            deleteObject
+        };
+    </script>
+    
+    <style>
+        /* 모달이 열렸을 때 배경 스크롤 방지 */
+        .modal-open {
+            overflow: hidden;
+        }
+
+        :root {
+            --deep-navy: #001F3F;
+            --golden-brown: #996515;
+            --warm-beige: #F5F1E8;
+            --soft-cream: #FEFCF8;
+            --charcoal-gray: #2C2C2C;
+            --accent-gold: #D4AF37;
+        }
+    
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--soft-cream);
+            color: var(--charcoal-gray);
+        }
+    
+        .font-eng { font-family: 'Manrope', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+            
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-golden-brown { background-color: var(--golden-brown); }
+        .bg-warm-beige { background-color: var(--warm-beige); }
+        .bg-accent-gold { background-color: var(--accent-gold); }
+            
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-golden-brown { color: var(--golden-brown); }
+        .text-charcoal-gray { color: var(--charcoal-gray); }
+        .text-accent-gold { color: var(--accent-gold); }
+        .text-white { color: white; }
+    
+        .hover\:bg-deep-navy-dark:hover { background-color: #001122; }
+        .bg-deep-navy:hover { background-color: #001122; }
+        .hover\:text-golden-brown:hover { color: var(--golden-brown); }
+
+        /* 헤더 네비게이션 호버 스타일 - 스크롤 전 */
+        .nav-link:hover {
+            color: #d1d5db !important; /* gray-300 */
+        }
+        
+        #branch-dropdown-wrapper button:hover {
+            color: #d1d5db !important; /* gray-300 */
+        }
+        
+        /* 헤더 네비게이션 호버 스타일 - 스크롤 후 */
+        .header-scrolled .nav-link:hover {
+            color: var(--golden-brown) !important;
+        }
+        
+        /* 드롭다운 메뉴 호버 스타일 */
+        .header-scrolled #branch-dropdown-wrapper button:hover {
+            color: var(--golden-brown) !important;
+        }
+        
+        /* 드롭다운 메뉴 아이템 호버 스타일 - 스크롤 전 */
+        #branch-menu a:hover {
+            color: var(--golden-brown) !important;
+        }
+        
+        /* 스크롤 후 드롭다운 메뉴 아이템 호버 스타일 */
+        .header-scrolled #branch-menu a:hover {
+            color: var(--golden-brown) !important;
+        }
+    
+        /* 스크롤 애니메이션 */
+        .reveal, .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+    
+        .reveal.visible, .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 이미지 컨테이너 */
+        .review-card .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            height: 128px;
+        }
+
+        .review-card .review-image,
+        .review-card .review-placeholder {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        /* 데스크톱에서만 이미지 호버 효과 적용 */
+        @media (min-width: 769px) {
+            .review-card:hover .review-image {
+                transform: scale(1.05);
+            }
+        }
+
+        .header-scrolled {
+            background-color: rgba(254, 252, 248, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Gradient Background */
+        .section-gradient {
+            background: linear-gradient(135deg, var(--soft-cream) 0%, var(--warm-beige) 100%);
+        }
+
+        /* 전문적인 그라데이션 배경 */
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--golden-brown) 100%);
+        }
+
+        /* MangBoard 스타일 리뷰 카드 */
+        .review-card {
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid #e5e7eb;
+            background: white;
+            position: relative;
+        }
+        
+        .review-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 31, 63, 0.15);
+            border-color: var(--deep-navy);
+        }
+        
+        /* 별점 스타일 */
+        .star-rating {
+            color: var(--accent-gold);
+            font-size: 16px;
+        }
+        
+        /* 필터 버튼 스타일 */
+        .filter-btn {
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--deep-navy);
+            color: white;
+            border-color: var(--deep-navy);
+        }
+        
+        .filter-btn:hover:not(.active) {
+            background-color: var(--golden-brown);
+            color: white;
+            border-color: var(--golden-brown);
+        }
+        
+        /* 페이지네이션 스타일 */
+        .page-btn {
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #6b7280;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .page-btn:hover {
+            background: var(--deep-navy);
+            color: white;
+            border-color: var(--deep-navy);
+        }
+        
+        .page-btn.active {
+            background: var(--deep-navy);
+            color: white;
+            border-color: var(--deep-navy);
+        }
+        
+        /* 관리자 버튼 스타일 */
+        .admin-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            gap: 5px;
+            z-index: 10;
+        }
+        
+        /* PC에서 호버 시 버튼 표시 */
+        @media (hover: hover) {
+            .review-card:hover .admin-controls {
+                display: flex;
+            }
+        }
+        
+        /* 모바일에서 카드 터치 시 버튼 표시 */
+        @media (max-width: 768px) {
+            .review-card.show-admin .admin-controls {
+                display: flex;
+                top: 8px;
+                right: 8px;
+            }
+        }
+        
+        .admin-btn-edit {
+            background: var(--golden-brown);
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .admin-btn-delete {
+            background: #ef4444;
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .admin-btn-edit:hover {
+            background: #8b5a00;
+        }
+        
+        .admin-btn-delete:hover {
+            background: #dc2626;
+        }
+        
+        /* 텍스트 줄 제한 */
+        /* 통합된 line-clamp 기본 스타일 */
+        .line-clamp-2, .line-clamp-3, .line-clamp-4 {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .line-clamp-2 { -webkit-line-clamp: 2; }
+        .line-clamp-3 { -webkit-line-clamp: 3; }
+        .line-clamp-4 { -webkit-line-clamp: 4; }
+        
+        /* 텍스트 오버플로우 방지 - line-clamp와 중복 제거 */
+        .text-container {
+            hyphens: auto;
+            max-width: 100%;
+        }
+        
+        /* 링크 텍스트 줄바꿈 처리 */
+        .text-container a {
+            word-break: break-all;
+            overflow-wrap: break-word;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .cta-btn {
+            transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            will-change: background, color, border-color, box-shadow;
+        }
+        .cta-btn-primary {
+            background-color: var(--deep-navy);
+            color: white;
+            border: 2px solid var(--deep-navy);
+        }
+        .cta-btn-primary:hover {
+            background-color: #001122;
+            border-color: #001122;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(0,31,63,0.15);
+        }
+        .cta-btn-outline {
+            background: transparent;
+            color: var(--deep-navy);
+            border: 2px solid var(--deep-navy);
+        }
+        .cta-btn-outline:hover {
+            background: var(--golden-brown);
+            color: white;
+            border-color: var(--golden-brown);
+            box-shadow: 0 4px 16px rgba(153,101,21,0.15);
+        }
+
+        /* 모바일 최적화 추가 스타일 */
+        @media (max-width: 768px) {
+            /* 히어로 섹션 높이 조정 - instructors.html과 pricing.html과 일치 */
+            .hero-section {
+                height: 24rem !important;
+                padding: 2rem 1rem;
+            }
+            
+            /* 헤더 고정 시 여백 조정 */
+            .header-scrolled {
+                backdrop-filter: blur(8px);
+            }
+            
+            /* 리뷰 카드 모바일 최적화 */
+            .review-card {
+                margin-bottom: 1rem;
+            }
+            
+            .review-card .text-container {
+                max-width: calc(100% - 2rem);
+                padding-right: 1rem;
+            }
+            
+            /* 모달 모바일 최적화 */
+            .modal-content {
+                max-height: 85vh;
+                margin: 1rem;
+                -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+                overscroll-behavior: contain; /* 스크롤 체이닝 방지 */
+            }
+            
+            /* 페이지네이션 모바일 최적화 */
+            .page-btn {
+                min-width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
+            /* 필터 버튼 모바일 최적화 */
+            .filter-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+                margin: 2px;
+            }
+        }
+        
+        /* 스몰 모바일 디바이스 (320px - 480px) */
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 2rem !important;
+            }
+            
+            .review-card {
+                padding: 1rem !important;
+            }
+            
+            .text-container {
+                font-size: 0.875rem;
+                line-height: 1.4;
+            }
+            
+            .filter-btn {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+        }
+        
+        /* 햄버거 → X 애니메이션 (모바일 전용) */
+        #mobile-menu-button {
+          width: 1.5rem; height: 1.5rem;
+          display: flex; flex-direction: column; justify-content: center; align-items: center;
+          position: relative;
+          z-index: 1060;
+        }
+        
+        /* PC 화면에서 햄버거 메뉴 완전 숨김 */
+        @media (min-width: 1024px) {
+          #mobile-menu-button {
+            display: none !important;
+          }
+          #mobile-menu {
+            display: none !important;
+          }
+        }
+        #mobile-menu-button .bar {
+          display: block;
+          position: absolute;
+          width: 1.5rem;
+          height: 0.18rem;
+          border-radius: 2px;
+          transition: all 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+          transform-origin: center;
+        }
+        #mobile-menu-button .top   { top: 0.375rem; left: 0; }
+        #mobile-menu-button .middle{ top: 0.75rem; left: 0; }
+        #mobile-menu-button .bottom{ top: 1.125rem; right: 0; width: 0.75rem; }
+        #mobile-menu-button.active .top {
+          top: 0.75rem;
+          transform: rotate(45deg);
+        }
+        #mobile-menu-button.active .middle {
+          transform: rotate(-45deg);
+        }
+        #mobile-menu-button.active .bottom {
+          opacity: 0;
+          transform: scaleX(0.5);
+        }
+        
+        /* 모바일 터치 지연 제거 */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* 이미지 터치 최적화 */
+        .cursor-pointer {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        }
+        
+        /* 리뷰 이미지 터치 최적화 */
+        .review-image, .image-container {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        /* 모바일 터치 및 레이아웃 최적화 */
+        @media (max-width: 768px) {
+            /* z-index 겹침 문제 해결 - 헤더보다 낮은 양수로 설정 */
+            .review-card, .review-card * {
+                transform: none !important;
+                z-index: 1 !important;
+                position: static !important;
+            }
+            
+            /* 이미지 컨테이너 z-index를 낮은 양수로 제한 */
+            .review-card .image-container,
+            .review-card .review-image,
+            .review-card .review-placeholder {
+                z-index: 1 !important;
+                transform: none !important;
+                position: static !important;
+            }
+            
+            /* 리뷰 섹션을 낮은 z-index로 설정 */
+            .reviews-section,
+            .reviews-container,
+            .reviews-grid {
+                z-index: 1 !important;
+                position: relative !important;
+            }
+
+            /* 터치 대상 크기 및 피드백 최적화 */
+            .review-card {
+                min-height: auto;
+                touch-action: manipulation;
+                transition: background-color 0.2s ease;
+            }
+
+            .review-card:active {
+                background-color: var(--warm-beige);
+            }
+            
+            /* 버튼 터치 영역 확보 (최소 44px) */
+            .filter-btn, .page-btn {
+                min-height: 44px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                touch-action: manipulation;
+            }
+            
+            /* 링크 터치 영역 확대 */
+            .text-container a {
+                padding: 2px 0;
+                margin: 0 -2px;
+            }
+        }
+        
+        /* 아주 작은 화면 (iPhone SE 등) */
+        @media (max-width: 375px) {
+            .hero-section {
+                height: 240px !important;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.75rem !important;
+            }
+            
+            .review-card {
+                padding: 12px !important;
+                min-height: 180px;
+            }
+            
+            .text-container {
+                font-size: 0.8rem;
+                line-height: 1.3;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" id="header-logo" class="flex items-center text-2xl font-bold text-white transition-colors duration-300">
+                    <span class="font-eng">PILATES</span> <span class="text-golden-brown ml-1">HODU</span>
+                    <span class="ml-2 text-xs font-semibold bg-deep-navy text-accent-gold px-2.5 py-1 rounded-md">반포</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                    <a href="index.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">홈</a>
+                    <a href="programs.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">프로그램</a>
+                    <a href="instructors.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">강사소개</a>
+                    <a href="facilities.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">시설안내</a>
+                    <a href="review.html" class="nav-link text-white px-3 py-2 rounded-md nav-active transition-colors duration-300">고객후기</a>
+                    <a href="booking.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">상담예약</a>
+                    <a href="pricing.html" class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300">레슨비용</a>
+                    <!-- Branch Dropdown -->
+                    <div class="relative group" id="branch-dropdown-wrapper">
+                        <button class="nav-link text-white px-3 py-2 rounded-md transition-colors duration-300 flex items-center">
+                            지점 안내
+                            <svg class="w-4 h-4 ml-1 transition-all duration-200 opacity-0 group-hover:opacity-100 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="branch-menu" class="absolute left-0 top-full w-36 bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-200/50 py-2 z-[1060] opacity-0 invisible transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                            <a href="http://pilateshodu.com" target="_blank" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">강남본점</a>
+                            <a href="http://pilateshodu2.com" class="block px-4 py-2.5 text-sm text-deep-navy hover:bg-warm-beige hover:text-golden-brown transition-colors duration-200">수지점</a>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Mobile Navigation Button -->
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none relative w-6 h-6 z-[1001]">
+                  <span class="bar top bg-white"></span>
+                  <span class="bar middle bg-white"></span>
+                  <span class="bar bottom bg-white"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg max-h-[calc(100dvh-64px)] overflow-y-auto z-[1040]">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-golden-brown">홈</a>
+            <a href="programs.html" class="block py-2 text-gray-700 hover:text-golden-brown">프로그램</a>
+            <a href="instructors.html" class="block py-2 text-gray-700 hover:text-golden-brown">강사소개</a>
+            <a href="facilities.html" class="block py-2 text-gray-700 hover:text-golden-brown">시설안내</a>
+            <a href="review.html" class="block py-2 text-gray-700 hover:text-golden-brown nav-active">고객후기</a>
+            <a href="booking.html" class="block py-2 text-gray-700 hover:text-golden-brown">상담예약</a>
+            <a href="pricing.html" class="block py-2 text-gray-700 hover:text-golden-brown">레슨비용</a>
+            <div class="border-t my-2"></div>
+            <p class="py-2 text-sm font-semibold text-gray-500">지점 안내</p>
+            <a href="http://pilateshodu.com" target="_blank" class="block py-2 text-gray-700 hover:text-golden-brown">강남본점</a>
+            <a href="http://pilateshodu2.com" class="block py-2 text-gray-700 hover:text-golden-brown">수지점</a>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main>
+        <!-- 히어로 섹션 -->
+        <section class="hero-section relative h-96 flex items-center justify-center text-center text-white overflow-hidden hero-gradient">
+            <div class="absolute inset-0 opacity-20">
+                <div class="w-full h-full bg-gradient-to-r from-black/30 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="font-eng text-4xl md:text-5xl font-bold tracking-tighter leading-tight text-white mb-4">
+                    Customer <span class="text-accent-gold">Reviews</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed max-w-2xl mx-auto">
+                    필라테스 호두와 함께한 건강한 변화의 이야기를 들어보세요
+                </p>
+            </div>
+        </section>
+
+        <!-- 검색 및 관리자 툴바 -->
+        <section class="py-6 bg-warm-beige border-b border-gray-200">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <!-- 검색바 -->
+                    <div class="flex-1 max-w-md">
+                        <div class="relative">
+                            <input type="text" id="search-input" 
+                                   placeholder="제목이나 내용을 검색하세요" 
+                                   class="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- 관리자 도구 -->
+                    <div id="admin-toolbar" class="flex items-center gap-3">
+                        <!-- 로그인 전 상태 -->
+                        <div id="admin-login-section">
+                            <button id="admin-login-btn" class="bg-deep-navy text-white px-4 py-2 rounded-lg hover:bg-golden-brown transition-colors font-medium">
+                                <i class="fas fa-sign-in-alt mr-2"></i>관리자 로그인
+                            </button>
+                        </div>
+                        
+                        <!-- 로그인 후 상태 -->
+                        <div id="admin-loggedin-section" style="display: none;" class="flex items-center gap-3">
+                            <button id="new-review-btn" class="bg-deep-navy text-white px-4 py-2 rounded-lg hover:bg-golden-brown transition-colors font-medium">
+                                <i class="fas fa-plus mr-2"></i>글쓰기
+                            </button>
+                            <button id="admin-logout-btn" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium">
+                                <i class="fas fa-sign-out-alt mr-2"></i>로그아웃
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 필터 섹션 -->
+        <section class="py-4 bg-white border-b border-gray-200">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium active" data-filter="all">
+                        전체
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium" data-filter="통증재활 필라테스">
+                        통증재활
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium" data-filter="골프 필라테스">
+                        골프
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium" data-filter="마네킹톤 프로그램">
+                        마네킹톤
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium" data-filter="임산부 필라테스">
+                        임산부
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium" data-filter="시니어 필라테스">
+                        시니어
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium" data-filter="플랫스콜 프로그램">
+                        플랫스콜
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium" data-filter="키즈(성장) 필라테스">
+                        키즈
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 리뷰 게시판 섹션 -->
+        <section class="py-8 bg-gray-50 min-h-screen">
+            <div class="container mx-auto px-4">
+                <!-- 리뷰 그리드 (MangBoard 스타일) -->
+                <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- 리뷰 카드들이 JavaScript로 동적 생성됩니다 -->
+                </div>
+                
+                <!-- 로딩 스피너 -->
+                <div id="loading" class="text-center py-12 hidden">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-deep-navy mx-auto mb-4"></div>
+                    <p class="text-deep-navy font-medium">리뷰를 불러오는 중...</p>
+                </div>
+                
+                <!-- 검색 결과 없음 메시지 -->
+                <div id="no-results" class="text-center py-12 hidden">
+                    <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-600 mb-2">검색 결과가 없습니다</h3>
+                    <p class="text-gray-500">다른 검색어로 시도해보세요.</p>
+                </div>
+                
+                <!-- 페이지네이션 -->
+                <div id="pagination" class="flex justify-center items-center space-x-2 mt-8">
+                    <button id="prev-page" class="px-3 py-2 text-gray-500 hover:text-deep-navy disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div id="page-numbers" class="flex space-x-1">
+                        <!-- 페이지 번호들이 동적으로 생성됩니다 -->
+                    </div>
+                    <button id="next-page" class="px-3 py-2 text-gray-500 hover:text-deep-navy disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA 섹션 -->
+        <section class="bg-warm-beige text-deep-navy py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 reveal">
+                    당신도 건강한 변화를 경험해보세요
+                </h2>
+                <p class="text-lg mb-8 reveal">
+                    전문적인 메디컬필라테스로 건강한 삶을 시작하세요
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="booking.html" class="cta-btn cta-btn-primary font-semibold px-8 py-4 rounded-full">
+                        상담 예약하기
+                    </a>
+                    <a href="programs.html" class="cta-btn cta-btn-outline font-semibold px-8 py-4 rounded-full">
+                        프로그램 보기
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 관리자 로그인 모달 -->
+    <div id="admin-login-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-deep-navy mb-2">관리자 로그인</h2>
+                <p class="text-gray-600">관리자 권한이 필요합니다</p>
+            </div>
+            
+            <form id="admin-login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">관리자 이메일</label>
+                    <input type="email" id="admin-id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="이메일을 입력해주세요" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+                    <input type="password" id="admin-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="비밀번호를 입력해주세요" required>
+                </div>
+                
+                <div class="flex gap-3 pt-4">
+                    <button type="button" id="admin-login-cancel" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                        취소
+                    </button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-deep-navy text-white rounded-lg hover:bg-golden-brown">
+                        로그인
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 리뷰 작성/수정 모달 -->
+    <div id="review-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="review-modal-title" class="text-2xl font-bold text-deep-navy">새 리뷰 작성</h2>
+                <button id="review-modal-close" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="review-form" class="space-y-6">
+                <input type="hidden" id="review-id" value="">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">작성자명 <span class="text-red-500">*</span></label>
+                        <input type="text" id="review-author" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="김○○" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">날짜 <span class="text-red-500">*</span></label>
+                        <input type="date" id="review-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="날짜를 선택해주세요" required>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">프로그램 <span class="text-red-500">*</span></label>
+                        <select id="review-program" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" required>
+                            <option value="">선택해주세요</option>
+                            <option value="통증재활 필라테스">통증재활 필라테스</option>
+                            <option value="골프 필라테스">골프 필라테스</option>
+                            <option value="마네킹톤 프로그램">마네킹톤 프로그램</option>
+                            <option value="임산부 필라테스">임산부 필라테스</option>
+                            <option value="시니어 필라테스">시니어 필라테스</option>
+                            <option value="키즈(성장) 필라테스">키즈(성장) 필라테스</option>
+                            <option value="플랫스콜 프로그램">플랫스콜 프로그램</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">담당 강사 <span class="text-red-500">*</span></label>
+                        <select id="review-instructor" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" required>
+                            <option value="">선택해주세요</option>
+                            <option value="박정은 원장">박정은 원장</option>
+                            <option value="김다혜 강사">김다혜 강사</option>
+                            <option value="김세령 강사">김세령 강사</option>
+                            <option value="서이은 강사">서이은 강사</option>
+                            <option value="엄선희 강사">엄선희 강사</option>
+                            <option value="이지나 강사">이지나 강사</option>
+                            <option value="이차빈 강사">이차빈 강사</option>
+                            <option value="조소진 강사">조소진 강사</option>
+                            <option value="최현정 강사">최현정 강사</option>
+                            <option value="선택없음">고정강사 없음</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">별점 <span class="text-red-500">*</span></label>
+                    <div class="flex items-center space-x-2">
+                        <div class="flex" id="rating-stars">
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-accent-gold" data-rating="1">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-accent-gold" data-rating="2">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-accent-gold" data-rating="3">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-accent-gold" data-rating="4">★</button>
+                            <button type="button" class="star-btn text-2xl text-gray-300 hover:text-accent-gold" data-rating="5">★</button>
+                        </div>
+                        <span id="rating-text" class="text-sm text-gray-600">별점을 선택해주세요</span>
+                    </div>
+                    <input type="hidden" id="review-rating" value="" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">리뷰 제목 <span class="text-red-500">*</span></label>
+                    <input type="text" id="review-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none" placeholder="리뷰 제목을 입력하세요" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Q1. 필라테스 호두 방문 전 불편하셨던 부분과 현재 상태 <span class="text-red-500">*</span></label>
+                    <textarea id="review-q1" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none resize-none" placeholder="방문 전 불편하셨던 증상이나 문제점과 현재 개선된 상태에 대하여 자세히 적어주십시오..." required></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Q2. 필라테스 호두 추천 이유 <span class="text-red-500">*</span></label>
+                    <textarea id="review-q2" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-deep-navy focus:outline-none resize-none" placeholder="저희 필라테스 호두를 추천하신다면 그 이유를 간략하게 적어주십시오..." required></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">리뷰 이미지</label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-deep-navy transition-colors">
+                        <input type="file" id="review-images" multiple accept="image/*" class="hidden">
+                        <div id="upload-area" class="cursor-pointer" onclick="document.getElementById('review-images').click()">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600 mb-1">클릭하여 이미지를 업로드하세요</p>
+                            <p class="text-sm text-gray-500">JPG, PNG 파일만 업로드 가능 (최대 5개)</p>
+                        </div>
+                        <div id="image-preview" class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 hidden">
+                            <!-- 미리보기 이미지들이 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-3 pt-4">
+                    <button type="button" id="review-cancel" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                        취소
+                    </button>
+                    <button type="submit" id="review-submit" class="flex-1 px-6 py-3 bg-deep-navy text-white rounded-lg hover:bg-golden-brown">
+                        저장
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 리뷰 상세 모달 -->
+    <div id="review-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden flex items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl">
+            <!-- 모달 헤더 -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center sticky top-0 z-10 rounded-t-xl">
+                <h2 id="detail-modal-title" class="text-xl font-bold text-deep-navy"></h2>
+                <button id="review-detail-close" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <!-- 작성자 정보 -->
+                <div class="flex items-center mb-6">
+                    <div id="detail-author-avatar" class="w-16 h-16 bg-deep-navy text-white rounded-full flex items-center justify-center font-bold text-xl mr-4">
+                    </div>
+                    <div>
+                        <h3 id="detail-author-name" class="text-lg font-semibold text-deep-navy"></h3>
+                        <p id="detail-author-date" class="text-gray-500"></p>
+                        <div class="flex items-center mt-1">
+                            <span id="detail-program" class="bg-warm-beige text-deep-navy px-3 py-1 rounded-full text-sm font-medium mr-2"></span>
+                            <span id="detail-instructor" class="bg-accent-gold text-deep-navy px-3 py-1 rounded-full text-sm font-medium"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 이미지 갤러리 -->
+                <div id="detail-images" class="mb-6 hidden">
+                    <h4 class="text-lg font-semibold text-deep-navy mb-3">첨부 이미지</h4>
+                    <div id="detail-image-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- 이미지들이 여기에 동적으로 추가됩니다 -->
+                    </div>
+                </div>
+                
+                <!-- Q1 내용 -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-deep-navy mb-3">Q1. 필라테스 호두 방문 전 불편하셨던 부분과 현재 상태</h4>
+                    <div id="detail-q1" class="text-container bg-gray-50 rounded-lg p-4 text-gray-700 leading-relaxed"></div>
+                </div>
+                
+                <!-- Q2 내용 -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-semibold text-deep-navy mb-3">Q2. 필라테스 호두 추천 이유</h4>
+                    <div id="detail-q2" class="text-container bg-gray-50 rounded-lg p-4 text-gray-700 leading-relaxed"></div>
+                </div>
+                
+                <!-- 목록으로 버튼 -->
+                <div class="flex justify-center pb-4">
+                    <button id="back-to-list-btn" class="bg-deep-navy hover:bg-deep-navy-dark text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 text-base min-h-[44px] touch-action-manipulation">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>목록으로</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 이미지 모달 -->
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-90 z-[60] hidden items-center justify-center">
+        <div class="relative max-w-4xl max-h-full p-4" onclick="event.stopPropagation()">
+            <button id="image-modal-close" class="absolute -top-2 -right-2 w-12 h-12 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-800 text-2xl hover:text-gray-600 transition-all duration-200 z-10 shadow-lg border-2 border-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modal-image" src="" alt="리뷰 이미지" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+    </div>
+
+    <!-- 삭제 확인 모달 -->
+    <div id="delete-confirm-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden items-center justify-center">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                    <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 13.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">리뷰 삭제</h3>
+                <p id="delete-confirm-message" class="text-sm text-gray-500 mb-6">
+                    정말로 이 리뷰를 삭제하시겠습니까?<br>
+                    삭제된 리뷰는 복구할 수 없습니다.
+                </p>
+                
+                <div class="flex gap-3">
+                    <button type="button" id="delete-cancel" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                        취소
+                    </button>
+                    <button type="button" id="delete-confirm" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                        삭제
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-deep-navy text-white pt-12 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <span class="font-eng">PILATES</span><span class="text-accent-gold"> HODU</span>
+                    </h3>
+                    <p class="text-gray-300 text-sm">
+                        의학적 근거기반 메디컬필라테스™<br>
+                        AI로 최적화된 개인-맞춤형 필라테스를<br>
+                        통해 건강한 삶을 되찾아 드립니다
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">프로그램</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><a href="programs.html" class="hover:text-accent-gold">통증재활 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">마네킹톤 프로그램</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">플랫스콜 프로그램</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">골프 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">키즈(성장) 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">임산부 필라테스</a></li>
+                        <li><a href="programs.html" class="hover:text-accent-gold">시니어 필라테스</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">스튜디오</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><a href="instructors.html" class="hover:text-accent-gold">강사진</a></li>
+                        <li><a href="facilities.html" class="hover:text-accent-gold">시설안내</a></li>
+                        <li><a href="pricing.html" class="hover:text-accent-gold">레슨비용</a></li>
+                        <li><a href="booking.html" class="hover:text-accent-gold">상담예약</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">지점안내</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><a href="http://pilateshodu.com" target="_blank" class="hover:text-accent-gold">강남본점</a></li>
+                        <li><a href="http://pilateshodu2.com" class="hover:text-accent-gold">수지점</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">연락처</h4>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li><i class="fas fa-phone mr-2"></i> 02-547-3345</li>
+                        <li><i class="fas fa-envelope mr-2"></i> pilateshodu@naver.com</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 서초구 신반포로 33길 27, 2층</li>
+                    </ul>
+                    <div class="mt-4">
+                        <h5 class="font-semibold mb-2 text-sm">소셜미디어</h5>
+                        <div class="flex space-x-3">
+                            <a href="https://www.instagram.com/pilateshodu" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                                <i class="fab fa-instagram text-lg"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@pilateshodu" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                                <i class="fab fa-youtube text-lg"></i>
+                            </a>
+                            <a href="https://www.facebook.com/pilateshodu" target="_blank" class="text-gray-300 hover:text-accent-gold transition-colors duration-200">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 mt-8 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2013 PILATES HODU. All Rights Reserved.</p>
+                <p class="mt-1">메디컬필라테스™는 등록상표입니다. 모든 컨텐츠의 무단 사용을 금지합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome 7 style-sheet load -->
+    <link
+       rel="stylesheet"
+       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    />
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-40">
+        <a href="tel:02-547-3345" class="w-14 h-14 bg-golden-brown text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fas fa-phone fa-lg"></i>
+        </a>
+        <a href="https://pf.kakao.com/_jZnEj/chat" class="w-14 h-14 bg-accent-gold text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fa-brands fa-kakao-talk fa-lg"></i>
+        </a>
+        <button id="top-btn" class="w-14 h-14 bg-deep-navy text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
+             <i class="fas fa-arrow-up fa-lg"></i>
+        </button>
+    </div>
+
+    <script>
+        // 텍스트 내 해시태그와 URL 링크 처리 함수 (최우선 정의)
+        function processTextLinks(text) {
+            if (!text) return '';
+            
+            console.log('processTextLinks 입력:', text.substring(0, 50) + '...');
+            
+            // URL 정규표현식 (http, https, www 포함)
+            const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)/g;
+            
+            // 해시태그 정규표현식 (#단어 형태)
+            const hashtagRegex = /#([가-힣a-zA-Z0-9_]+)/g;
+            
+            let processedText = text;
+            
+            // 1. URL 링크로 변환 (모바일 친화적)
+            processedText = processedText.replace(urlRegex, (match) => {
+                let url = match;
+                let displayText = match;
+                
+                // www로 시작하는 경우 http:// 추가
+                if (match.startsWith('www.')) {
+                    url = 'http://' + match;
+                }
+                
+                // 길은 URL은 모바일에서 줄임 표시
+                if (displayText.length > 30) {
+                    displayText = displayText.substring(0, 27) + '...';
+                }
+                
+                console.log('URL 변환:', match, '→', url);
+                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline break-all inline-block max-w-full" style="word-break: break-all; overflow-wrap: break-word;">${displayText}</a>`;
+            });
+            
+            // 2. 해시태그를 인스타그램 링크로 변환 (모바일 친화적)
+            processedText = processedText.replace(hashtagRegex, (match, hashtag) => {
+                const instagramUrl = `https://www.instagram.com/explore/tags/${encodeURIComponent(hashtag)}/`;
+                console.log('해시태그 변환:', match, '→', instagramUrl);
+                return `<a href="${instagramUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-medium inline-block" style="word-break: keep-all;">${match}</a>`;
+            });
+            
+            console.log('processTextLinks 결과 길이:', processedText.length);
+            return processedText;
+        }
+
+        // 전역으로 노출
+        window.processTextLinks = processTextLinks;
+
+        // 리뷰 데이터를 저장할 변수
+        let reviewsData = [];
+        let filteredReviews = [];
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const reviewsPerPage = 9; // MangBoard 스타일: 3x3 그리드
+        
+        // 관리자 상태 관리
+        let isAdmin = false;
+        let currentEditingReviewId = null;
+        let currentDeletingReviewId = null;
+        let uploadedImages = []; // 업로드된 이미지들을 임시 저장
+        
+        // 관리자 인증 정보 (실제 운영 시에는 보안을 강화해야 함)
+        const ADMIN_CREDENTIALS = {
+            id: 'admin',
+            password: 'pilates2024'
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 리뷰 시스템 초기화
+            loadReviews();
+            initializeFilterButtons();
+            initializeSearchSystem();
+            initializePagination();
+            
+            // 관리자 시스템 초기화
+            initializeAdminSystem();
+            
+            // 전체 시스템 초기화
+            initializeHeaderSystem();
+            initializeScrollAnimations();
+            initializeScrollTop();
+            
+            // 모바일에서 외부 터치 시 관리자 버튼 숨김
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && isAdmin) {
+                    // 리뷰 카드나 관리자 버튼이 아닌 곳을 클릭했을 때
+                    if (!e.target.closest('.review-card') && !e.target.closest('.admin-controls')) {
+                        document.querySelectorAll('.review-card.show-admin').forEach(card => {
+                            card.classList.remove('show-admin');
+                        });
+                    }
+                }
+            });
+            
+            // 전역 함수 노출 (onclick 이벤트에서 사용하기 위해)
+            window.openEditModal = openEditModal;
+            window.openDeleteModal = openDeleteModal;
+            window.removeImage = removeImage;
+            
+            // 링크 처리 함수 테스트
+            console.log('=== 링크 처리 함수 테스트 ===');
+            console.log('processTextLinks 함수 존재 여부:', typeof processTextLinks);
+            console.log('window.processTextLinks 존재 여부:', typeof window.processTextLinks);
+            
+            if (typeof processTextLinks === 'function') {
+                const testText = "이것은 #테스트해시태그 와 www.example.com 링크 테스트입니다.";
+                const result = processTextLinks(testText);
+                console.log('테스트 입력:', testText);
+                console.log('테스트 결과:', result);
+            } else {
+                console.error('processTextLinks 함수가 정의되지 않았습니다!');
+            }
+        });
+
+
+        // Firebase에서 리뷰 데이터 로드
+        async function loadReviews() {
+            try {
+                console.log('Firebase에서 리뷰 데이터 로드 시작...');
+                
+                // Firebase가 초기화될 때까지 대기
+                if (!window.db) {
+                    console.log('Firebase 초기화 대기 중...');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+                
+                const { collection, getDocs, query, orderBy } = window.firebaseUtils;
+                
+                // Firestore에서 리뷰 데이터 가져오기 (최신순 정렬)
+                const reviewsQuery = query(
+                    collection(window.db, 'reviews'),
+                    orderBy('createdAt', 'desc')
+                );
+                
+                const querySnapshot = await getDocs(reviewsQuery);
+                
+                reviewsData = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // 사용자가 입력한 날짜가 없는 경우에만 Firestore 타임스탬프를 사용
+                    if (!data.date && data.createdAt) {
+                        data.date = data.createdAt.toDate().toISOString().split('T')[0];
+                    }
+                    reviewsData.push({
+                        id: doc.id,
+                        ...data
+                    });
+                });
+                
+                filteredReviews = reviewsData;
+                
+                console.log('Firebase에서 로드된 리뷰 개수:', reviewsData.length);
+                
+                // 통계 업데이트
+                updateStatistics({
+                    total_reviews: reviewsData.length,
+                    average_rating: calculateAverageRating()
+                });
+                
+                // 초기 리뷰 표시
+                displayReviews();
+                
+                console.log('Firebase 리뷰 로드 완료');
+            } catch (error) {
+                console.error('Firebase 리뷰 데이터를 불러오는 중 오류 발생:', error);
+                console.error('Error details:', error.message);
+                
+                // Firebase 로드 실패 시 테스트 데이터로 대체
+                console.log('테스트 데이터로 대체합니다...');
+                loadTestData();
+            }
+        }
+        
+        // 평균 평점 계산
+        function calculateAverageRating() {
+            if (reviewsData.length === 0) return 0;
+            const totalRating = reviewsData.reduce((sum, review) => sum + (review.rating || 5), 0);
+            return (totalRating / reviewsData.length).toFixed(1);
+        }
+        
+        // 테스트 데이터 로드 (파일 로드 실패 시 사용)
+        function loadTestData() {
+            const testData = {
+                "reviews": [
+                    {
+                        "id": 1,
+                        "author": "김○○",
+                        "date": "2024-12-15",
+                        "program": "통증재활 필라테스",
+                        "instructor": "박정은 대표원장",
+                        "rating": 5,
+                        "title": "20년 만성 허리통증이 3개월 만에 개선되었어요!",
+                        "q1": "사무직으로 20년 넘게 일하면서 만성 허리통증에 시달려왔습니다. 앉아있기만 해도 허리가 아프고, 아침에 일어날 때마다 허리가 굳어서 움직이기 힘들었어요. 병원에서도 수술 말고는 방법이 없다고 했었는데, 지금은 하루 종일 앉아서 일해도 전혀 아프지 않고 숙면도 잘 취할 수 있게 되었습니다.",
+                        "q2": "박정은 원장님의 의학적 근거를 바탕으로 한 정확한 진단과 개인 맞춤형 운동처방이 정말 놀라웠어요. 단순한 운동이 아닌 제 몸의 문제점을 정확히 파악하고 체계적으로 개선해나가는 과정이 믿음직스러웠습니다. #메디컬필라테스 #허리통증개선 #필라테스호두 의 차이를 몸소 체험했습니다! 더 자세한 정보는 www.pilateshodu.com 에서 확인하세요.",
+                        "content": "박정은 원장님의 의학적 근거를 바탕으로 한 정확한 진단과 개인 맞춤형 운동처방이 정말 놀라웠어요. 단순한 운동이 아닌 제 몸의 문제점을 정확히 파악하고 체계적으로 개선해나가는 과정이 믿음직스러웠습니다. 메디컬필라테스의 차이를 몸소 체험했습니다!",
+                        "images": ["./assets/reviews/F1_강한경_후기_20161111.jpg"]
+                    },
+                    {
+                        "id": 2,
+                        "author": "박○○",
+                        "date": "2024-12-10",
+                        "program": "골프 필라테스",
+                        "instructor": "김다혜 강사",
+                        "rating": 5,
+                        "title": "골프 핸디캡이 10타 줄었습니다",
+                        "q1": "골프를 10년 넘게 쳐왔지만 실력이 늘지 않아 고민이었어요. 특히 드라이버 샷이 일정하지 않고 코어 근력 부족으로 라운드 후반에 체력이 떨어져 스코어가 나빠지곤 했습니다.",
+                        "q2": "골프 필라테스를 시작하고 나서 완전히 달라졌어요! #골프필라테스 #스윙개선 으로 코어 근력이 강해지면서 스윙의 일관성이 생겼고, 특히 드라이버 비거리가 20야드 이상 늘었습니다. 김다혜 강사님이 골프 동작과 필라테스 운동을 연결해서 설명해주셔서 이해가 쏙쏙 들어왔어요. https://www.instagram.com/pilateshodu 에서 더 많은 후기를 확인해보세요!",
+                        "content": "골프 필라테스를 시작하고 나서 완전히 달라졌어요. 코어 근력이 강해지면서 스윙의 일관성이 생겼고, 특히 드라이버 비거리가 20야드 이상 늘었습니다. 김다혜 강사님이 골프 동작과 필라테스 운동을 연결해서 설명해주셔서 이해가 쏙쏙 들어왔어요.",
+                        "images": []
+                    },
+                    {
+                        "id": 3,
+                        "author": "이○○",
+                        "date": "2024-12-08",
+                        "program": "마네킹톤 프로그램",
+                        "instructor": "서이은 강사",
+                        "rating": 5,
+                        "title": "거북목이 완전히 교정되었어요",
+                        "q1": "재택근무를 하면서 거북목과 라운드숄더가 심해져서 목과 어깨가 항상 아팠어요. 하루 종일 컴퓨터 앞에 앉아 있다 보니 자세가 점점 나빠졌고, 두통까지 생겼습니다.",
+                        "q2": "마네킹톤 프로그램을 6개월 받고 나서 완전히 달라졌어요. 서이은 강사님께서 제 체형을 정확히 분석해주시고, 매 수업마다 조금씩 달라지는 제 자세를 세심하게 체크해주셨어요. 이제는 하루 종일 컴퓨터 앞에 앉아 있어도 전혀 아프지 않습니다.",
+                        "content": "마네킹톤 프로그램을 6개월 받고 나서 완전히 달라졌어요. 서이은 강사님께서 제 체형을 정확히 분석해주시고, 매 수업마다 조금씩 달라지는 제 자세를 세심하게 체크해주셨어요. 이제는 하루 종일 컴퓨터 앞에 앉아 있어도 전혀 아프지 않습니다.",
+                        "images": []
+                    },
+                    {
+                        "id": 4,
+                        "author": "정○○",
+                        "date": "2024-12-05",
+                        "program": "임산부 필라테스",
+                        "instructor": "조소진 강사",
+                        "rating": 5,
+                        "title": "출산 후 회복이 정말 빨랐어요",
+                        "content": "첫 임신이라 운동을 해도 되는지 걱정이 많았는데, 조소진 강사님이 임산부 전문 자격증을 가지고 계셔서 안심하고 시작할 수 있었어요.",
+                        "images": []
+                    },
+                    {
+                        "id": 5,
+                        "author": "최○○",
+                        "date": "2024-12-03",
+                        "program": "시니어 필라테스",
+                        "instructor": "엄선희 강사",
+                        "rating": 5,
+                        "title": "68세, 이제야 진짜 운동을 시작한 기분입니다",
+                        "content": "나이가 들어서 운동을 시작하기엔 너무 늦었다고 생각했는데, 엄선희 강사님을 만나고 생각이 완전히 바뀌었어요.",
+                        "images": []
+                    },
+                    {
+                        "id": 6,
+                        "author": "장○○",
+                        "date": "2024-11-28",
+                        "program": "키즈(성장) 필라테스",
+                        "instructor": "이지나 강사",
+                        "rating": 5,
+                        "title": "아이가 스스로 자세를 의식하게 되었어요",
+                        "content": "중1인 우리 아이가 게임을 하느라 자세가 정말 나빠져서 걱정이 많았는데, 이지나 강사님 덕분에 완전히 달라졌어요.",
+                        "images": []
+                    },
+                    {
+                        "id": 7,
+                        "author": "윤○○",
+                        "date": "2024-11-25",
+                        "program": "플랫스콜 프로그램",
+                        "instructor": "이차빈 강사",
+                        "rating": 5,
+                        "title": "척추측만증 각도가 실제로 줄어들었어요",
+                        "content": "고등학교 때부터 척추측만증 때문에 고생했는데, 플랫스콜 프로그램을 1년간 꾸준히 했더니 X-ray 상에서도 척추 각도가 줄어든 걸 확인할 수 있었어요.",
+                        "images": []
+                    },
+                    {
+                        "id": 8,
+                        "author": "강○○",
+                        "date": "2024-11-20",
+                        "program": "통증재활 필라테스",
+                        "instructor": "최현정 강사",
+                        "rating": 5,
+                        "title": "무릎 수술 후 재활, 의사도 놀란 회복속도",
+                        "content": "무릎 연골 수술 후 재활 운동을 어디서 해야 할지 고민하다가 필라테스호두를 알게 되었어요. 최현정 강사님의 맞춤형 재활 프로그램으로 빠른 회복이 가능했습니다.",
+                        "images": []
+                    },
+                    {
+                        "id": 9,
+                        "author": "한○○",
+                        "date": "2024-11-18",
+                        "program": "마네킹톤 프로그램",
+                        "instructor": "김세령 강사",
+                        "rating": 5,
+                        "title": "모델처럼 걷는 법을 배웠어요",
+                        "content": "항상 걸음걸이에 자신이 없었는데, 마네킹톤 프로그램을 통해서 완전히 달라졌어요. 김세령 강사님께서 모델 출신이셔서 정말 우아하고 세련된 워킹을 가르쳐주세요.",
+                        "images": []
+                    }
+                ],
+                "statistics": {
+                    "total_reviews": 9,
+                    "average_rating": 5.0
+                }
+            };
+            
+            reviewsData = testData.reviews;
+            filteredReviews = reviewsData;
+            
+            console.log('테스트 데이터 로드 완료:', reviewsData.length, '개');
+            
+            // 통계 업데이트
+            updateStatistics(testData.statistics);
+            
+            // 초기 리뷰 표시
+            displayReviews();
+        }
+
+        // 통계 업데이트
+        function updateStatistics(stats) {
+            // 통계 요소들이 있을 경우에만 업데이트
+            const totalReviewsEl = document.getElementById('total-reviews');
+            const averageRatingEl = document.getElementById('average-rating');
+            
+            if (totalReviewsEl) {
+                totalReviewsEl.textContent = stats.total_reviews;
+            }
+            if (averageRatingEl) {
+                averageRatingEl.textContent = stats.average_rating;
+            }
+            
+            // 콘솔에 통계 정보 출력
+            console.log(`총 리뷰 개수: ${stats.total_reviews}개`);
+            console.log(`평균 평점: ${stats.average_rating}점`);
+        }
+
+        // 리뷰 표시 (페이지네이션 방식)
+        function displayReviews() {
+            const container = document.getElementById('reviews-container');
+            const noResultsDiv = document.getElementById('no-results');
+            
+            // 컨테이너 초기화
+            container.innerHTML = '';
+            
+            // 검색 결과가 없는 경우
+            if (filteredReviews.length === 0) {
+                noResultsDiv.classList.remove('hidden');
+                updatePagination();
+                return;
+            } else {
+                noResultsDiv.classList.add('hidden');
+            }
+            
+            // 현재 페이지에 해당하는 리뷰들 계산
+            const startIndex = (currentPage - 1) * reviewsPerPage;
+            const endIndex = Math.min(startIndex + reviewsPerPage, filteredReviews.length);
+            
+            // 현재 페이지의 리뷰들 표시
+            for (let i = startIndex; i < endIndex; i++) {
+                const review = filteredReviews[i];
+                const reviewCard = createReviewCard(review);
+                container.appendChild(reviewCard);
+            }
+            
+            // 페이지네이션 업데이트
+            updatePagination();
+            
+            // 스크롤 애니메이션 적용
+            setTimeout(() => {
+                initializeScrollAnimations();
+                // 관리자 버튼 이벤트 리스너 추가
+                if (isAdmin) {
+                    attachAdminButtonListeners();
+                }
+            }, 100);
+        }
+
+        // 리뷰 카드 생성
+        function createReviewCard(review) {
+            const card = document.createElement('div');
+            card.className = 'review-card bg-white rounded-lg shadow-lg p-6 relative cursor-pointer overflow-hidden';
+            card.setAttribute('data-program', review.program);
+            card.setAttribute('data-id', review.id);
+
+            // 카드 클릭 이벤트 추가
+            card.addEventListener('click', function(e) {
+                // 관리자 버튼 클릭 시는 상세 모달 열지 않음
+                if (e.target.closest('.admin-controls')) {
+                    return;
+                }
+                
+                // 모바일에서 관리자 로그인 시 터치로 버튼 표시/숨김
+                if (window.innerWidth <= 768 && isAdmin) {
+                    // 다른 카드들의 show-admin 클래스 제거
+                    document.querySelectorAll('.review-card.show-admin').forEach(otherCard => {
+                        if (otherCard !== card) {
+                            otherCard.classList.remove('show-admin');
+                        }
+                    });
+                    
+                    // 현재 카드의 show-admin 클래스 토글
+                    card.classList.toggle('show-admin');
+                    
+                    // show-admin 클래스가 있으면 상세 모달을 열지 않음
+                    if (card.classList.contains('show-admin')) {
+                        return;
+                    }
+                }
+                
+                openReviewDetailModal(review.id);
+            });
+
+            const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+
+            // 관리자 버튼 HTML
+            const adminButtons = isAdmin ? `
+                <div class="admin-controls">
+                    <button class="admin-btn-edit" data-review-id="${review.id}">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="admin-btn-delete" data-review-id="${review.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            ` : '';
+
+            // 텍스트 링크 처리
+            const originalText = review.q2 || review.content;
+            const processedText = processTextLinks(originalText);
+            console.log(`리뷰 ${review.id} 텍스트 처리:`, originalText.substring(0, 50) + '...', '→', processedText.substring(0, 100) + '...');
+
+            // 애니메이션을 위한 내부 래퍼 추가
+            const innerHTML = `
+                <div class="reveal">
+                    ${adminButtons}
+                    
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-deep-navy text-white rounded-full flex items-center justify-center font-bold">
+                                ${review.author.charAt(0)}
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-deep-navy">${review.author}</h3>
+                                <p class="text-sm text-gray-500">${formatDate(review.date)}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-block bg-warm-beige text-deep-navy px-3 py-1 rounded-full text-sm font-medium mb-2">
+                            ${review.program}
+                        </span>
+                        <span class="inline-block bg-accent-gold text-deep-navy px-3 py-1 rounded-full text-sm font-medium mb-2">
+                            ${review.instructor}
+                        </span>
+                    </div>
+                    
+                    <h4 class="text-lg font-semibold text-deep-navy mb-3 truncate">
+                        ${review.title}
+                    </h4>
+                    
+                    <!-- 이미지 섹션 (제목과 본문 사이) -->
+                    <div class="mb-4 w-full image-container">
+                        ${review.images && review.images.length > 0 ? `
+                            <img src="${review.images[0]}" alt="리뷰 이미지" 
+                                 class="w-full h-32 object-cover rounded hover:opacity-90 transition-opacity review-image" 
+                                 style="object-position: center bottom; position: static;">
+                        ` : `
+                            <div class="w-full h-32 rounded flex items-center justify-center review-placeholder" style="background: linear-gradient(135deg, #001F3F 0%, #996515 100%); position: static;">
+                                <h3 class="text-xl font-bold font-eng tracking-wider" style="color: white;">PILATES HODU</h3>
+                            </div>
+                        `}
+                    </div>
+                    
+                    <div class="text-container text-gray-700 leading-relaxed review-content line-clamp-4" style="word-break: break-word; overflow-wrap: break-word;">
+                        ${processedText}
+                    </div>
+                </div>
+            `;
+            
+            card.innerHTML = innerHTML;
+            
+            return card;
+        }
+
+        // 날짜 포맷팅
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // 필터 버튼 초기화
+        function initializeFilterButtons() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 활성 상태 변경
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 필터 적용
+                    currentFilter = this.dataset.filter;
+                    applyFilters();
+                });
+            });
+        }
+        
+        // 필터 적용 함수
+        function applyFilters() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            // 프로그램 필터 적용
+            if (currentFilter === 'all') {
+                filteredReviews = reviewsData;
+            } else {
+                filteredReviews = reviewsData.filter(review => 
+                    review.program === currentFilter
+                );
+            }
+            
+            // 검색어 필터 적용
+            if (searchTerm) {
+                filteredReviews = filteredReviews.filter(review =>
+                    review.title.toLowerCase().includes(searchTerm) ||
+                    review.content.toLowerCase().includes(searchTerm) ||
+                    review.author.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // 페이지 1로 초기화
+            currentPage = 1;
+            displayReviews();
+            updatePagination();
+        }
+
+        // 검색 시스템 초기화
+        function initializeSearchSystem() {
+            const searchInput = document.getElementById('search-input');
+            let searchTimeout;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    applyFilters();
+                }, 300); // 300ms 디바운스
+            });
+        }
+        
+        // 페이지네이션 초기화
+        function initializePagination() {
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayReviews();
+                    updatePagination();
+                    scrollToTop();
+                }
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayReviews();
+                    updatePagination();
+                    scrollToTop();
+                }
+            });
+        }
+        
+        // 페이지네이션 업데이트
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            const pageNumbers = document.getElementById('page-numbers');
+            
+            // 이전/다음 버튼 상태 업데이트
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+            
+            // 페이지 번호 생성
+            pageNumbers.innerHTML = '';
+            
+            if (totalPages <= 1) {
+                return; // 페이지가 1개 이하면 페이지네이션 숨김
+            }
+            
+            // 페이지 번호 버튼 생성 (최대 5개 표시)
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, startPage + 4);
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', function() {
+                    currentPage = i;
+                    displayReviews();
+                    updatePagination();
+                    scrollToTop();
+                });
+                pageNumbers.appendChild(pageBtn);
+            }
+        }
+        
+        // 페이지 변경 시 상단으로 스크롤
+        function scrollToTop() {
+            document.getElementById('reviews-container').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        // ===== 관리자 시스템 =====
+        
+        // 모달 열기
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.classList.add('modal-open'); // 배경 스크롤 방지
+            }
+        }
+
+        // 모달 닫기
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.classList.remove('modal-open'); // 배경 스크롤 허용
+            }
+        }
+
+        // 관리자 시스템 초기화
+        function initializeAdminSystem() {
+            // 세션에서 관리자 상태 복원
+            if (sessionStorage.getItem('isAdmin') === 'true') {
+                isAdmin = true;
+                updateAdminUI();
+            }
+            
+            // 관리자 로그인 버튼
+            document.getElementById('admin-login-btn').addEventListener('click', function() {
+                openModal('admin-login-modal');
+            });
+            
+            // 관리자 로그아웃 버튼
+            document.getElementById('admin-logout-btn').addEventListener('click', function() {
+                adminLogout();
+            });
+            
+            // 새 리뷰 작성 버튼
+            document.getElementById('new-review-btn').addEventListener('click', function() {
+                openWriteModal();
+            });
+            
+            // 로그인 모달 이벤트
+            document.getElementById('admin-login-cancel').addEventListener('click', function() {
+                closeModal('admin-login-modal');
+            });
+            
+            document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleAdminLogin();
+            });
+            
+            // 리뷰 모달 이벤트
+            document.getElementById('review-modal-close').addEventListener('click', function() {
+                closeModal('review-modal');
+            });
+            
+            document.getElementById('review-cancel').addEventListener('click', function() {
+                closeModal('review-modal');
+            });
+            
+            document.getElementById('review-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleReviewSubmit();
+            });
+            
+            // 별점 이벤트
+            initializeRatingSystem();
+            
+            // 이미지 업로드 이벤트
+            initializeImageUpload();
+            
+            // 리뷰 상세 모달 이벤트
+            document.getElementById('review-detail-close').addEventListener('click', function() {
+                closeModal('review-detail-modal');
+            });
+            
+            // 목록으로 버튼 이벤트 - 터치 지원
+            const backToListBtn = document.getElementById('back-to-list-btn');
+            backToListBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                closeModal('review-detail-modal');
+            }, { passive: false });
+            
+            backToListBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeModal('review-detail-modal');
+            });
+            
+            // 이미지 모달 이벤트 - 모바일 터치 지원
+            const imageModalClose = document.getElementById('image-modal-close');
+            imageModalClose.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeModal('image-modal');
+            }, { passive: false });
+            
+            imageModalClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeModal('image-modal');
+            });
+            
+            // 이미지 모달 배경 클릭 시 닫기 - 터치 지원
+            const imageModal = document.getElementById('image-modal');
+            imageModal.addEventListener('touchstart', function(e) {
+                if (e.target === imageModal) {
+                    e.preventDefault();
+                    closeModal('image-modal');
+                }
+            }, { passive: false });
+            
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    closeModal('image-modal');
+                }
+            });
+            
+            // ESC 키로 모달 닫기
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    // 열려있는 모달 찾기
+                    if (!document.getElementById('image-modal').classList.contains('hidden')) {
+                        closeModal('image-modal');
+                    } else if (!document.getElementById('review-detail-modal').classList.contains('hidden')) {
+                        closeModal('review-detail-modal');
+                    } else if (!document.getElementById('delete-confirm-modal').classList.contains('hidden')) {
+                        closeModal('delete-confirm-modal');
+                    }
+                }
+            });
+            
+            // 삭제 모달 이벤트
+            document.getElementById('delete-cancel').addEventListener('click', function() {
+                closeModal('delete-confirm-modal');
+            });
+            
+            document.getElementById('delete-confirm').addEventListener('click', function() {
+                handleReviewDelete();
+            });
+        }
+        
+        // Firebase Authentication을 사용한 관리자 로그인 처리
+        async function handleAdminLogin() {
+            const email = document.getElementById('admin-id').value;
+            const password = document.getElementById('admin-password').value;
+            
+            try {
+                const { signInWithEmailAndPassword } = window.firebaseUtils;
+                
+                // Firebase Authentication으로 로그인
+                const userCredential = await signInWithEmailAndPassword(window.auth, email, password);
+                const user = userCredential.user;
+                
+                console.log('Firebase 로그인 성공:', user.email);
+                
+                isAdmin = true;
+                sessionStorage.setItem('isAdmin', 'true');
+                sessionStorage.setItem('adminUid', user.uid);
+                updateAdminUI();
+                closeModal('admin-login-modal');
+                
+                // 폼 초기화
+                document.getElementById('admin-login-form').reset();
+                
+                // 성공 메시지
+                showToast('관리자로 로그인했습니다', 'success');
+                
+                // 리뷰 카드 다시 렌더링 (관리자 버튼 표시)
+                displayReviews();
+                
+            } catch (error) {
+                console.error('Firebase 로그인 실패:', error);
+                
+                // Firebase 로그인 실패 시 기존 방식으로 폴백
+                const id = email.split('@')[0]; // 이메일에서 ID 부분 추출
+                if (id === ADMIN_CREDENTIALS.id && password === ADMIN_CREDENTIALS.password) {
+                    isAdmin = true;
+                    sessionStorage.setItem('isAdmin', 'true');
+                    updateAdminUI();
+                    closeModal('admin-login-modal');
+                    document.getElementById('admin-login-form').reset();
+                    showToast('관리자로 로그인했습니다 (로컬 모드)', 'success');
+                    displayReviews();
+                } else {
+                    showToast('잘못된 관리자 정보입니다', 'error');
+                }
+            }
+        }
+        
+        // Firebase Authentication을 사용한 관리자 로그아웃
+        async function adminLogout() {
+            try {
+                const { signOut } = window.firebaseUtils;
+                
+                // Firebase Authentication 로그아웃
+                await signOut(window.auth);
+                console.log('Firebase 로그아웃 성공');
+                
+            } catch (error) {
+                console.error('Firebase 로그아웃 실패:', error);
+            }
+            
+            // 로컬 상태 정리
+            isAdmin = false;
+            sessionStorage.removeItem('isAdmin');
+            sessionStorage.removeItem('adminUid');
+            updateAdminUI();
+            showToast('로그아웃되었습니다', 'success');
+            
+            // 리뷰 카드 다시 렌더링 (관리자 버튼 숨김)
+            displayReviews();
+        }
+        
+        // 관리자 UI 업데이트
+        function updateAdminUI() {
+            const loginSection = document.getElementById('admin-login-section');
+            const loggedinSection = document.getElementById('admin-loggedin-section');
+            
+            if (isAdmin) {
+                loginSection.style.display = 'none';
+                loggedinSection.style.display = 'flex';
+            } else {
+                loginSection.style.display = 'block';
+                loggedinSection.style.display = 'none';
+            }
+        }
+        
+        // 새 리뷰 작성 모달 열기
+        function openWriteModal() {
+            document.getElementById('review-modal-title').textContent = '새 리뷰 작성';
+            document.getElementById('review-submit').textContent = '저장';
+            document.getElementById('review-id').value = '';
+            document.getElementById('review-form').reset();
+            
+            // 날짜 필드 초기화 (사용자가 직접 입력 가능)
+            document.getElementById('review-date').value = '';
+            
+            // 별점 초기화
+            resetRating();
+            
+            // 이미지 초기화
+            uploadedImages = [];
+            document.getElementById('image-preview').innerHTML = '';
+            document.getElementById('image-preview').classList.add('hidden');
+            
+            openModal('review-modal');
+        }
+        
+        // 리뷰 수정 모달 열기
+        function openEditModal(reviewId) {
+            const review = reviewsData.find(r => r.id === reviewId);
+            if (!review) return;
+            
+            document.getElementById('review-modal-title').textContent = '리뷰 수정';
+            document.getElementById('review-submit').textContent = '수정';
+            
+            // 폼에 기존 데이터 채우기
+            document.getElementById('review-id').value = review.id;
+            document.getElementById('review-author').value = review.author;
+            document.getElementById('review-date').value = review.date;
+            document.getElementById('review-program').value = review.program;
+            document.getElementById('review-instructor').value = review.instructor;
+            document.getElementById('review-title').value = review.title;
+            document.getElementById('review-q1').value = review.q1 || review.content || '';
+            document.getElementById('review-q2').value = review.q2 || '';
+            
+            // 별점 설정
+            setRating(review.rating);
+            
+            // 기존 이미지 로드
+            uploadedImages = review.images ? [...review.images] : [];
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.innerHTML = '';
+            
+            if (uploadedImages.length > 0) {
+                imagePreview.classList.remove('hidden');
+                uploadedImages.forEach((img, index) => {
+                    createImagePreview(img, index);
+                });
+            } else {
+                imagePreview.classList.add('hidden');
+            }
+            
+            currentEditingReviewId = reviewId;
+            openModal('review-modal');
+        }
+        
+        // 삭제 확인 모달 열기
+        function openDeleteModal(reviewId) {
+            const review = reviewsData.find(r => r.id === reviewId);
+            if (!review) return;
+            
+            currentDeletingReviewId = reviewId;
+            document.getElementById('delete-confirm-message').innerHTML = 
+                `"${review.title}" 리뷰를 삭제하시겠습니까?<br>삭제된 리뷰는 복구할 수 없습니다.`;
+                
+            openModal('delete-confirm-modal');
+        }
+        
+        // Firebase를 사용한 리뷰 저장/수정 처리 - 성능 최적화
+        async function handleReviewSubmit() {
+            // 저장 버튼 비활성화 및 로딩 표시
+            const submitBtn = document.getElementById('review-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>저장 중...';
+            
+            try {
+                const reviewId = document.getElementById('review-id').value;
+                
+                // 이미지 업로드 처리 (병렬 처리로 최적화됨)
+                const imageUrls = await uploadImagesToFirebase();
+                
+                const reviewData = {
+                    author: document.getElementById('review-author').value,
+                    date: document.getElementById('review-date').value,
+                    program: document.getElementById('review-program').value,
+                    instructor: document.getElementById('review-instructor').value,
+                    rating: parseInt(document.getElementById('review-rating').value),
+                    title: document.getElementById('review-title').value,
+                    q1: document.getElementById('review-q1').value,
+                    q2: document.getElementById('review-q2').value,
+                    content: document.getElementById('review-q2').value, // 기존 호환성
+                    images: imageUrls,
+                    status: 'published'
+                };
+                
+                const { addDoc, updateDoc, doc, serverTimestamp, collection } = window.firebaseUtils;
+                
+                if (reviewId) {
+                    // 수정
+                    reviewData.updatedAt = serverTimestamp();
+                    const reviewRef = doc(window.db, 'reviews', reviewId);
+                    await updateDoc(reviewRef, reviewData);
+                    
+                    showToast('리뷰가 수정되었습니다', 'success');
+                } else {
+                    // 새 리뷰 추가
+                    reviewData.createdAt = serverTimestamp();
+                    reviewData.updatedAt = serverTimestamp();
+                    
+                    await addDoc(collection(window.db, 'reviews'), reviewData);
+                    
+                    showToast('새 리뷰가 추가되었습니다', 'success');
+                }
+                
+                // 모달 먼저 닫기 (사용자 경험 개선)
+                closeModal('review-modal');
+                
+                // 백그라운드에서 데이터 새로고침 (논블로킹)
+                setTimeout(() => {
+                    loadReviews();
+                }, 100);
+                
+            } catch (error) {
+                console.error('리뷰 저장 실패:', error);
+                showToast('리뷰 저장 중 오류가 발생했습니다', 'error');
+            } finally {
+                // 버튼 상태 원복
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        }
+        
+        // Firebase Storage에 이미지 업로드 - 성능 최적화
+        async function uploadImagesToFirebase() {
+            if (!uploadedImages || uploadedImages.length === 0) {
+                return [];
+            }
+            
+            const { ref, uploadBytes, getDownloadURL } = window.firebaseUtils;
+            const imagePromises = [];
+            
+            // 모든 이미지를 병렬로 처리
+            for (let i = 0; i < uploadedImages.length; i++) {
+                const imageData = uploadedImages[i];
+                
+                const processImagePromise = (async () => {
+                    try {
+                        // Firebase URL인 경우 그대로 사용 (기존 이미지 유지)
+                        if (imageData.startsWith('https://firebasestorage.googleapis.com/')) {
+                            console.log('기존 Firebase 이미지 유지:', imageData);
+                            return imageData;
+                        }
+                        
+                        // Base64 데이터인 경우에만 새로 업로드
+                        if (imageData.startsWith('data:image/')) {
+                            const response = await fetch(imageData);
+                            const blob = await response.blob();
+                            
+                            // 고유한 파일명 생성
+                            const fileName = `reviews/${Date.now()}_${Math.random().toString(36).substr(2, 9)}_${i}.jpg`;
+                            const storageRef = ref(window.storage, fileName);
+                            
+                            // Firebase Storage에 업로드
+                            const snapshot = await uploadBytes(storageRef, blob);
+                            const downloadURL = await getDownloadURL(snapshot.ref);
+                            
+                            console.log('새 이미지 업로드 완료:', downloadURL);
+                            return downloadURL;
+                        } else {
+                            // 기타 URL 형태도 그대로 유지 (로컬 이미지 등)
+                            console.log('기타 이미지 URL 유지:', imageData);
+                            return imageData;
+                        }
+                    } catch (error) {
+                        console.error('이미지 처리 실패:', error);
+                        // 에러가 발생해도 원본 데이터 반환
+                        return imageData;
+                    }
+                })();
+                
+                imagePromises.push(processImagePromise);
+            }
+            
+            // 모든 이미지 업로드를 병렬로 대기
+            const imageUrls = await Promise.all(imagePromises);
+            return imageUrls.filter(url => url); // null/undefined 제거
+        }
+        
+        // Firebase를 사용한 리뷰 삭제 처리
+        async function handleReviewDelete() {
+            if (!currentDeletingReviewId) return;
+            
+            try {
+                const { deleteDoc, doc } = window.firebaseUtils;
+                
+                // Firebase에서 리뷰 삭제
+                const reviewRef = doc(window.db, 'reviews', currentDeletingReviewId);
+                await deleteDoc(reviewRef);
+                
+                showToast('리뷰가 삭제되었습니다', 'success');
+                
+                // 리뷰 목록 새로고침
+                await loadReviews();
+                
+            } catch (error) {
+                console.error('리뷰 삭제 실패:', error);
+                showToast('리뷰 삭제 중 오류가 발생했습니다', 'error');
+            }
+            
+            currentDeletingReviewId = null;
+            closeModal('delete-confirm-modal');
+        }
+        
+        // 다음 리뷰 ID 생성
+        function getNextReviewId() {
+            const maxId = reviewsData.reduce((max, review) => Math.max(max, review.id), 0);
+            return maxId + 1;
+        }
+        
+        // 별점 시스템 초기화
+        function initializeRatingSystem() {
+            const stars = document.querySelectorAll('.star-btn');
+            
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.dataset.rating);
+                    setRating(rating);
+                });
+                
+                star.addEventListener('mouseenter', function() {
+                    const rating = parseInt(this.dataset.rating);
+                    highlightStars(rating);
+                });
+            });
+            
+            document.getElementById('rating-stars').addEventListener('mouseleave', function() {
+                const currentRating = parseInt(document.getElementById('review-rating').value) || 0;
+                highlightStars(currentRating);
+            });
+        }
+        
+        // 별점 설정
+        function setRating(rating) {
+            document.getElementById('review-rating').value = rating;
+            highlightStars(rating);
+            
+            const ratingText = document.getElementById('rating-text');
+            if (rating > 0) {
+                ratingText.textContent = `${rating}점`;
+            } else {
+                ratingText.textContent = '별점을 선택해주세요';
+            }
+        }
+        
+        // 별점 시각적 표시
+        function highlightStars(rating) {
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-accent-gold');
+                } else {
+                    star.classList.remove('text-accent-gold');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+        
+        // 별점 초기화
+        function resetRating() {
+            setRating(0);
+        }
+        
+        // 관리자 버튼 이벤트 리스너 추가
+        function attachAdminButtonListeners() {
+            // 수정 버튼 이벤트 리스너
+            const editButtons = document.querySelectorAll('.admin-btn-edit');
+            editButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+                    const reviewId = this.getAttribute('data-review-id');
+                    openEditModal(reviewId);
+                });
+            });
+            
+            // 삭제 버튼 이벤트 리스너
+            const deleteButtons = document.querySelectorAll('.admin-btn-delete');
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+                    const reviewId = this.getAttribute('data-review-id');
+                    openDeleteModal(reviewId);
+                });
+            });
+        }
+        
+        // 이미지 업로드 시스템 초기화
+        function initializeImageUpload() {
+            const imageInput = document.getElementById('review-images');
+            const imagePreview = document.getElementById('image-preview');
+            
+            imageInput.addEventListener('change', function(e) {
+                const files = Array.from(e.target.files);
+                if (files.length > 5) {
+                    showToast('최대 5개의 이미지만 업로드할 수 있습니다', 'error');
+                    return;
+                }
+                
+                uploadedImages = [];
+                imagePreview.innerHTML = '';
+                
+                if (files.length > 0) {
+                    imagePreview.classList.remove('hidden');
+                    
+                    files.forEach((file, index) => {
+                        if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                uploadedImages.push(e.target.result);
+                                createImagePreview(e.target.result, index);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                } else {
+                    imagePreview.classList.add('hidden');
+                }
+            });
+        }
+        
+        // 이미지 미리보기 생성
+        function createImagePreview(imageSrc, index) {
+            const imagePreview = document.getElementById('image-preview');
+            const previewDiv = document.createElement('div');
+            previewDiv.className = 'relative group';
+            
+            previewDiv.innerHTML = `
+                <img src="${imageSrc}" alt="미리보기 ${index + 1}" class="w-full h-20 object-cover rounded border">
+                <button type="button" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity" onclick="removeImage(${index})">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            imagePreview.appendChild(previewDiv);
+        }
+        
+        // 이미지 제거
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.innerHTML = '';
+            
+            if (uploadedImages.length === 0) {
+                imagePreview.classList.add('hidden');
+                document.getElementById('review-images').value = '';
+            } else {
+                uploadedImages.forEach((img, i) => {
+                    createImagePreview(img, i);
+                });
+            }
+        }
+        
+        // 리뷰 상세 모달 열기
+        function openReviewDetailModal(reviewId) {
+            const review = reviewsData.find(r => r.id === reviewId);
+            if (!review) return;
+            
+            // 제목 설정
+            document.getElementById('detail-modal-title').textContent = review.title;
+            
+            // 작성자 정보 설정
+            document.getElementById('detail-author-avatar').textContent = review.author.charAt(0);
+            document.getElementById('detail-author-name').textContent = review.author;
+            document.getElementById('detail-author-date').textContent = formatDate(review.date);
+            document.getElementById('detail-program').textContent = review.program;
+            document.getElementById('detail-instructor').textContent = review.instructor;
+            
+            // Q1, Q2 내용 설정
+            const q1Content = review.q1 || '내용없음';
+            const q2Content = review.q2 || '내용없음';
+            
+            document.getElementById('detail-q1').innerHTML = processTextLinks(q1Content);
+            document.getElementById('detail-q2').innerHTML = processTextLinks(q2Content);
+            
+            // 이미지 갤러리 설정
+            const detailImages = document.getElementById('detail-images');
+            const imageGrid = document.getElementById('detail-image-grid');
+            
+            if (review.images && review.images.length > 0) {
+                detailImages.classList.remove('hidden');
+                imageGrid.innerHTML = '';
+                
+                review.images.forEach(imageSrc => {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.className = 'cursor-pointer relative group';
+                    
+                    // 모바일과 데스크톱 구분하여 이벤트 처리
+                    let touchStartTime = 0;
+                    let hasTouchDevice = 'ontouchstart' in window;
+                    
+                    if (hasTouchDevice) {
+                        // 모바일: touchstart 이벤트만 사용
+                        imageDiv.addEventListener('touchstart', function(e) {
+                            touchStartTime = Date.now();
+                            e.preventDefault();
+                            e.stopPropagation();
+                            openImageModal(imageSrc);
+                        }, { passive: false });
+                        
+                        // click 이벤트 차단 (중복 실행 방지)
+                        imageDiv.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // touchstart 후 300ms 이내의 click은 무시
+                            if (Date.now() - touchStartTime < 300) {
+                                return;
+                            }
+                            openImageModal(imageSrc);
+                        });
+                    } else {
+                        // 데스크톱: click 이벤트만 사용
+                        imageDiv.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            openImageModal(imageSrc);
+                        });
+                    }
+                    
+                    imageDiv.innerHTML = `
+                        <img src="${imageSrc}" alt="리뷰 이미지" 
+                             class="w-full h-48 object-cover rounded-lg transition-all duration-300">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-all duration-300 rounded-lg flex items-center justify-center pointer-events-none">
+                            <i class="fas fa-expand text-white text-2xl opacity-70"></i>
+                        </div>
+                    `;
+                    imageGrid.appendChild(imageDiv);
+                });
+            } else {
+                detailImages.classList.add('hidden');
+            }
+            
+            openModal('review-detail-modal');
+        }
+        
+        // 이미지 모달 열기 - 모바일 최적화
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            
+            // 모달을 먼저 표시하고 이미지 로드 (빠른 반응)
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            
+            // 이미지 설정
+            modalImage.src = imageSrc;
+            modalImage.style.maxWidth = '100%';
+            modalImage.style.maxHeight = '100%';
+        }
+        
+        // 모달 열기
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            
+            // 리뷰 상세 모달인 경우 모달 내부 스크롤만 최상단으로 이동 (모바일 최적화)
+            if (modalId === 'review-detail-modal') {
+                setTimeout(() => {
+                    const modalContent = modal.querySelector('.modal-content');
+                    if (modalContent) {
+                        modalContent.scrollTop = 0;
+                    }
+                }, 50);
+            }
+        }
+        
+        // 모달 닫기
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // 토스트 메시지 표시
+        function showToast(message, type = 'info') {
+            // 기존 토스트 제거
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            const toast = document.createElement('div');
+            toast.className = `toast fixed top-20 right-4 px-6 py-3 rounded-lg text-white font-medium z-[1040] transform transition-all duration-300 translate-x-full`;
+            
+            // 타입별 색상
+            if (type === 'success') {
+                toast.classList.add('bg-green-500');
+            } else if (type === 'error') {
+                toast.classList.add('bg-red-500');
+            } else {
+                toast.classList.add('bg-blue-500');
+            }
+            
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // 애니메이션
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+            }, 100);
+            
+            // 3초 후 제거
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // 에러 메시지 표시
+        function showErrorMessage() {
+            const container = document.getElementById('reviews-container');
+            container.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <i class="fas fa-exclamation-triangle text-4xl text-golden-brown mb-4"></i>
+                    <h3 class="text-xl font-semibold text-deep-navy mb-2">후기를 불러오는 중 문제가 발생했습니다</h3>
+                    <p class="text-gray-600">잠시 후 다시 시도해주세요.</p>
+                </div>
+            `;
+        }
+
+        // 헤더 시스템 초기화 (index.html과 동일)
+        function initializeHeaderSystem() {
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const bars = mobileMenuButton ? mobileMenuButton.querySelectorAll('.bar') : [];
+
+            const updateHeaderStyle = () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                    headerLogo.classList.remove('text-white');
+                    headerLogo.classList.add('text-deep-navy');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white');
+                        link.classList.add('text-gray-700');
+                    });
+                    
+                    // 드롭다운 아이콘도 색상 변경
+                    const dropdownIcon = document.querySelector('#branch-dropdown-wrapper svg');
+                    if (dropdownIcon) {
+                        dropdownIcon.classList.remove('text-white');
+                        dropdownIcon.classList.add('text-gray-700');
+                    }
+                    
+                    // 드롭다운 버튼도 색상 변경
+                    const dropdownButton = document.querySelector('#branch-dropdown-wrapper button');
+                    if (dropdownButton) {
+                        dropdownButton.classList.remove('text-white');
+                        dropdownButton.classList.add('text-gray-700');
+                    }
+                    
+                    // 드롭다운 메뉴 아이템들도 색상 변경
+                    const dropdownMenuItems = document.querySelectorAll('#branch-menu a');
+                    dropdownMenuItems.forEach(item => {
+                        item.classList.remove('text-deep-navy');
+                        item.classList.add('text-gray-700');
+                    });
+                    
+                    // 햄버거 bar 색상 변경 (모바일에서만)
+                    if (window.innerWidth < 1024) {
+                        bars.forEach(bar => {
+                            bar.classList.remove('bg-white');
+                            bar.classList.add('bg-deep-navy');
+                        });
+                    }
+                    
+                    // 모바일에서만 리뷰 카드 z-index 제한
+                    if (window.innerWidth <= 768) {
+                        const reviewCards = document.querySelectorAll('.review-card');
+                        reviewCards.forEach(card => {
+                            card.style.zIndex = '1 !important';
+                        });
+                    }
+                } else {
+                    header.classList.remove('header-scrolled');
+                    headerLogo.classList.add('text-white');
+                    headerLogo.classList.remove('text-deep-navy');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.add('text-white');
+                        link.classList.remove('text-gray-700');
+                    });
+                    
+                    // 드롭다운 아이콘도 색상 변경
+                    const dropdownIcon = document.querySelector('#branch-dropdown-wrapper svg');
+                    if (dropdownIcon) {
+                        dropdownIcon.classList.add('text-white');
+                        dropdownIcon.classList.remove('text-gray-700');
+                    }
+                    
+                    // 드롭다운 버튼도 색상 변경
+                    const dropdownButton = document.querySelector('#branch-dropdown-wrapper button');
+                    if (dropdownButton) {
+                        dropdownButton.classList.add('text-white');
+                        dropdownButton.classList.remove('text-gray-700');
+                    }
+                    
+                    // 드롭다운 메뉴 아이템들도 색상 복원
+                    const dropdownMenuItems = document.querySelectorAll('#branch-menu a');
+                    dropdownMenuItems.forEach(item => {
+                        item.classList.add('text-deep-navy');
+                        item.classList.remove('text-gray-700');
+                    });
+                    
+                    // 모바일에서만 리뷰 카드 z-index 제한 유지
+                    if (window.innerWidth <= 768) {
+                        const reviewCards = document.querySelectorAll('.review-card');
+                        reviewCards.forEach(card => {
+                            card.style.zIndex = '1 !important';
+                        });
+                    }
+                    
+                    // 햄버거 bar 색상 복원 (모바일에서만)
+                    if (window.innerWidth < 1024) {
+                        bars.forEach(bar => {
+                            bar.classList.add('bg-white');
+                            bar.classList.remove('bg-deep-navy');
+                        });
+                    }
+                }
+            };
+
+            // Mobile menu toggle (모바일에서만 동작)
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.classList.toggle('active');
+                });
+            }
+
+            // Initial execution
+            updateHeaderStyle();
+            window.addEventListener('scroll', updateHeaderStyle);
+            
+            // 윈도우 리사이즈 시 햄버거 메뉴 상태 관리
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) {
+                    // PC 화면에서는 모바일 메뉴 숨김
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    if (mobileMenuButton) {
+                        mobileMenuButton.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // 스크롤 애니메이션
+        function initializeScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.reveal, .fade-in');
+            if (animatedElements.length > 0) {
+                const animationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // 리뷰 카드에 대한 특별 처리
+                            if (entry.target.classList.contains('review-card')) {
+                                // 리뷰 카드는 부드럽게 나타나도록 지연 적용
+                                setTimeout(() => {
+                                    entry.target.classList.add('visible');
+                                    // 모바일에서만 이미지 z-index 안정성 확보
+                                    if (window.innerWidth <= 768) {
+                                        const images = entry.target.querySelectorAll('.review-image, .review-placeholder');
+                                        images.forEach(img => {
+                                            img.style.transform = 'none !important';
+                                            img.style.position = 'static !important';
+                                            img.style.zIndex = '1 !important';
+                                        });
+                                        
+                                        // 리뷰 카드 자체도 z-index 강제 설정
+                                        entry.target.style.zIndex = '1 !important';
+                                        entry.target.style.transform = 'none !important';
+                                        entry.target.style.position = 'static !important';
+                                    }
+                                }, 50);
+                            } else {
+                                entry.target.classList.add('visible');
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -10px 0px'
+                });
+
+                animatedElements.forEach(el => {
+                    animationObserver.observe(el);
+                });
+            }
+        }
+
+        // 맨 위로 버튼
+        function initializeScrollTop() {
+            const topBtn = document.getElementById('top-btn');
+            if (topBtn) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 400) {
+                        topBtn.classList.remove('opacity-0');
+                        topBtn.classList.add('opacity-100');
+                    } else {
+                        topBtn.classList.remove('opacity-100');
+                        topBtn.classList.add('opacity-0');
+                    }
+                });
+                
+                topBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        }
+    </script>
+</body>
+</html>
